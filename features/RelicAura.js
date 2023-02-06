@@ -1,7 +1,7 @@
 import Skyblock from "../../BloomCore/Skyblock"
 import { EntityArmorStand, getDistance3D } from "../../BloomCore/utils/Utils"
 import { data } from "../stuff/guidk"
-import { rightClick, swapAndRightClick } from "../utils"
+import { rightClick, swapAndRightClick, interactWithMCP } from "../utils"
 
 // Relic Aura
 let hasrelic = false
@@ -30,6 +30,8 @@ register('tick', (ticks) => {
                     setTimeout(() => {
                         rightClick()
                     }, 100);
+
+                    // interactWithMCP(e.getEntity())
                 }
             }
         })

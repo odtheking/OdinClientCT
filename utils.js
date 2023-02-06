@@ -28,6 +28,10 @@ export function interactWith(entity) {
     Client.sendPacket(new C02PacketUseEntity(entity.getEntity(), C02PacketUseEntity.Action.INTERACT))
 }
 
+export function interactWithMCP(entity) {
+    Client.getMinecraft().field_71442_b.func_78768_b(Client.getMinecraft().field_71439_g, entity) // might need to use .getEntity() at end im not sure
+}
+
 export function useAbility() {
     Player.getPlayer()?.func_71040_bB(false)
 }
