@@ -33,8 +33,8 @@ register("tick", () => {
             interactWith(mort)
         }, 4000);
     }
-    const index = Player?.getInventory()?.getItems()?.findIndex(item => item?.getName()?.includes("Aspect")) //searching for aotv
-    if (index >= 0 && index < 9) {
+    const index = Player?.getInventory()?.getItems()?.splice(0, 9).findIndex(item => item?.getName()?.includes("Aspect")) //searching for aotv
+    if (index != -1) {
         if (tped) return
         swapAndRightClick(index)
         tped = true

@@ -70,7 +70,7 @@ register('step', () => {
 register("renderWorld", () => {
     if (!data.generalOptions[5]) return
     entitiesToRender.forEach(e => {
-        RenderLib.drawEspBox(e.getX(), e.getY() - 2, e.getZ(), 1, 2, 1, 1, 0, 1, true)
+        RenderLib.drawEspBox(e.getRenderX(), e.getRenderY() - 2, e.getRenderZ(), 1, 2, 1, 1, 0, 1, true)
         return;
     })
 })

@@ -8,27 +8,22 @@ let opened = false
 
 register("worldLoad", () => {
     opened = false
+    target = null
 })
 
 // Actual thing
-register("chat", (msg) => {
+register("chat", (name) => {
     if (!data.dungeonsOptions[0]) return
-    const noFormatting = msg.removeFormatting()
-    if (!noFormatting.startsWith("Party > ") && !noFormatting.toLowerCase().includes("!tp ")) return
-    const match = noFormatting.match(/^Party > ?([[a-zA-z +]+])? (\w+): !tp (.*)/)
-    if (!match) return
-    const name = match[2]
     if (name == Player.getName().toLowerCase()) return
-    index = Player?.getInventory()?.getItems()?.findIndex(item => item?.getName()?.includes("leap"))
-    if (index >= 0 && index < 9) {
+    index = Player?.getInventory()?.getItems().splice(0, 9).findIndex(item => item?.getName()?.includes("leap"))
+    if (index != -1) {
         swapAndRightClick(index)
         opened = true
         target = name
     } else {
         modMessage("§fNo spirit leaps found in hotbar.")
     }
-
-}).setCriteria("${msg}")
+}).setCriteria(/^Party > ?(?:\[.+\])? (.{0,16}): !tp ?(?:.+)?/)
 
 register("guiDrawBackground", () => {
     if (!opened) return
@@ -36,14 +31,13 @@ register("guiDrawBackground", () => {
     const container = Player.getContainer()
     if (!target || container.getName() !== "Spirit Leap") return
     const items = container.getItems()
-    for (let i = 10; i <= 19; i++) {
-        if (!items[i]?.getName()?.toLowerCase()?.includes(target)) continue
+    let head = items.findIndex(item => item && item.getName().toLowerCase().includes(target))
+    if (head != -1 || head != null) {
+        container.click(head, false, "MIDDLE")
         modMessage(`§rLeaped to ${target}`)
-        container.click(i, false, "MIDDLE")
         opened = false
-        break
+        target = null
     }
-    target = null
 })
 
 
