@@ -1,0 +1,16 @@
+{
+  "name": "OdinClient",
+  "creator": "odin",
+  "version": "1.8.0",
+   "description": "OdinCoding",
+  "entry": "index.js",
+  "requires": [
+    "PogData",
+    "BloomCore",
+    "requestV2",
+    "FontLib",
+    "RenderLib",
+    "BeaconBeam",
+    "CTAutocomplete"
+  ]
+}

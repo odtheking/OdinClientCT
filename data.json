@@ -1,0 +1,103 @@
+{
+    "general": {
+        "x": 20,
+        "y": 20,
+        "dropDown": true
+    },
+    "generalOptions": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        true
+    ],
+    "generalTitles": [
+        "Party Commands",
+        "Guild Commands",
+        "Guild gm",
+        "CookieClicker",
+        "Broken Hype",
+        "ESP"
+    ],
+    "legit": {
+        "x": 220,
+        "y": 20,
+        "dropDown": true
+    },
+    "legitOptions": [
+        true,
+        false,
+        false,
+        false,
+        true
+    ],
+    "legitTitles": [
+        "Auto Edrag",
+        "Terminator AC",
+        "Item Macros",
+        "Auto Ult",
+        "Auto Ready"
+    ],
+    "dungeons": {
+        "x": 420,
+        "y": 20,
+        "dropDown": true
+    },
+    "dungeonsOptions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+    ],
+    "dungeonsTitles": [
+        "Auto Leap",
+        "Auto Mask",
+        "Auto Shield",
+        "Relic Aura",
+        "Auto Wish",
+        "Auto Mort",
+        "Power Display",
+        "Dragon Timer",
+        "FUCK DIORITE"
+    ],
+    "hollows": {
+        "x": 620,
+        "y": 20,
+        "dropDown": true
+    },
+    "hollowsOptions": [
+        false,
+        false,
+        false,
+        false,
+        false
+    ],
+    "hollowsTitles": [
+        "Coming soon",
+        "Coming soon",
+        "Coming soon",
+        "Coming soon",
+        "Coming soon"
+    ],
+    "nether": {
+        "x": 820,
+        "y": 20,
+        "dropDown": true
+    },
+    "netherOptions": [
+        true,
+        true,
+        true
+    ],
+    "netherTitles": [
+        "Flare Timer",
+        "Vanq Notifier",
+        "Kuudra Alerts"
+    ]
+}
