@@ -4,6 +4,8 @@ export function modMessage(string) {
     ChatLib.chat("§6[Odin§4Client] §r" + string)
 }
 
+export const prefix = "§6[Odin§4Client]"
+
 const rightClickMethod = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag")
 rightClickMethod.setAccessible(true)
 

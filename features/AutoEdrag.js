@@ -12,9 +12,7 @@ register("chat", () => {
 }).setCriteria("[BOSS] Wither King: You.. again?")
 
 register('tick', (ticks) => {
-    if (!data.legitOptions[0]) return
-    if (ticks % 10 !== 0) return
-    if (!p4Done) return
+    if (!data.legitOptions[0] || ticks % 10 !== 0 || !p4Done) return
     if (!Client.currentGui.get()) {
         ChatLib.command('pet')
         modMessage("Trying to equip Ender Dragon pet...")

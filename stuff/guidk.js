@@ -96,6 +96,14 @@ let buttonHeight = 20
 let buttonWidth = 100
 let shouldRemove = true
 
+const rect = (r,g,b,a,x,y,width,height) => {
+    Renderer.drawRect(Renderer.color(r, g, b, a), x, y, width, height)
+}
+
+const centeredString = (thefont,text,x,y,r,g,b,a) => {
+    thefont.drawStringWithShadow(text,x+(70 - Renderer.getStringWidth(text)) / 2 + 15,y,new java.awt.Color(r,g,b,a))
+}
+
 register('renderOverlay', () => {
     if (!mainGui.isOpen()) {
         if (shouldRemove) {
