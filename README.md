@@ -8,7 +8,10 @@ command to toggle everything is "/od" or "/odinclient" for cheater
 command to toggle everything is "/ol" or "/odinlegit" for legit
 
 
-Feature list:
+## Features:
+
+<details>
+    <summary>Auto</summary>
 
 ### AUTO:
 - Auto Shield: uses wither shield every 5 seconds when not in full health (works for all wither swords)
@@ -18,15 +21,24 @@ Feature list:
 - Auto ready: Automatically gets in range to mort opens the gui and ready/start the dungeon
 - Auto wish: Wishes for your temmates if they are low
 
+<details>
+    <summary>Legit</summary>
+
 ### LEGIT:
 - Party cmds: custom commands for party
 - Guild cmds: custom commands for guild
 - FragBot: automatically makes you a fragbot whenever you enter limbo automatically disables when leaving limbo 
 
+<details>
+    <summary>Exclusive to legit</summary>
+
 ### EXCLUSIVE TO LEGIT VERSION:
 - EdragReminder: Reminds you to equip edrag after you place relics
 - ReadyReminder: Reminds you to ready up after certain amount of time in a dungeon
 - UltReminder: Reminds you to use your ult at specific events in m6/m7
+
+<details>
+    <summary>Nether</summary>
 
 ### NETHER:
 - Broken hype notifier (now u can stop using dulkir mod)
@@ -34,6 +46,9 @@ Feature list:
 - Flare timer (sos flare alert flare warning flare) cmd is is /moveflare
 - Vanqnotifier (also marks a beacon for when coords are sent in chat)
 - Kuudra alerts (shows text on screen when certain stuf happen in kuudra)
+
+<details>
+    <summary>Nice to have</summary>
 
 ### NICE TO HAVE:
 - Auto edrag: equips edrag when p5 starts
