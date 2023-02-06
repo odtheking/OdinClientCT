@@ -30,12 +30,13 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - FragBot: automatically makes you a fragbot whenever you enter limbo automatically disables when leaving limbo 
 
 <details>
-    <summary>Exclusive to legit</summary>
+    <summary>Exclusive to legit
 
 ### EXCLUSIVE TO LEGIT VERSION:
 - EdragReminder: Reminds you to equip edrag after you place relics
 - ReadyReminder: Reminds you to ready up after certain amount of time in a dungeon
 - UltReminder: Reminds you to use your ult at specific events in m6/m7
+</summary>
 
 <details>
     <summary>Nether</summary>
