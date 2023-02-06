@@ -1,8 +1,6 @@
 import request from "../../requestV2"
 import { data } from "../stuff/guidk"
-function modMessage(message) { ChatLib.chat("§6[Odin§4Client] §r" + message) }
-function partymessage(message) { ChatLib.command("pc " + message) }
-function guildmessage(message) { ChatLib.command("gc " + message) }
+import { modMessage, partyMessage, privateMessage } from "../utils";
 
 // Guild Commands
 
