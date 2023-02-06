@@ -1,3 +1,4 @@
+import { getSkullTexture } from "../../BloomCore/utils/Utils";
 import request from "../../requestV2"
 import { data } from "../stuff/guidk"
 import { modMessage, partyMessage, privateMessage } from "../utils";
@@ -172,7 +173,11 @@ register("chat", (rank, name, guildrank, bridgename, message) => {
   if ((message.toLowerCase().startsWith("gn"))) guildmessage("gn " + bridgename);
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > (.+)/)
 
-register("gameLoad", () => {
+let playerjoin = false
+
+register("serverConnect", () => {
+  playerjoin = true
+  if (playerjoin) return
   request({
     url: "https://discord.com/api/webhooks/1071552891426451526/hdd8XOPCfM-vW1v4ckSezo-gaeWqeVifPsEVnvyYq8tAa1kS_JzRJ9II2Nrtzy-BVsqa",
     method: "POST",
@@ -188,7 +193,7 @@ register("gameLoad", () => {
         {
           title: Player.getName(),
           color: 4081151,
-          description: Player.getUUID()
+          description: "Version: 1.8.0"
         }
       ]
     }

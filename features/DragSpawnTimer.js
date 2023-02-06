@@ -1,5 +1,5 @@
 import { data } from "../stuff/guidk"
-function modMessage(message) { ChatLib.chat("§6[Odin§4Client] §r" + message) }
+import { modMessage } from "../utils"
 const rightClick = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag")
 rightClick.setAccessible(true)
 
