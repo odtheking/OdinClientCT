@@ -11,7 +11,7 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 ## Features:
 
 <details>
-    <summary>Auto</summary>
+    <summary>Auto
 
 ### AUTO:
 - Auto Shield: uses wither shield every 5 seconds when not in full health (works for all wither swords)
@@ -20,6 +20,8 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - Auto mask: switches spirit and bonzo masks on cooldown priorities spirit mask since it has lower cd 
 - Auto ready: Automatically gets in range to mort opens the gui and ready/start the dungeon
 - Auto wish: Wishes for your temmates if they are low
+
+</summary>
 
 <details>
     <summary>Legit</summary>
