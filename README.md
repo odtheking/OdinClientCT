@@ -11,7 +11,7 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 ## Features:
 
 <details>
-    <summary>Auto
+    <summary>Auto</summary>
 
 ### AUTO:
 - Auto Shield: uses wither shield every 5 seconds when not in full health (works for all wither swords)
@@ -20,8 +20,7 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - Auto mask: switches spirit and bonzo masks on cooldown priorities spirit mask since it has lower cd 
 - Auto ready: Automatically gets in range to mort opens the gui and ready/start the dungeon
 - Auto wish: Wishes for your temmates if they are low
-
-</summary>
+</details>
 
 <details>
     <summary>Legit</summary>
@@ -30,6 +29,7 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - Party cmds: custom commands for party
 - Guild cmds: custom commands for guild
 - FragBot: automatically makes you a fragbot whenever you enter limbo automatically disables when leaving limbo 
+</details>
 
 <details>
     <summary>Exclusive to legit
@@ -38,7 +38,7 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - EdragReminder: Reminds you to equip edrag after you place relics
 - ReadyReminder: Reminds you to ready up after certain amount of time in a dungeon
 - UltReminder: Reminds you to use your ult at specific events in m6/m7
-</summary>
+</details>
 
 <details>
     <summary>Nether</summary>
@@ -49,6 +49,7 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - Flare timer (sos flare alert flare warning flare) cmd is is /moveflare
 - Vanqnotifier (also marks a beacon for when coords are sent in chat)
 - Kuudra alerts (shows text on screen when certain stuf happen in kuudra)
+</details>
 
 <details>
     <summary>Nice to have</summary>
@@ -66,3 +67,4 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - Dragon spawn: timer (m7 dragons dont be dumb)
 - Descriptions: when u hover at features in the gui
 - FUCK DIORITE": replaces the diorite with glass in the p2 pillars in f7/m7 so you can watch storm get stuck
+</details>
