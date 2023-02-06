@@ -4,6 +4,11 @@ import { data } from "../stuff/guidk"
 import { EntityArmorStand } from "../../BloomCore/utils/Utils"
 import { modMessage } from "../utils.js"
 
+// field_70131_O - Height
+// field_70130_N - Width
+// net.minecraft.entity.Entity
+// float of the entity's heigth and width
+
 // Cheater ESP
 register("command", (...args) => {
     if (!data.generalOptions[5]) {
