@@ -4,9 +4,7 @@ import { modMessage } from "../utils"
 // Auto Edrag
 let p4Done = false
 
-register('worldLoad', () => {
-    p4Done = false
-})
+register('worldLoad', () => p4Done = false)
 
 register("chat", () => {
     p4Done = true
