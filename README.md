@@ -12,8 +12,6 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 
 <details>
     <summary>Auto</summary>
-
-### AUTO:
 - Auto Shield: uses wither shield every 5 seconds when not in full health (works for all wither swords)
 - Auto Ult: uses your ult whenever giants spawn/maxor is stuck in first laser/goldor starts
 - Auto leap: leaps to a party member if he writes "!tp" in party chat
@@ -24,17 +22,13 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 
 <details>
     <summary>Legit</summary>
-
-### LEGIT:
 - Party cmds: custom commands for party
 - Guild cmds: custom commands for guild
 - FragBot: automatically makes you a fragbot whenever you enter limbo automatically disables when leaving limbo 
 </details>
 
 <details>
-    <summary>Exclusive to legit
-
-### EXCLUSIVE TO LEGIT VERSION:
+    <summary>Exclusive to legit</summary>
 - EdragReminder: Reminds you to equip edrag after you place relics
 - ReadyReminder: Reminds you to ready up after certain amount of time in a dungeon
 - UltReminder: Reminds you to use your ult at specific events in m6/m7
@@ -42,8 +36,6 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 
 <details>
     <summary>Nether</summary>
-
-### NETHER:
 - Broken hype notifier (now u can stop using dulkir mod)
 - Relic aura: changes the way you look and click a relic if there is one in 5 blocks from you
 - Flare timer (sos flare alert flare warning flare) cmd is is /moveflare
@@ -53,8 +45,6 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 
 <details>
     <summary>Nice to have</summary>
-
-### NICE TO HAVE:
 - Auto edrag: equips edrag when p5 starts
 - Item macros: soul whip aots 0 tick swap hotkey in controls
 - Terminator ac: Automatically clicks when holding terminator randomized ac for very good anti cheat
