@@ -108,13 +108,9 @@ let buttonHeight = 20
 let buttonWidth = 100
 let shouldRemove = true
 
-const rect = (r,g,b,a,x,y,width,height) => {
-    Renderer.drawRect(Renderer.color(r, g, b, a), x, y, width, height)
-}
+const rect = (r,g,b,a,x,y,width,height) => Renderer.drawRect(Renderer.color(r, g, b, a), x, y, width, height)
 
-const centeredString = (thefont,text,x,y,r,g,b,a) => {
-    thefont.drawStringWithShadow(text,x+(70 - Renderer.getStringWidth(text)) / 2 + 15,y + 5,new java.awt.Color(r,g,b,a))
-}
+const centeredString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x+(70 - Renderer.getStringWidth(text)) / 2 + 15,y + 5,new java.awt.Color(r,g,b,a))
 
 register('renderOverlay', () => {
     if (!mainGui.isOpen()) {
@@ -245,7 +241,6 @@ register('dragged', (mx, my, x, y, b) => {
         if (y > (data.auto.y - 5) && y < (data.auto.y + buttonHeight) + 5) {
             data.auto.x += mx
             data.auto.y += my
-            data.save()
         }
     }
 
@@ -254,7 +249,6 @@ register('dragged', (mx, my, x, y, b) => {
         if (y > (data.legit.y - 5) && y < (data.legit.y + buttonHeight) + 5) {
             data.legit.x += mx
             data.legit.y += my
-            data.save()
         }
     }
 
@@ -263,7 +257,6 @@ register('dragged', (mx, my, x, y, b) => {
         if (y > (data.nether.y - 5) && y < (data.nether.y + buttonHeight) + 5) {
             data.nether.x += mx
             data.nether.y += my
-            data.save()
         }
     }
 
@@ -272,7 +265,6 @@ register('dragged', (mx, my, x, y, b) => {
         if (y > (data.qol.y - 5) && y < (data.qol.y + buttonHeight) + 5) {
             data.qol.x += mx
             data.qol.y += my
-            data.save()
         }
     }
 
@@ -281,15 +273,15 @@ register('dragged', (mx, my, x, y, b) => {
         if (y > (data.boss.y - 5) && y < (data.boss.y + buttonHeight) + 5) {
             data.boss.x += mx
             data.boss.y += my
-            data.save()
         }
     }
 
-
+    data.save()
 })
 
-let toChange
+const makePressSound = () => makePressSound()
 
+let toChange
 register('clicked', (x, y, b, isDown) => {
     if (isDown && mainGui.isOpen()) {
 
@@ -298,12 +290,10 @@ register('clicked', (x, y, b, isDown) => {
             toChange = Math.floor((y - (data.auto.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.autoOptions.length - 1) {
                 data.autoOptions[toChange] = !data.autoOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
+                makePressSound()
             } else if (b == 1 && toChange == -1) {
                 data.auto.dropDown = !data.auto.dropDown
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
+                makePressSound()
             }
         }
 
@@ -312,12 +302,10 @@ register('clicked', (x, y, b, isDown) => {
             toChange = Math.floor((y - (data.legit.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.legitOptions.length - 1) {
                 data.legitOptions[toChange] = !data.legitOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
+                makePressSound()
             } else if (b == 1 && toChange == -1) {
                 data.legit.dropDown = !data.legit.dropDown
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
+                makePressSound()
             }
         }
 
@@ -326,12 +314,10 @@ register('clicked', (x, y, b, isDown) => {
             toChange = Math.floor((y - (data.nether.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.netherOptions.length - 1) {
                 data.netherOptions[toChange] = !data.netherOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
+                makePressSound()
             } else if (b == 1 && toChange == -1) {
                 data.nether.dropDown = !data.nether.dropDown
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
+                makePressSound()
             }
         }
 
@@ -340,12 +326,10 @@ register('clicked', (x, y, b, isDown) => {
             toChange = Math.floor((y - (data.qol.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.qolOptions.length - 1) {
                 data.qolOptions[toChange] = !data.qolOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
+                makePressSound()
             } else if (b == 1 && toChange == -1) {
                 data.qol.dropDown = !data.qol.dropDown
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
+                makePressSound()
             }
         }
 
@@ -354,13 +338,12 @@ register('clicked', (x, y, b, isDown) => {
             toChange = Math.floor((y - (data.boss.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.bossOptions.length - 1) {
                 data.bossOptions[toChange] = !data.bossOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
+                makePressSound()
             } else if (b == 1 && toChange == -1) {
                 data.boss.dropDown = !data.boss.dropDown
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
+                makePressSound()
             }
         }
+        data.save()
     }
 })

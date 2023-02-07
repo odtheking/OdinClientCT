@@ -14,15 +14,10 @@ const Note = function(slot) {
 const notes = [new Note(37), new Note(38), new Note(39), new Note(40), new Note(41), new Note(42), new Note(43)]
 
 register('tick', () => {
-    if (!toggled) return
+    if (!toggled || Player.getContainer() === undefined || Player.getContainer().getName().indexOf('Harp') !== 0) return
     let inv = Player.getContainer()
-    if (inv === undefined) return
-    if (inv.getName().indexOf('Harp') !== 0) return
-
     notes.forEach(note => {
-        if (note.delay > 0)
-            note.delay--
-
+        if (note.delay > 0) note.delay--
         const item = inv.getStackInSlot(note.slot)
         if (item?.getID() === 159 || 0) {
             note.clicked = false
@@ -39,5 +34,5 @@ register('tick', () => {
 })
 
 register('command', () => {
-    modMessage(((toggled = !toggled) ? '&aON' : '&cOFF'))
+    modMessage(`Autoharp ${(toggled = !toggled) ? '&aON' : '&cOFF'}`)
 }).setName('autoharp')

@@ -41,9 +41,7 @@ register("renderOverlay", (event) => {
 let flareShot = null;
 
 const flaretimerRenderOverlay = () => {
-  if (!data.netherOptions[1]) return
-  if (!flareShot) return;
-  if (disabletimer) return
+  if (!data.netherOptions[1] || !flareShot || disabletimer) return
 
   const timePassed = Date.now() - flareShot
   if (timePassed > 180000) {
@@ -51,7 +49,7 @@ const flaretimerRenderOverlay = () => {
     return;
   }
 
-  let timeRemaining = (180000 - timePassed).toFixed(0)
+  let timeRemaining = (180000 - timePassed).toFixed(0) / 1000
 
   if (flareMove.isOpen()) return
   firework.draw(flaredata.flareX - 53, flaredata.flareY, 3)
@@ -62,13 +60,7 @@ const flaretimerRenderOverlay = () => {
   } else if (flaretype == "Alert") {
     font2.drawStringWithShadow(flaretype, flaredata.flareX - 12, flaredata.flareY + 12, new java.awt.Color(0, 0.5, 0.95, 1))
   }
-  if (timeRemaining > 50000) {
-    font2.drawStringWithShadow(timeRemaining / 1000 + " s", flaredata.flareX - 12, flaredata.flareY + 27, new java.awt.Color(0, 0.9, 0.15, 1));
-  } else if (timeRemaining > 20000) {
-    font2.drawStringWithShadow(timeRemaining / 1000 + " s", flaredata.flareX - 12, flaredata.flareY + 27, new java.awt.Color(0.9, 0.8, 0, 1));
-  } else if (timeRemaining < 20000) {
-    font2.drawStringWithShadow(timeRemaining / 1000 + " s", flaredata.flareX - 12, flaredata.flareY + 27, new java.awt.Color(0.95, 0, 0, 1));
-  }
+  font2.drawStringWithShadow(`${timeRemaining}s`, flaredata.flareX - 12, flaredata.flareY + 27, timeRemaining > 50 ? new java.awt.Color(0, 0.9, 0.15, 1) : timeRemaining > 20 ? new java.awt.Color(0.9, 0.8, 0, 1) : new java.awt.Color(0.95, 0, 0, 1));
 };
 
 register("renderOverlay", flaretimerRenderOverlay);
@@ -85,20 +77,19 @@ register("step", () => {
   const armorstands = World.getAllEntitiesOfType(EntityArmorStand.class)
   for (let i = 0; i < armorstands.length; i++) {
     const flare = new EntityLivingBase(armorstands[i]?.getEntity()).getItemInSlot(4)?.getNBT()?.getTag("tag")?.getTag("SkullOwner")?.getTag("Properties")?.getTag("textures")
+    if (flare == warningflare) flaretype = "Warning"
+    else if (flare == sosflare) flaretype = "SOS"
+    else if (flare == alertflare) flaretype = "Alert"
+    else return
     const flareloc = armorstands[i]
-    if (flare == warningflare) { flaretype = "Warning" }
-    if (flare == sosflare) { flaretype = "SOS" }
-    if (flare == alertflare) { flaretype = "Alert" }
-    if (flare == warningflare || flare == sosflare || flare == alertflare) {
-      const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
-      const [x1, y1, z1] = [flareloc.getX(), flareloc.getY(), flareloc.getZ()]
-      let dist = getDistance3D(x, y, z, x1, y1, z1)
-      if (dist <= 40) {
-        if (!flareShot) flareShot = new Date().getTime()
-        disabletimer = false
-      } else {
-        flareShot = null
-      }
+    const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
+    const [x1, y1, z1] = [flareloc.getX(), flareloc.getY(), flareloc.getZ()]
+    let dist = getDistance3D(x, y, z, x1, y1, z1)
+    if (dist <= 40) {
+      if (!flareShot) flareShot = new Date().getTime()
+      disabletimer = false
+    } else {
+      flareShot = null
     }
   }
 }).setFps(10)
