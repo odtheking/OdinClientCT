@@ -61,8 +61,8 @@ register("chat", (message) => {
 }).setCriteria("${msg}")
 
 register("step", () => {
+    if (!data.autoOptions[4]) return
     if (Skyblock.area != 'Dungeon') return
-    if (!data.dungeonsOptions[4]) return;
     Scoreboard.getLines().forEach(line => {
         let s = line.getName()
         if (ChatLib.removeFormatting(s).startsWith("[")) {

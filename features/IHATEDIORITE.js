@@ -94,7 +94,7 @@ var runLoop = Executors.newSingleThreadExecutor();
 
 runLoop.execute(() => {
     register("step", () => {
-        if (!World.isLoaded() || !data.dungeonsOptions[8]) return
+        if (!World.isLoaded() || !data.qolOptions[5]) return
         for (let height = 0; height < 37; height++) {
             for (let block of green) {
                 try {

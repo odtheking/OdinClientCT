@@ -15,7 +15,7 @@ register("worldLoad", () => {
 })
 
 register("tick", () => {
-    if (!data.dungeonsOptions[5]) return
+    if (!data.autoOptions[1]) return
     if (Skyblock.area != 'Dungeon') return
     if (playerready) return
     if (click) return
@@ -45,7 +45,7 @@ register("tick", () => {
 })
 
 register("chat", (ign) => {
-    if (!data.dungeonsOptions[5]) return
+    if (!data.autoOptions[0]) return
     if (Skyblock.area != 'Dungeon') return
     if (ign == Player.getName()) {
         playerready = true
@@ -56,7 +56,7 @@ register("chat", (ign) => {
 
 //auto ready gui side
 register('tick', () => {
-    if (!data.legitOptions[4]) return
+    if (!data.autoOptions[0]) return
     if (playerready) return
     let container = Player.getContainer()
     let playerName = Player.getName()

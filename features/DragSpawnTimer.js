@@ -36,7 +36,7 @@ register("spawnParticle", (particle, type, event) => {
 dragonspawntime = 5000
 
 register("renderWorld", () => {
-    if (!data.dungeonsOptions[7]) return
+    if (!data.legitOptions[4]) return
     const currentTime = new Date().getTime()
     const dragonColors = ["orange", "red", "green", "blue", "purple"];
     const colorCodes = ["6", "c", "a", "b", "5"]

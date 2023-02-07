@@ -13,6 +13,7 @@ register('command', () => {
 }).setName('odinclient').setAliases("od")
 
 // add the legit features to make the legit tab look richer question mark
+// change the toggle in all the modules zz
 export const data = new PogObject("OdinClient", {
     'auto': {
         'x': 20,
@@ -20,15 +21,15 @@ export const data = new PogObject("OdinClient", {
         'dropDown': true,
     },
     "autoOptions": [false, false, false, false, false, false, false, false],
-    'generalTitles': ['Auto Ready', 'Auto Mort', 'Auto Ult', 'Auto Shield', 'Auto Wish', 'Auto Mask', 'Auto Edrag', 'Auto Leap'],
+    'autoTitles': ['Auto Ready', 'Auto Mort', 'Auto Ult', 'Auto Shield', 'Auto Wish', 'Auto Mask', 'Auto Edrag', 'Auto Leap'],
 
     'legit': {
         'x': 220,
         'y': 20,
         'dropDown': true,
     },
-    'legitOptions': [false, false],
-    'legitTitles': ['Party cmds', 'Guild cmds', 'Guild GM'],
+    'legitOptions': [false, false, false, false, false, false],
+    'legitTitles': ['Party cmds', 'Guild cmds', 'Guild GM', 'Dragons Boxes', 'Dragon Timer', 'Power Display'],
 
     'nether': {
         'x': 420,
@@ -43,8 +44,8 @@ export const data = new PogObject("OdinClient", {
         'y': 20,
         'dropDown': true,
     },
-    'qolOptions': [false, false, false, false, false, false, false, false],
-    'qolTitles': ['Relic Aura (WIP)', 'Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'Power Display', 'Dragon Timer', 'FUCK DIORITE'],
+    'qolOptions': [false, false, false, false, false, false],
+    'qolTitles': ['Relic Aura (WIP)', 'Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE'],
 
     'boss': {
         'x': 820,
@@ -71,7 +72,10 @@ const autoDescriptions = [
 const legitDescription = [
     "Custom party commands use !help in party chat",
     "Custom guild commands use !help in guild chat",
-    "Reponsends to anyone in guild chat saying gm/gn"
+    "Reponsends to anyone in guild chat saying gm/gn",
+    "Creates custom and decently accurate boxes in p5",
+    "Shows the power blessing /movepower",
+    "Shows when a M7 dragon will spawn"
 ]
 
 const netherDescriptions = [
@@ -88,8 +92,6 @@ const qolDescription = [
     "Spams right click while term is held ranomized cps",
     "Spams the cookie while in the cookie clicker menu",
     "You can add whatever mob you want into the ist /esp",
-    "Shows the power blessing /movepower",
-    "Shows when a M7 dragon will spawn",
     "Replaces diorite with glass in p2",
 ]
 
@@ -200,31 +202,31 @@ register('renderOverlay', () => {
 
     if (mx > data.auto.x && mx < data.auto.x + buttonWidth) {
         toshow = Math.floor((my - data.auto.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= 5) {
+        if (toshow >= 0 && toshow <= autoDescriptions.length) {
             rect(Renderer.BLACK, data.auto.x + buttonWidth, my - 10, Renderer.getStringWidth(autoDescriptions[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(autoDescriptions[toshow], data.auto.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.legit.x && mx < data.legit.x + buttonWidth) {
         toshow = Math.floor((my - data.legit.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= 4) {
+        if (toshow >= 0 && toshow <= legitDescription.length) {
             rect(Renderer.BLACK, data.legit.x + buttonWidth, my - 10, Renderer.getStringWidth(legitDescription[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(legitDescription[toshow], data.legit.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.nether.x && mx < data.nether.x + buttonWidth) {
         toshow = Math.floor((my - data.nether.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= 8) {
+        if (toshow >= 0 && toshow <= netherDescriptions.length) {
             rect(Renderer.BLACK, data.nether.x + buttonWidth, my - 10, Renderer.getStringWidth(netherDescriptions[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(netherDescriptions[toshow], data.nether.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.qol.x && mx < data.qol.x + buttonWidth) {
         toshow = Math.floor((my - data.qol.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= 4) {
+        if (toshow >= 0 && toshow <= qolDescription.length) {
             rect(Renderer.BLACK, data.qol.x + buttonWidth, my - 10, Renderer.getStringWidth(qolDescription[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(qolDescription[toshow], data.qol.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.boss.x && mx < data.boss.x + buttonWidth) {
         toshow = Math.floor((my - data.boss.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= 2) {
+        if (toshow >= 0 && toshow <= bossDescription.length) {
             rect(Renderer.BLACK, data.boss.x + buttonWidth, my - 10, Renderer.getStringWidth(bossDescription[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(bossDescription[toshow], data.boss.x + buttonWidth + 2, my - 7)
         }

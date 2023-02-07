@@ -13,7 +13,7 @@ register("worldLoad", () => {
 
 // Actual thing
 register("chat", (name) => {
-    if (!data.dungeonsOptions[0]) return
+    if (!data.autoOptions[7]) return
     if (name == Player.getName().toLowerCase()) return
     index = Player?.getInventory()?.getItems().splice(0, 9).findIndex(item => item?.getName()?.includes("leap"))
     if (index != -1) {

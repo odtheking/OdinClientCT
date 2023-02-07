@@ -3,7 +3,7 @@ import { modMessage} from "../utils";
 
 //auto harp
 //needs testing and toggle system in gui
-
+//very stolen code
 toggled = false
 
 const Note = function(slot) {

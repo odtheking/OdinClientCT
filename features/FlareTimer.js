@@ -41,7 +41,7 @@ register("renderOverlay", (event) => {
 let flareShot = null;
 
 const flaretimerRenderOverlay = () => {
-  if (!data.netherOptions[0]) return
+  if (!data.netherOptions[1]) return
   if (!flareShot) return;
   if (disabletimer) return
 

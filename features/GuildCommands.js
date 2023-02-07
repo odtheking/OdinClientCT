@@ -79,7 +79,7 @@ function flipCoin() {
 let godmod = false
 
 register("chat", (rank, name, guildrank, message) => {
-  if (!data.generalOptions[1]) return;
+  if (!data.legitOptions[1]) return
   switch (message.toLowerCase().split(" ")[0]) {
     case "8ball":
       guildmessage(eightBall());
@@ -117,7 +117,7 @@ register("chat", (rank, name, guildrank, message) => {
 //bridge
 
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.generalOptions[1]) return;
+  if (!data.legitOptions[1]) return
   switch (message.toLowerCase().split(" ")[0]) {
     case "8ball":
       guildmessage(eightBall());
@@ -143,7 +143,7 @@ register("chat", (rank, name, guildrank, bridgename, message) => {
 //dice 
 
 register("chat", (rank, name, guildrank, bridgename, message, max) => {
-  if (!data.generalOptions[1]) return;
+  if (!data.legitOptions[1]) return
   if (message.startsWith("dice")) {
     var randomNumber = Math.floor(Math.random() * max) + 1;
     guildmessage(randomNumber)
@@ -151,7 +151,7 @@ register("chat", (rank, name, guildrank, bridgename, message, max) => {
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > !(.+) (.+)/)
 
 register("chat", (rank, name, guildrank, message, max) => {
-  if (!data.generalOptions[1]) return;
+  if (!data.legitOptions[1]) return
   if (message.startsWith("dice")) {
     var randomNumber = Math.floor(Math.random() * max) + 1;
     guildmessage(randomNumber)
@@ -159,7 +159,7 @@ register("chat", (rank, name, guildrank, message, max) => {
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: !(.+) (.+)/)
 
 register("chat", (rank, name, guildrank, msg) => {
-  if (!data.generalOptions[2]) return;
+  if (!data.legitOptions[2]) return
   if (Player.getName() === name) return;
   if (msg.toLowerCase().startsWith("gm")) guildmessage("gm " + name);
   if ((msg.toLowerCase().startsWith("gn"))) guildmessage("gn " + name);
@@ -167,7 +167,7 @@ register("chat", (rank, name, guildrank, msg) => {
 
 
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.generalOptions[2]) return;
+  if (!data.legitOptions[2]) return
   if (Player.getName() == name) return
   if (message.toLowerCase().startsWith("gm")) guildmessage("gm " + bridgename);
   if ((message.toLowerCase().startsWith("gn"))) guildmessage("gn " + bridgename);

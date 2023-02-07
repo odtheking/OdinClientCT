@@ -5,7 +5,7 @@ var tracker_kills = 0
 var tracker_xp = 0
 
 register("entityDeath", () => {
-  if (data.generalOptions[4] && Player.getHeldItem() != null) {
+  if (data.netherOptions[0] && Player.getHeldItem() != null) {
     const heldItem = Player.getHeldItem().getNBT().getCompoundTag("tag").getCompoundTag("ExtraAttributes").getString("id");
     const witherBlades = ["HYPERION", "ASTRAEA", "SCYLLA", "VALKYRIE", "NECRON_BLADE_UNREFINED"];
 

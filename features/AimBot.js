@@ -2,7 +2,7 @@ import Skyblock from "../../BloomCore/Skyblock"
 import { data } from "../stuff/guidk"
 import { modMessage } from "../utils"
 const rightClickKey = Client.getKeyBindFromDescription('key.use')
-
+// for future projects?
 // Aimbot
 /*
 let MOB = "Villager"
