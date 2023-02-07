@@ -1,7 +1,6 @@
 import { Executors } from "../java-stuff";
 import { data } from "../stuff/guidk"
 
-// I HATE DIORITE
 const green = [
     { x: 45, y: 169, z: 44 },
     { x: 46, y: 169, z: 44 },
