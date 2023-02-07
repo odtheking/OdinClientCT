@@ -64,6 +64,7 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - Terminator ac: Automatically clicks when holding terminator randomized ac for very good anti cheat
 - COOKIE CLICKER
 - Customizeable esp: (you can add whatever mob name u want to see) cmd is /esp
-- Descriptions: when u hover at features in the gui
 - FUCK DIORITE": replaces the diorite with glass in the p2 pillars in f7/m7 so you can watch storm get stuck
+- Very awesome gui: reminder cmds are /od and /ol
+- Descriptions: when u hover at features in the gui
 </details>
