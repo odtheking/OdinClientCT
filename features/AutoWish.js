@@ -10,11 +10,10 @@ register("worldUnload", () => {
 })
 
 function isGhost() {
-    for (let i = 0; i < 8; i++) {
-        if (Player.getInventory().getStackInSlot(i).getName().toString().includes("Haunt")) {
-            return true
-        }
-    }
+    index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes("Haunt"))
+    if (index != -1) {
+        return true
+    } 
     return false
 }
 

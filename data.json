@@ -1,24 +1,28 @@
 {
-    "general": {
+    "auto": {
         "x": 20,
         "y": 20,
         "dropDown": true
     },
-    "generalOptions": [
-        true,
-        true,
-        true,
+    "autoOptions": [
         false,
-        true,
-        true
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
     ],
-    "generalTitles": [
-        "Party Commands",
-        "Guild Commands",
-        "Guild gm",
-        "CookieClicker",
-        "Broken Hype",
-        "ESP"
+    "autoTitles": [
+        "Auto Ready",
+        "Auto Mort",
+        "Auto Ult",
+        "Auto Shield",
+        "Auto Wish",
+        "Auto Mask",
+        "Auto Edrag",
+        "Auto Leap"
     ],
     "legit": {
         "x": 220,
@@ -26,78 +30,76 @@
         "dropDown": true
     },
     "legitOptions": [
-        true,
         false,
-        false,
-        false,
-        true
-    ],
-    "legitTitles": [
-        "Auto Edrag",
-        "Terminator AC",
-        "Item Macros",
-        "Auto Ult",
-        "Auto Ready"
-    ],
-    "dungeons": {
-        "x": 420,
-        "y": 20,
-        "dropDown": true
-    },
-    "dungeonsOptions": [
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        true,
-        true,
-        true
-    ],
-    "dungeonsTitles": [
-        "Auto Leap",
-        "Auto Mask",
-        "Auto Shield",
-        "Relic Aura",
-        "Auto Wish",
-        "Auto Mort",
-        "Power Display",
-        "Dragon Timer",
-        "FUCK DIORITE"
-    ],
-    "hollows": {
-        "x": 620,
-        "y": 20,
-        "dropDown": true
-    },
-    "hollowsOptions": [
         false,
         false,
         false,
         false,
         false
     ],
-    "hollowsTitles": [
-        "Coming soon",
-        "Coming soon",
-        "Coming soon",
-        "Coming soon",
-        "Coming soon"
+    "legitTitles": [
+        "Party cmds",
+        "Guild cmds",
+        "Guild GM",
+        "Dragons Boxes",
+        "Dragon Timer",
+        "Power Display"
     ],
     "nether": {
-        "x": 820,
+        "x": 420,
         "y": 20,
         "dropDown": true
     },
     "netherOptions": [
-        true,
-        true,
-        true
+        false,
+        false,
+        false,
+        false
     ],
     "netherTitles": [
+        "Broken Hype",
         "Flare Timer",
         "Vanq Notifier",
-        "Kuudra Alerts"
+        "Kuudra Alers"
+    ],
+    "qol": {
+        "x": 620,
+        "y": 20,
+        "dropDown": true
+    },
+    "qolOptions": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+    ],
+    "qolTitles": [
+        "Relic Aura",
+        "Item Macros",
+        "Terminator AC",
+        "Cookie Clicker",
+        "ESP",
+        "FUCK DIORITE"
+    ],
+    "boss": {
+        "x": 820,
+        "y": 20,
+        "dropDown": true
+    },
+    "bossOptions": [
+        false,
+        false,
+        false,
+        false,
+        false
+    ],
+    "bossTitles": [
+        "Coming Soon!",
+        "Coming Soon!",
+        "Coming Soon!",
+        "Coming Soon!",
+        "Coming Soon!"
     ]
 }

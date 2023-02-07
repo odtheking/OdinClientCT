@@ -3,6 +3,15 @@ import { C02PacketUseEntity } from "../BloomCore/utils/Utils"
 export function modMessage(string) {
     ChatLib.chat("§6[Odin§4Client] §r" + string)
 }
+export function partyMessage(message) {
+    ChatLib.command("pc " + message)
+}
+export function privateMessage(message) {
+    ChatLib.command("r " + message)
+}
+export function guildMessage(message) {
+    ChatLib.command("gc " + message)
+}
 
 export const prefix = "§6[Odin§4Client]"
 
@@ -36,9 +45,4 @@ export function useAbility() {
     Player.getPlayer()?.func_71040_bB(false)
 }
 
-export function partyMessage(message) {
-    ChatLib.command("pc " + message)
-}
-export function privateMessage(message) {
-    ChatLib.command("r " + message)
-}
+

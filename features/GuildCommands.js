@@ -1,7 +1,7 @@
 import { getSkullTexture } from "../../BloomCore/utils/Utils";
 import request from "../../requestV2"
 import { data } from "../stuff/guidk"
-import { modMessage, partyMessage, privateMessage } from "../utils";
+import { modMessage, guildMessage } from "../utils";
 
 // Guild Commands
 
@@ -82,30 +82,30 @@ register("chat", (rank, name, guildrank, message) => {
   if (!data.legitOptions[1]) return
   switch (message.toLowerCase().split(" ")[0]) {
     case "8ball":
-      guildmessage(eightBall());
+      guildMessage(eightBall());
       break;
     case "help":
-      guildmessage("[OdinClient] available commands are: odin, boop, 8ball, cf, fragbot, cat, dice (max)");
+      guildMessage("[OdinClient] available commands are: odin, boop, 8ball, cf, fragbot, cat, dice (max)");
       break;
     case "cf":
-      guildmessage(flipCoin());
+      guildMessage(flipCoin());
     case "odin":
-      guildmessage("OdinClient! https://discord.gg/2nCbC9hkxT");
+      guildMessage("OdinClient! https://discord.gg/2nCbC9hkxT");
       break;
     case "boop":
       setTimeout(ChatLib.say("/boop " + name), 1000);
       break;
     case "fragbot":
-      guildmessage("Fragbot mod is currently: " + inlimbo);
+      guildMessage("Fragbot mod is currently: " + inlimbo);
       break;
     case "cat":
-      guildmessage(catpics());
+      guildMessage(catpics());
       break;
   }
   if (name === "Odtheking") {
     if (message.toLowerCase() === "godmod") {
       godmod = !godmod;
-      guildmessage("godmod is now: " + godmod);
+      guildMessage("godmod is now: " + godmod);
     }
     if (!godmod) return;
     ChatLib.command(message);
@@ -120,22 +120,22 @@ register("chat", (rank, name, guildrank, bridgename, message) => {
   if (!data.legitOptions[1]) return
   switch (message.toLowerCase().split(" ")[0]) {
     case "8ball":
-      guildmessage(eightBall());
+      guildMessage(eightBall());
       break;
     case "help":
-      guildmessage("[OdinClient] available commands are: odin, boop, 8ball, fragbot, cat, dice (max)");
+      guildMessage("[OdinClient] available commands are: odin, boop, 8ball, fragbot, cat, dice (max)");
       break;
     case "odin":
-      guildmessage("OdinClient! https://discord.gg/2nCbC9hkxT ");
+      guildMessage("OdinClient! https://discord.gg/2nCbC9hkxT ");
       break;
     case "boop":
       setTimeout(ChatLib.say("/boop " + name), 1000);
       break;
     case "fragbot":
-      guildmessage("Fragbot mod is currently: " + inlimbo);
+      guildMessage("Fragbot mod is currently: " + inlimbo);
       break;
     case "cat":
-      guildmessage(catpics());
+      guildMessage(catpics());
       break;
   }
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > !(.+)/)
@@ -146,7 +146,7 @@ register("chat", (rank, name, guildrank, bridgename, message, max) => {
   if (!data.legitOptions[1]) return
   if (message.startsWith("dice")) {
     var randomNumber = Math.floor(Math.random() * max) + 1;
-    guildmessage(randomNumber)
+    guildMessage(randomNumber)
   }
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > !(.+) (.+)/)
 
@@ -154,23 +154,23 @@ register("chat", (rank, name, guildrank, message, max) => {
   if (!data.legitOptions[1]) return
   if (message.startsWith("dice")) {
     var randomNumber = Math.floor(Math.random() * max) + 1;
-    guildmessage(randomNumber)
+    guildMessage(randomNumber)
   }
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: !(.+) (.+)/)
 
 register("chat", (rank, name, guildrank, msg) => {
   if (!data.legitOptions[2]) return
   if (Player.getName() === name) return;
-  if (msg.toLowerCase().startsWith("gm")) guildmessage("gm " + name);
-  if ((msg.toLowerCase().startsWith("gn"))) guildmessage("gn " + name);
+  if (msg.toLowerCase().startsWith("gm")) guildMessage("gm " + name);
+  if ((msg.toLowerCase().startsWith("gn"))) guildMessage("gn " + name);
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+)/);
 
 
 register("chat", (rank, name, guildrank, bridgename, message) => {
   if (!data.legitOptions[2]) return
   if (Player.getName() == name) return
-  if (message.toLowerCase().startsWith("gm")) guildmessage("gm " + bridgename);
-  if ((message.toLowerCase().startsWith("gn"))) guildmessage("gn " + bridgename);
+  if (message.toLowerCase().startsWith("gm")) guildMessage("gm " + bridgename);
+  if ((message.toLowerCase().startsWith("gn"))) guildMessage("gn " + bridgename);
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > (.+)/)
 
 let playerjoin = false
