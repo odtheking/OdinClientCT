@@ -37,7 +37,7 @@ export const data = new PogObject("OdinClient", {
         'dropDown': true,
     },
     'netherOptions': [false, false, false, false],
-    'netherTitles': ['Broken Hype', 'Flare Timer', 'Vanq Notifier', 'Kuudra Alers'],
+    'netherTitles': ['Broken Hype', 'Flare Timer', 'Vanq Notifier', 'Kuudra Alerts'],
 
     'qol': {
         'x': 620,
@@ -202,31 +202,31 @@ register('renderOverlay', () => {
 
     if (mx > data.auto.x && mx < data.auto.x + buttonWidth) {
         toshow = Math.floor((my - data.auto.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= autoDescriptions.length) {
+        if (toshow >= 0 && toshow <= autoDescriptions.length - 1) {
             rect(0, 0, 0, 1, data.auto.x + buttonWidth, my - 10, Renderer.getStringWidth(autoDescriptions[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(autoDescriptions[toshow], data.auto.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.legit.x && mx < data.legit.x + buttonWidth) {
         toshow = Math.floor((my - data.legit.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= legitDescription.length) {
+        if (toshow >= 0 && toshow <= legitDescription.length - 1) {
             rect(0, 0, 0, 1, data.legit.x + buttonWidth, my - 10, Renderer.getStringWidth(legitDescription[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(legitDescription[toshow], data.legit.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.nether.x && mx < data.nether.x + buttonWidth) {
         toshow = Math.floor((my - data.nether.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= netherDescriptions.length) {
+        if (toshow >= 0 && toshow <= netherDescriptions.length - 1) {
             rect(0, 0, 0, 1, data.nether.x + buttonWidth, my - 10, Renderer.getStringWidth(netherDescriptions[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(netherDescriptions[toshow], data.nether.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.qol.x && mx < data.qol.x + buttonWidth) {
         toshow = Math.floor((my - data.qol.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= qolDescription.length) {
+        if (toshow >= 0 && toshow <= qolDescription.length - 1) {
             rect(0, 0, 0, 1, data.qol.x + buttonWidth, my - 10, Renderer.getStringWidth(qolDescription[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(qolDescription[toshow], data.qol.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.boss.x && mx < data.boss.x + buttonWidth) {
         toshow = Math.floor((my - data.boss.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= bossDescription.length) {
+        if (toshow >= 0 && toshow <= bossDescription.length - 1) {
             rect(0, 0, 0, 1, data.boss.x + buttonWidth, my - 10, Renderer.getStringWidth(bossDescription[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(bossDescription[toshow], data.boss.x + buttonWidth + 2, my - 7)
         }
@@ -239,7 +239,7 @@ register('renderOverlay', () => {
 register('dragged', (mx, my, x, y, b) => {
     if (!mainGui.isOpen()) return
     if (b != 0) return
-
+    
     // auto tab
     if (x > (data.auto.x - 10) && x < (data.auto.x + buttonWidth) + 10) {
         if (y > (data.auto.y - 5) && y < (data.auto.y + buttonHeight) + 5) {
