@@ -12,83 +12,93 @@ register('command', () => {
     mainGui.open()
 }).setName('odinclient').setAliases("od")
 
+// add the legit features to make the legit tab look richer question mark
 export const data = new PogObject("OdinClient", {
-    'general': {
+    'auto': {
         'x': 20,
         'y': 20,
         'dropDown': true,
     },
-    "generalOptions": [false, false, false, false, false, false],
-    'generalTitles': ['Party Commands', 'Guild Commands', 'Guild gm', 'CookieClicker', 'Broken Hype', 'ESP'],
+    "autoOptions": [false, false, false, false, false, false, false, false],
+    'generalTitles': ['Auto Ready', 'Auto Mort', 'Auto Ult', 'Auto Shield', 'Auto Wish', 'Auto Mask', 'Auto Edrag', 'Auto Leap'],
 
     'legit': {
         'x': 220,
         'y': 20,
         'dropDown': true,
     },
-    'legitOptions': [false, false, false, false, false],
-    'legitTitles': ['Auto Edrag', 'Terminator AC', 'Item Macros', 'Auto Ult', 'Auto Ready'],
+    'legitOptions': [false, false],
+    'legitTitles': ['Party cmds', 'Guild cmds', 'Guild GM'],
 
-    'dungeons': {
+    'nether': {
         'x': 420,
         'y': 20,
         'dropDown': true,
     },
-    'dungeonsOptions': [false, false, false, false, false, false, false, false, false],
-    'dungeonsTitles': ['Auto Leap', 'Auto Mask', 'Auto Shield', 'Relic Aura', 'Auto Wish', 'Auto Mort', 'Power Display', 'Dragon Timer', 'FUCK DIORITE'],
+    'netherOptions': [false, false, false, false],
+    'netherTitles': ['Broken Hype', 'Flare Timer', 'Vanq Notifier', 'Kuudra Alers'],
 
-    'hollows': {
+    'qol': {
         'x': 620,
         'y': 20,
         'dropDown': true,
     },
-    'hollowsOptions': [false, false, false, false, false],
-    'hollowsTitles': ['Coming soon', 'Coming soon', 'Coming soon', 'Coming soon', 'Coming soon',],
+    'qolOptions': [false, false, false, false, false, false, false, false],
+    'qolTitles': ['Relic Aura (WIP)', 'Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'Power Display', 'Dragon Timer', 'FUCK DIORITE'],
 
-    'nether': {
+    'boss': {
         'x': 820,
         'y': 20,
         'dropDown': true,
     },
-    'netherOptions': [false, false, false],
-    'netherTitles': ['Flare Timer', 'Vanq Notifier', 'Kuudra Alerts'],
+    'bossOptions': [false, false, false, false, false],
+    'bossTitles': ['Coming Soon!', 'Coming Soon!', 'Coming Soon!', 'Coming Soon!', 'Coming Soon!',],
 
 }, "data.json")
 
 
-const generalDescriptions = [
-    "A bunch of party chat commands both fun and functional use !help in party chat",
-    "A bunch of fun guild commands both fun and function use !help in guild chat",
-    "Automatically sends gm/gn in guild chat whenever someone does",
-    "Automatically spams on the cookie clicker in the skyblock menu",
-    "Alerts you if your wither blade breaks",
-    "Configureable esp use /esp",
+const autoDescriptions = [
+    "Automatically clicks in the ready GUI",
+    "Automatically gets in range of mort and opens his GUI",
+    "Automatically uses class ultimate on certain times",
+    "Automatically uses wither shield when not full hp",
+    "Automatically uses wish when a temmate is low HP",
+    "Automatically swaps between bonzo and spirit mask",
+    "Automatically equips edrag after relics",
+    "Automatically leaps to a player when writing !tp in party chat"
+]
+
+const legitDescription = [
+    "Custom party commands use !help in party chat",
+    "Custom guild commands use !help in guild chat",
+    "Reponsends to anyone in guild chat saying gm/gn"
+]
+
+const netherDescriptions = [
+    "Shows a timer and the type of the flare around you /moveflare",
+    "Automatically sends a message in party chat and makes a beacon whenever odinclient/patcher sends coords in party chat",
+    "Shows messages on screen on specific events in kuudra",
+    "Automatically alerts when your hype is broken"
+    
 ]
 
 const qolDescription = [
-    "Automatically equips edrag when p5 starts",
-    "Automatically spams the terminator bow while holding it",
-    "Item macros in controls",
-    "Automatically uses ultimate on certain times",
-    "Automatically clicks in the ready GUI"
-]
-
-const dungeonDescriptions = [
-    "Automatically leaps to a player when writing !tp in party chat",
-    "Automatically swaps spirit/bonzo mask on CD",
-    "Automatically uses wither shield when not on full HP",
-    "Looks and picks up relics (WIP)",
-    "Automatically uses ultimate when a party member is low",
-    "Automatically goes from spawnpoint to mort in dungeons",
+    "Looks at and picks up relics (WIP)",
+    "Custom item macros check minecraft",
+    "Spams right click while term is held ranomized cps",
+    "Spams the cookie while in the cookie clicker menu",
+    "You can add whatever mob you want into the ist /esp",
     "Shows the power blessing /movepower",
     "Shows when a M7 dragon will spawn",
     "Replaces diorite with glass in p2",
 ]
 
-const netherDescription = [
-    "Shows a timer and the type of the flare around you /moveflare",
-    "Automatically sends a message in party chat and makes a beacon whenever odinclient/patcher sends coords in party chat",
-    "Shows messages on screen on specific events in kuudra"
+const bossDescription = [
+    "NOT COMING SOON :)",
+    "NOT COMING SOON :)",
+    "NOT COMING SOON :)",
+    "NOT COMING SOON :)",
+    "NOT COMING SOON :)",
 ]
 
 let mainGui = new Gui()
@@ -116,58 +126,36 @@ register('renderOverlay', () => {
     image?.draw(670, 400, 280, 140)
 
     //font.drawStringWithShadow("§6Odin§4Client", 720, 490, new java.awt.Color(0, 1, 1, 1))
-    Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.general.x, data.general.y, buttonWidth, buttonHeight)
+    Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.auto.x, data.auto.y, buttonWidth, buttonHeight)
     Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.legit.x, data.legit.y, buttonWidth, buttonHeight)
-    Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.dungeons.x, data.dungeons.y, buttonWidth, buttonHeight)
-    Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.hollows.x, data.hollows.y, buttonWidth, buttonHeight)
-    Renderer.drawRect(Renderer.color(194, 178, 8, 225), data.nether.x, data.nether.y, buttonWidth, buttonHeight)
+    Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.nether.x, data.nether.y, buttonWidth, buttonHeight)
+    Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.qol.x, data.qol.y, buttonWidth, buttonHeight)
+    Renderer.drawRect(Renderer.color(194, 178, 8, 225), data.boss.x, data.boss.y, buttonWidth, buttonHeight)
 
-    font2.drawStringWithShadow('General', data.general.x + (70 - Renderer.getStringWidth('General')) / 2 + 15, data.general.y + 5, new java.awt.Color(1, 0, 0, 1))
-    font2.drawStringWithShadow('qol', data.legit.x + (70 - Renderer.getStringWidth('Legit')) / 2 + 15, data.legit.y + 5, new java.awt.Color(1, 0, 0, 1))
-    font2.drawStringWithShadow('Dungeons', data.dungeons.x + (50 - Renderer.getStringWidth('Dungeons') / 2), data.dungeons.y + 5, new java.awt.Color(1, 0, 0, 1))
-    font2.drawStringWithShadow('Auto Boss', data.hollows.x + (50 - Renderer.getStringWidth('Auto Boss') / 2), data.hollows.y + 5, new java.awt.Color(1, 0, 0, 1))
-    font2.drawStringWithShadow('Nether', data.nether.x + (70 - Renderer.getStringWidth('Nether')) / 2 + 15, data.nether.y + 5, new java.awt.Color(1, 0, 0, 1))
+    font2.drawStringWithShadow('Auto', data.auto.x + (70 - Renderer.getStringWidth('Auto')) / 2 + 15, data.auto.y + 5, new java.awt.Color(1, 0, 0, 1))
+    font2.drawStringWithShadow('Legit', data.legit.x + (70 - Renderer.getStringWidth('Legit')) / 2 + 15, data.legit.y + 5, new java.awt.Color(1, 0, 0, 1))
+    font2.drawStringWithShadow('Nether', data.nether.x + (50 - Renderer.getStringWidth('Nether') / 2), data.nether.y + 5, new java.awt.Color(1, 0, 0, 1))
+    font2.drawStringWithShadow('QOL', data.qol.x + (50 - Renderer.getStringWidth('QOL') / 2), data.qol.y + 5, new java.awt.Color(1, 0, 0, 1))
+    font2.drawStringWithShadow('Auto Boss', data.boss.x + (70 - Renderer.getStringWidth('Auto Boss')) / 2 + 15, data.boss.y + 5, new java.awt.Color(1, 0, 0, 1))
 
-    if (data.general.dropDown) { // General
-        for (let i = 1; i <= data.generalOptions.length; i++) {
-            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.general.x, data.general.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.generalOptions[i - 1]) {
-                font2.drawStringWithShadow(data.generalTitles[i - 1], data.general.x + (70 - Renderer.getStringWidth(data.generalTitles[i - 1])) / 2 + 15, data.general.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
+    if (data.auto.dropDown) { // auto
+        for (let i = 1; i <= data.autoOptions.length; i++) {
+            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.auto.x, data.auto.y + (i * buttonHeight), buttonWidth, buttonHeight)
+            if (data.autoOptions[i - 1]) {
+                font2.drawStringWithShadow(data.autoTitles[i - 1], data.auto.x + (70 - Renderer.getStringWidth(data.autoTitles[i - 1])) / 2 + 15, data.auto.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
             } else {
-                font2.drawStringWithShadow(data.generalTitles[i - 1], data.general.x + (70 - Renderer.getStringWidth(data.generalTitles[i - 1])) / 2 + 15, data.general.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
+                font2.drawStringWithShadow(data.autoTitles[i - 1], data.auto.x + (70 - Renderer.getStringWidth(data.autoTitles[i - 1])) / 2 + 15, data.auto.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
             }
         }
     }
 
-    if (data.legit.dropDown) { // Dungeons
+    if (data.legit.dropDown) { // legit
         for (let i = 1; i <= data.legitOptions.length; i++) {
             Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.legit.x, data.legit.y + (i * buttonHeight), buttonWidth, buttonHeight)
             if (data.legitOptions[i - 1]) {
                 font2.drawStringWithShadow(data.legitTitles[i - 1], data.legit.x + (70 - Renderer.getStringWidth(data.legitTitles[i - 1])) / 2 + 15, data.legit.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
             } else {
                 font2.drawStringWithShadow(data.legitTitles[i - 1], data.legit.x + (70 - Renderer.getStringWidth(data.legitTitles[i - 1])) / 2 + 15, data.legit.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
-            }
-        }
-    }
-
-    if (data.dungeons.dropDown) { // Dungeons
-        for (let i = 1; i <= data.dungeonsOptions.length; i++) {
-            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.dungeons.x, data.dungeons.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.dungeonsOptions[i - 1]) {
-                font2.drawStringWithShadow(data.dungeonsTitles[i - 1], data.dungeons.x + (70 - Renderer.getStringWidth(data.dungeonsTitles[i - 1])) / 2 + 15, data.dungeons.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
-            } else {
-                font2.drawStringWithShadow(data.dungeonsTitles[i - 1], data.dungeons.x + (70 - Renderer.getStringWidth(data.dungeonsTitles[i - 1])) / 2 + 15, data.dungeons.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
-            }
-        }
-    }
-
-    if (data.hollows.dropDown) { // Hollows
-        for (let i = 1; i <= data.hollowsOptions.length; i++) {
-            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.hollows.x, data.hollows.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.hollowsOptions[i - 1]) {
-                font2.drawStringWithShadow(data.hollowsTitles[i - 1], data.hollows.x + (70 - Renderer.getStringWidth(data.hollowsTitles[i - 1])) / 2 + 15, data.hollows.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
-            } else {
-                font2.drawStringWithShadow(data.hollowsTitles[i - 1], data.hollows.x + (70 - Renderer.getStringWidth(data.hollowsTitles[i - 1])) / 2 + 15, data.hollows.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
             }
         }
     }
@@ -183,39 +171,61 @@ register('renderOverlay', () => {
         }
     }
 
+    if (data.qol.dropDown) { // qol
+        for (let i = 1; i <= data.qolOptions.length; i++) {
+            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.qol.x, data.qol.y + (i * buttonHeight), buttonWidth, buttonHeight)
+            if (data.qolOptions[i - 1]) {
+                font2.drawStringWithShadow(data.qolTitles[i - 1], data.qol.x + (70 - Renderer.getStringWidth(data.qolTitles[i - 1])) / 2 + 15, data.qol.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
+            } else {
+                font2.drawStringWithShadow(data.qolTitles[i - 1], data.qol.x + (70 - Renderer.getStringWidth(data.qolTitles[i - 1])) / 2 + 15, data.qol.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
+            }
+        }
+    }
+
+    if (data.boss.dropDown) { // boss
+        for (let i = 1; i <= data.bossOptions.length; i++) {
+            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.boss.x, data.boss.y + (i * buttonHeight), buttonWidth, buttonHeight)
+            if (data.bossOptions[i - 1]) {
+                font2.drawStringWithShadow(data.bossTitles[i - 1], data.boss.x + (70 - Renderer.getStringWidth(data.bossTitles[i - 1])) / 2 + 15, data.boss.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
+            } else {
+                font2.drawStringWithShadow(data.bossTitles[i - 1], data.boss.x + (70 - Renderer.getStringWidth(data.bossTitles[i - 1])) / 2 + 15, data.boss.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
+            }
+        }
+    }
+
     //descriptions
     mx = Client.getMouseX()
     my = Client.getMouseY()
 
-    if (mx > data.general.x && mx < data.general.x + buttonWidth) {
-        toshow = Math.floor((my - data.general.y - buttonHeight) / 20)
+    if (mx > data.auto.x && mx < data.auto.x + buttonWidth) {
+        toshow = Math.floor((my - data.auto.y - buttonHeight) / 20)
         if (toshow >= 0 && toshow <= 5) {
-            Renderer.drawRect(Renderer.BLACK, data.general.x + buttonWidth, my - 10, Renderer.getStringWidth(generalDescriptions[toshow]) + 4, buttonHeight - 5)
-            Renderer.drawStringWithShadow(generalDescriptions[toshow], data.general.x + buttonWidth + 2, my - 7)
+            Renderer.drawRect(Renderer.BLACK, data.auto.x + buttonWidth, my - 10, Renderer.getStringWidth(autoDescriptions[toshow]) + 4, buttonHeight - 5)
+            Renderer.drawStringWithShadow(autoDescriptions[toshow], data.auto.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.legit.x && mx < data.legit.x + buttonWidth) {
         toshow = Math.floor((my - data.legit.y - buttonHeight) / 20)
         if (toshow >= 0 && toshow <= 4) {
-            Renderer.drawRect(Renderer.BLACK, data.legit.x + buttonWidth, my - 10, Renderer.getStringWidth(qolDescription[toshow]) + 4, buttonHeight - 5)
-            Renderer.drawStringWithShadow(qolDescription[toshow], data.legit.x + buttonWidth + 2, my - 7)
-        }
-    } else if (mx > data.dungeons.x && mx < data.dungeons.x + buttonWidth) {
-        toshow = Math.floor((my - data.dungeons.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= 8) {
-            Renderer.drawRect(Renderer.BLACK, data.dungeons.x + buttonWidth, my - 10, Renderer.getStringWidth(dungeonDescriptions[toshow]) + 4, buttonHeight - 5)
-            Renderer.drawStringWithShadow(dungeonDescriptions[toshow], data.dungeons.x + buttonWidth + 2, my - 7)
-        }
-    } else if (mx > data.hollows.x && mx < data.hollows.x + buttonWidth) {
-        toshow = Math.floor((my - data.hollows.y - buttonHeight) / 20)
-        if (toshow >= 0 && toshow <= 4) {
-            Renderer.drawRect(Renderer.BLACK, data.hollows.x + buttonWidth, my - 10, Renderer.getStringWidth('NOT COMING SOON :)') + 4, buttonHeight - 5)
-            Renderer.drawStringWithShadow('NOT COMING SOON :)', data.hollows.x + buttonWidth + 2, my - 7)
+            Renderer.drawRect(Renderer.BLACK, data.legit.x + buttonWidth, my - 10, Renderer.getStringWidth(legitDescription[toshow]) + 4, buttonHeight - 5)
+            Renderer.drawStringWithShadow(legitDescription[toshow], data.legit.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.nether.x && mx < data.nether.x + buttonWidth) {
         toshow = Math.floor((my - data.nether.y - buttonHeight) / 20)
+        if (toshow >= 0 && toshow <= 8) {
+            Renderer.drawRect(Renderer.BLACK, data.nether.x + buttonWidth, my - 10, Renderer.getStringWidth(netherDescriptions[toshow]) + 4, buttonHeight - 5)
+            Renderer.drawStringWithShadow(netherDescriptions[toshow], data.nether.x + buttonWidth + 2, my - 7)
+        }
+    } else if (mx > data.qol.x && mx < data.qol.x + buttonWidth) {
+        toshow = Math.floor((my - data.qol.y - buttonHeight) / 20)
+        if (toshow >= 0 && toshow <= 4) {
+            Renderer.drawRect(Renderer.BLACK, data.qol.x + buttonWidth, my - 10, Renderer.getStringWidth(qolDescription[toshow]) + 4, buttonHeight - 5)
+            Renderer.drawStringWithShadow(qolDescription[toshow], data.qol.x + buttonWidth + 2, my - 7)
+        }
+    } else if (mx > data.boss.x && mx < data.boss.x + buttonWidth) {
+        toshow = Math.floor((my - data.boss.y - buttonHeight) / 20)
         if (toshow >= 0 && toshow <= 2) {
-            Renderer.drawRect(Renderer.BLACK, data.nether.x + buttonWidth, my - 10, Renderer.getStringWidth(netherDescription[toshow]) + 4, buttonHeight - 5)
-            Renderer.drawStringWithShadow(netherDescription[toshow], data.nether.x + buttonWidth + 2, my - 7)
+            Renderer.drawRect(Renderer.BLACK, data.boss.x + buttonWidth, my - 10, Renderer.getStringWidth(bossDescription[toshow]) + 4, buttonHeight - 5)
+            Renderer.drawStringWithShadow(bossDescription[toshow], data.boss.x + buttonWidth + 2, my - 7)
         }
     }
 
@@ -227,11 +237,11 @@ register('dragged', (mx, my, x, y, b) => {
     if (!mainGui.isOpen()) return
     if (b != 0) return
 
-    // General tab
-    if (x > (data.general.x - 10) && x < (data.general.x + buttonWidth) + 10) {
-        if (y > (data.general.y - 5) && y < (data.general.y + buttonHeight) + 5) {
-            data.general.x += mx
-            data.general.y += my
+    // auto tab
+    if (x > (data.auto.x - 10) && x < (data.auto.x + buttonWidth) + 10) {
+        if (y > (data.auto.y - 5) && y < (data.auto.y + buttonHeight) + 5) {
+            data.auto.x += mx
+            data.auto.y += my
             data.save()
         }
     }
@@ -245,29 +255,29 @@ register('dragged', (mx, my, x, y, b) => {
         }
     }
 
-    // Dungeons tab
-    if (x > (data.dungeons.x - 10) && x < (data.dungeons.x + buttonWidth) + 10) {
-        if (y > (data.dungeons.y - 5) && y < (data.dungeons.y + buttonHeight) + 5) {
-            data.dungeons.x += mx
-            data.dungeons.y += my
-            data.save()
-        }
-    }
-
-    // Crystal Hollows
-    if (x > (data.hollows.x - 10) && x < (data.hollows.x + buttonWidth) + 10) {
-        if (y > (data.hollows.y - 5) && y < (data.hollows.y + buttonHeight) + 5) {
-            data.hollows.x += mx
-            data.hollows.y += my
-            data.save()
-        }
-    }
-
-    // Nether tab
+    // nether tab
     if (x > (data.nether.x - 10) && x < (data.nether.x + buttonWidth) + 10) {
         if (y > (data.nether.y - 5) && y < (data.nether.y + buttonHeight) + 5) {
             data.nether.x += mx
             data.nether.y += my
+            data.save()
+        }
+    }
+
+    // qol tab
+    if (x > (data.qol.x - 10) && x < (data.qol.x + buttonWidth) + 10) {
+        if (y > (data.qol.y - 5) && y < (data.qol.y + buttonHeight) + 5) {
+            data.qol.x += mx
+            data.qol.y += my
+            data.save()
+        }
+    }
+
+    // boss tab
+    if (x > (data.boss.x - 10) && x < (data.boss.x + buttonWidth) + 10) {
+        if (y > (data.boss.y - 5) && y < (data.boss.y + buttonHeight) + 5) {
+            data.boss.x += mx
+            data.boss.y += my
             data.save()
         }
     }
@@ -280,21 +290,21 @@ let toChange
 register('clicked', (x, y, b, isDown) => {
     if (isDown && mainGui.isOpen()) {
 
-        // Check if user clicked General tab
-        if (x > (data.general.x - 10) && x < (data.general.x + buttonWidth) + 10) {
-            toChange = Math.floor((y - (data.general.y + buttonHeight)) / buttonHeight)
-            if (b == 0 && toChange >= 0 && toChange <= data.generalOptions.length - 1) {
-                data.generalOptions[toChange] = !data.generalOptions[toChange]
+        // Check if user clicked auto tab
+        if (x > (data.auto.x - 10) && x < (data.auto.x + buttonWidth) + 10) {
+            toChange = Math.floor((y - (data.auto.y + buttonHeight)) / buttonHeight)
+            if (b == 0 && toChange >= 0 && toChange <= data.autoOptions.length - 1) {
+                data.autoOptions[toChange] = !data.autoOptions[toChange]
                 World.playSound('gui.button.press', 1, 1)
                 data.save()
             } else if (b == 1 && toChange == -1) {
-                data.general.dropDown = !data.general.dropDown
+                data.auto.dropDown = !data.auto.dropDown
                 World.playSound('gui.button.press', 1, 1)
                 data.save()
             }
         }
 
-        // Check dungeons tab
+        // Check legit tab
         if (x > (data.legit.x - 10) && x < (data.legit.x + buttonWidth) + 10) {
             toChange = Math.floor((y - (data.legit.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.legitOptions.length - 1) {
@@ -303,34 +313,6 @@ register('clicked', (x, y, b, isDown) => {
                 data.save()
             } else if (b == 1 && toChange == -1) {
                 data.legit.dropDown = !data.legit.dropDown
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
-            }
-        }
-
-        // Check dungeons tab
-        if (x > (data.dungeons.x - 10) && x < (data.dungeons.x + buttonWidth) + 10) {
-            toChange = Math.floor((y - (data.dungeons.y + buttonHeight)) / buttonHeight)
-            if (b == 0 && toChange >= 0 && toChange <= data.dungeonsOptions.length - 1) {
-                data.dungeonsOptions[toChange] = !data.dungeonsOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
-            } else if (b == 1 && toChange == -1) {
-                data.dungeons.dropDown = !data.dungeons.dropDown
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
-            }
-        }
-
-        // Check hollows tab
-        if (x > (data.hollows.x - 10) && x < (data.hollows.x + buttonWidth) + 10) {
-            toChange = Math.floor((y - (data.hollows.y + buttonHeight)) / buttonHeight)
-            if (b == 0 && toChange >= 0 && toChange <= data.hollowsOptions.length - 1) {
-                data.hollowsOptions[toChange] = !data.hollowsOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
-                data.save()
-            } else if (b == 1 && toChange == -1) {
-                data.hollows.dropDown = !data.hollows.dropDown
                 World.playSound('gui.button.press', 1, 1)
                 data.save()
             }
@@ -345,6 +327,34 @@ register('clicked', (x, y, b, isDown) => {
                 data.save()
             } else if (b == 1 && toChange == -1) {
                 data.nether.dropDown = !data.nether.dropDown
+                World.playSound('gui.button.press', 1, 1)
+                data.save()
+            }
+        }
+
+        // Check qol tab
+        if (x > (data.qol.x - 10) && x < (data.qol.x + buttonWidth) + 10) {
+            toChange = Math.floor((y - (data.qol.y + buttonHeight)) / buttonHeight)
+            if (b == 0 && toChange >= 0 && toChange <= data.qolOptions.length - 1) {
+                data.qolOptions[toChange] = !data.qolOptions[toChange]
+                World.playSound('gui.button.press', 1, 1)
+                data.save()
+            } else if (b == 1 && toChange == -1) {
+                data.qol.dropDown = !data.qol.dropDown
+                World.playSound('gui.button.press', 1, 1)
+                data.save()
+            }
+        }
+
+        // Check boss tab
+        if (x > (data.boss.x - 10) && x < (data.boss.x + buttonWidth) + 10) {
+            toChange = Math.floor((y - (data.boss.y + buttonHeight)) / buttonHeight)
+            if (b == 0 && toChange >= 0 && toChange <= data.bossOptions.length - 1) {
+                data.bossOptions[toChange] = !data.bossOptions[toChange]
+                World.playSound('gui.button.press', 1, 1)
+                data.save()
+            } else if (b == 1 && toChange == -1) {
+                data.boss.dropDown = !data.boss.dropDown
                 World.playSound('gui.button.press', 1, 1)
                 data.save()
             }

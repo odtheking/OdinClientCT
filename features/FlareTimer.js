@@ -89,7 +89,7 @@ register("step", () => {
     if (flare == warningflare) { flaretype = "Warning" }
     if (flare == sosflare) { flaretype = "SOS" }
     if (flare == alertflare) { flaretype = "Alert" }
-    if (flare == warningflare || flare == sosflare) {
+    if (flare == warningflare || flare == sosflare || flare == alertflare) {
       const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
       const [x1, y1, z1] = [flareloc.getX(), flareloc.getY(), flareloc.getZ()]
       let dist = getDistance3D(x, y, z, x1, y1, z1)
