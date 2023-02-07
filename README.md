@@ -43,9 +43,6 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - EdragReminder: reminds you to equip edrag after you place relics
 - ReadyReminder: reminds you to ready up after certain amount of time in a dungeon
 - UltReminder: reminds you to use your ult at specific events in m6/m7
-- Dragon boxes: Creates custom and decently accurate boxes in p5 on m7
-- Dragon spawn: timer (m7 dragons dont be dumb)
-- Powerdisplay: (shows the power blessing on ur screen) cmd is /movepower
 </details>
 
 <details>
