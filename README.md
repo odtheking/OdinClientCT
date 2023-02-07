@@ -31,6 +31,8 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - Party cmds: custom commands for party use !help in party chat
 - Guild cmds: custom commands for guild use !help in guild chat
 - Guild gm: Automatically sends gm/gn in guild chat when someone else says it
+- Powerdisplay: (shows the power blessing on ur screen) cmd is /movepower
+- Dragon spawn: timer (m7 dragons dont be dumb)
 - FragBot: automatically makes you a fragbot whenever you enter limbo automatically disables when leaving limbo 
 </details>
 
@@ -62,8 +64,6 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - Terminator ac: Automatically clicks when holding terminator randomized ac for very good anti cheat
 - COOKIE CLICKER
 - Customizeable esp: (you can add whatever mob name u want to see) cmd is /esp
-- Powerdisplay: (shows the power blessing on ur screen) cmd is /movepower
-- Dragon spawn: timer (m7 dragons dont be dumb)
 - Descriptions: when u hover at features in the gui
 - FUCK DIORITE": replaces the diorite with glass in the p2 pillars in f7/m7 so you can watch storm get stuck
 </details>
