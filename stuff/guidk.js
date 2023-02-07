@@ -283,8 +283,9 @@ register('dragged', (mx, my, x, y, b) => {
     data.save()
 })
 
-let toChange
+const makePressSound = () => makePressSound()
 
+let toChange
 register('clicked', (x, y, b, isDown) => {
     if (isDown && mainGui.isOpen()) {
 
@@ -293,10 +294,10 @@ register('clicked', (x, y, b, isDown) => {
             toChange = Math.floor((y - (data.auto.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.autoOptions.length - 1) {
                 data.autoOptions[toChange] = !data.autoOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
+                makePressSound()
             } else if (b == 1 && toChange == -1) {
                 data.auto.dropDown = !data.auto.dropDown
-                World.playSound('gui.button.press', 1, 1)
+                makePressSound()
             }
         }
 
@@ -305,10 +306,10 @@ register('clicked', (x, y, b, isDown) => {
             toChange = Math.floor((y - (data.legit.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.legitOptions.length - 1) {
                 data.legitOptions[toChange] = !data.legitOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
+                makePressSound()
             } else if (b == 1 && toChange == -1) {
                 data.legit.dropDown = !data.legit.dropDown
-                World.playSound('gui.button.press', 1, 1)
+                makePressSound()
             }
         }
 
@@ -317,10 +318,10 @@ register('clicked', (x, y, b, isDown) => {
             toChange = Math.floor((y - (data.nether.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.netherOptions.length - 1) {
                 data.netherOptions[toChange] = !data.netherOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
+                makePressSound()
             } else if (b == 1 && toChange == -1) {
                 data.nether.dropDown = !data.nether.dropDown
-                World.playSound('gui.button.press', 1, 1)
+                makePressSound()
             }
         }
 
@@ -329,10 +330,10 @@ register('clicked', (x, y, b, isDown) => {
             toChange = Math.floor((y - (data.qol.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.qolOptions.length - 1) {
                 data.qolOptions[toChange] = !data.qolOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
+                makePressSound()
             } else if (b == 1 && toChange == -1) {
                 data.qol.dropDown = !data.qol.dropDown
-                World.playSound('gui.button.press', 1, 1)
+                makePressSound()
             }
         }
 
@@ -341,10 +342,10 @@ register('clicked', (x, y, b, isDown) => {
             toChange = Math.floor((y - (data.boss.y + buttonHeight)) / buttonHeight)
             if (b == 0 && toChange >= 0 && toChange <= data.bossOptions.length - 1) {
                 data.bossOptions[toChange] = !data.bossOptions[toChange]
-                World.playSound('gui.button.press', 1, 1)
+                makePressSound()
             } else if (b == 1 && toChange == -1) {
                 data.boss.dropDown = !data.boss.dropDown
-                World.playSound('gui.button.press', 1, 1)
+                makePressSound()
             }
         }
     }
