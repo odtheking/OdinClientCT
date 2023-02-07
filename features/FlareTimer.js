@@ -60,7 +60,7 @@ const flaretimerRenderOverlay = () => {
   } else if (flaretype == "Alert") {
     font2.drawStringWithShadow(flaretype, flaredata.flareX - 12, flaredata.flareY + 12, new java.awt.Color(0, 0.5, 0.95, 1))
   }
-  font2.drawStringWithShadow(`${timeRemaining} s`, flaredata.flareX - 12, flaredata.flareY + 27, timeRemaining > 50 ? new java.awt.Color(0, 0.9, 0.15, 1) : timeRemaining > 20 ? new java.awt.Color(0.9, 0.8, 0, 1) : new java.awt.Color(0.95, 0, 0, 1));
+  font2.drawStringWithShadow(`${timeRemaining}s`, flaredata.flareX - 12, flaredata.flareY + 27, timeRemaining > 50 ? new java.awt.Color(0, 0.9, 0.15, 1) : timeRemaining > 20 ? new java.awt.Color(0.9, 0.8, 0, 1) : new java.awt.Color(0.95, 0, 0, 1));
 };
 
 register("renderOverlay", flaretimerRenderOverlay);
