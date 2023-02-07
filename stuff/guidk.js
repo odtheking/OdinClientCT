@@ -348,7 +348,6 @@ register('clicked', (x, y, b, isDown) => {
                 makePressSound()
             }
         }
+        data.save()
     }
-
-    data.save()
 })
