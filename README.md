@@ -45,7 +45,6 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 
 ### NETHER
 - Broken hype notifier (now u can stop using dulkir mod)
-- Relic aura: changes the way you look and click a relic if there is one in 5 blocks from you
 - Flare timer (sos flare alert flare warning flare) cmd is is /moveflare
 - Vanqnotifier (also marks a beacon for when coords are sent in chat)
 - Kuudra alerts (shows text on screen when certain stuf happen in kuudra)
@@ -55,6 +54,7 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
     <summary>Nice to have</summary>
 
 ### NICE TO HAVE
+- Relic aura: changes the way you look and click a relic if there is one in 5 blocks from you
 - Auto edrag: equips edrag when p5 starts
 - Item macros: soul whip aots 0 tick swap hotkey in controls
 - Terminator ac: Automatically clicks when holding terminator randomized ac for very good anti cheat
