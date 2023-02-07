@@ -126,69 +126,70 @@ register('renderOverlay', () => {
     image?.draw(670, 400, 280, 140)
 
     //font.drawStringWithShadow("§6Odin§4Client", 720, 490, new java.awt.Color(0, 1, 1, 1))
-    Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.auto.x, data.auto.y, buttonWidth, buttonHeight)
-    Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.legit.x, data.legit.y, buttonWidth, buttonHeight)
-    Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.nether.x, data.nether.y, buttonWidth, buttonHeight)
-    Renderer.drawRect(Renderer.color(255, 215, 0, 225), data.qol.x, data.qol.y, buttonWidth, buttonHeight)
-    Renderer.drawRect(Renderer.color(194, 178, 8, 225), data.boss.x, data.boss.y, buttonWidth, buttonHeight)
+    
+    rect(255, 215, 0, 225, data.auto.x, data.auto.y, buttonWidth, buttonHeight)
+    rect(255, 215, 0, 225, data.legit.x, data.legit.y, buttonWidth, buttonHeight)
+    rect(255, 215, 0, 225, data.nether.x, data.nether.y, buttonWidth, buttonHeight)
+    rect(255, 215, 0, 225, data.qol.x, data.qol.y, buttonWidth, buttonHeight)
+    rect(194, 178, 8, 225, data.boss.x, data.boss.y, buttonWidth, buttonHeight)
+    centeredString(font2, 'Auto', data.auto.x, data.auto.y, 1, 0, 0, 1)
+    centeredString(font2, 'Legit', data.legit.x, data.legit.y, 1, 0, 0, 1)
+    centeredString(font2, 'Nether', data.nether.x, data.nether.y, 1, 0, 0, 1)
+    centeredString(font2, 'QOL', data.qol.x, data.qol.y, 1, 0, 0, 1)
+    centeredString(font2, 'Auto', data.boss.x, data.boss.y, 1, 0, 0, 1)
 
-    font2.drawStringWithShadow('Auto', data.auto.x + (70 - Renderer.getStringWidth('Auto')) / 2 + 15, data.auto.y + 5, new java.awt.Color(1, 0, 0, 1))
-    font2.drawStringWithShadow('Legit', data.legit.x + (70 - Renderer.getStringWidth('Legit')) / 2 + 15, data.legit.y + 5, new java.awt.Color(1, 0, 0, 1))
-    font2.drawStringWithShadow('Nether', data.nether.x + (50 - Renderer.getStringWidth('Nether') / 2), data.nether.y + 5, new java.awt.Color(1, 0, 0, 1))
-    font2.drawStringWithShadow('QOL', data.qol.x + (50 - Renderer.getStringWidth('QOL') / 2), data.qol.y + 5, new java.awt.Color(1, 0, 0, 1))
-    font2.drawStringWithShadow('Auto Boss', data.boss.x + (70 - Renderer.getStringWidth('Auto Boss')) / 2 + 15, data.boss.y + 5, new java.awt.Color(1, 0, 0, 1))
 
     if (data.auto.dropDown) { // auto
         for (let i = 1; i <= data.autoOptions.length; i++) {
-            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.auto.x, data.auto.y + (i * buttonHeight), buttonWidth, buttonHeight)
+            rect(22, 25, 26, 175, data.auto.x, data.auto.y + (i * buttonHeight), buttonWidth, buttonHeight)
             if (data.autoOptions[i - 1]) {
-                font2.drawStringWithShadow(data.autoTitles[i - 1], data.auto.x + (70 - Renderer.getStringWidth(data.autoTitles[i - 1])) / 2 + 15, data.auto.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
+                centeredString(font2, data.autoTitles[i - 1], data.auto.x, data.auto.y + 5 + (i * buttonHeight), 0, 1, 0, 1)
             } else {
-                font2.drawStringWithShadow(data.autoTitles[i - 1], data.auto.x + (70 - Renderer.getStringWidth(data.autoTitles[i - 1])) / 2 + 15, data.auto.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
+                centeredString(font2, data.autoTitles[i - 1], data.auto.x , data.auto.y + 5 + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
             }
         }
     }
 
     if (data.legit.dropDown) { // legit
         for (let i = 1; i <= data.legitOptions.length; i++) {
-            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.legit.x, data.legit.y + (i * buttonHeight), buttonWidth, buttonHeight)
+            rect(22, 25, 26, 175, data.legit.x, data.legit.y + (i * buttonHeight), buttonWidth, buttonHeight)
             if (data.legitOptions[i - 1]) {
-                font2.drawStringWithShadow(data.legitTitles[i - 1], data.legit.x + (70 - Renderer.getStringWidth(data.legitTitles[i - 1])) / 2 + 15, data.legit.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
+                centeredString(font2, data.legitTitles[i - 1], data.legit.x, data.legit.y + 5 + (i * buttonHeight),0, 1, 0, 1)
             } else {
-                font2.drawStringWithShadow(data.legitTitles[i - 1], data.legit.x + (70 - Renderer.getStringWidth(data.legitTitles[i - 1])) / 2 + 15, data.legit.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
+                centeredString(font2, data.legitTitles[i - 1], data.legit.x, data.legit.y + 5 + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
             }
         }
     }
 
     if (data.nether.dropDown) { // nether
         for (let i = 1; i <= data.netherOptions.length; i++) {
-            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.nether.x, data.nether.y + (i * buttonHeight), buttonWidth, buttonHeight)
+            rect(22, 25, 26, 175, data.nether.x, data.nether.y + (i * buttonHeight), buttonWidth, buttonHeight)
             if (data.netherOptions[i - 1]) {
-                font2.drawStringWithShadow(data.netherTitles[i - 1], data.nether.x + (70 - Renderer.getStringWidth(data.netherTitles[i - 1])) / 2 + 15, data.nether.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
+                centeredString(font2, data.netherTitles[i - 1], data.nether.x, data.nether.y + 5 + (i * buttonHeight), 0, 1, 0, 1)
             } else {
-                font2.drawStringWithShadow(data.netherTitles[i - 1], data.nether.x + (70 - Renderer.getStringWidth(data.netherTitles[i - 1])) / 2 + 15, data.nether.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
+                centeredString(font2, data.netherTitles[i - 1], data.nether.x, data.nether.y + 5  + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
             }
         }
     }
 
     if (data.qol.dropDown) { // qol
         for (let i = 1; i <= data.qolOptions.length; i++) {
-            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.qol.x, data.qol.y + (i * buttonHeight), buttonWidth, buttonHeight)
+            rect(22, 25, 26, 175, data.qol.x, data.qol.y + (i * buttonHeight), buttonWidth, buttonHeight)
             if (data.qolOptions[i - 1]) {
-                font2.drawStringWithShadow(data.qolTitles[i - 1], data.qol.x + (70 - Renderer.getStringWidth(data.qolTitles[i - 1])) / 2 + 15, data.qol.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
+                centeredString(font2, data.qolTitles[i - 1], data.qol.x, data.qol.y + 5 + (i * buttonHeight), 0, 1, 0, 1)
             } else {
-                font2.drawStringWithShadow(data.qolTitles[i - 1], data.qol.x + (70 - Renderer.getStringWidth(data.qolTitles[i - 1])) / 2 + 15, data.qol.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
+                centeredString(data.qolTitles[i - 1], data.qol.x, data.qol.y + 5 + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
             }
         }
     }
 
     if (data.boss.dropDown) { // boss
         for (let i = 1; i <= data.bossOptions.length; i++) {
-            Renderer.drawRect(Renderer.color(22, 25, 26, 175), data.boss.x, data.boss.y + (i * buttonHeight), buttonWidth, buttonHeight)
+            rect(22, 25, 26, 175, data.boss.x, data.boss.y + (i * buttonHeight), buttonWidth, buttonHeight)
             if (data.bossOptions[i - 1]) {
-                font2.drawStringWithShadow(data.bossTitles[i - 1], data.boss.x + (70 - Renderer.getStringWidth(data.bossTitles[i - 1])) / 2 + 15, data.boss.y + 5 + (i * buttonHeight), new java.awt.Color(0, 1, 0, 1))
+                centeredString(data.bossTitles[i - 1], data.boss.x, data.boss.y + 5 + (i * buttonHeight), 0, 1, 0, 1)
             } else {
-                font2.drawStringWithShadow(data.bossTitles[i - 1], data.boss.x + (70 - Renderer.getStringWidth(data.bossTitles[i - 1])) / 2 + 15, data.boss.y + 5 + (i * buttonHeight), new java.awt.Color(155 / 255, 155 / 255, 155 / 255, 220 / 255))
+                centeredString(data.bossTitles[i - 1], data.boss.x, data.boss.y + 5 + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
             }
         }
     }
@@ -200,31 +201,31 @@ register('renderOverlay', () => {
     if (mx > data.auto.x && mx < data.auto.x + buttonWidth) {
         toshow = Math.floor((my - data.auto.y - buttonHeight) / 20)
         if (toshow >= 0 && toshow <= 5) {
-            Renderer.drawRect(Renderer.BLACK, data.auto.x + buttonWidth, my - 10, Renderer.getStringWidth(autoDescriptions[toshow]) + 4, buttonHeight - 5)
+            rect(Renderer.BLACK, data.auto.x + buttonWidth, my - 10, Renderer.getStringWidth(autoDescriptions[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(autoDescriptions[toshow], data.auto.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.legit.x && mx < data.legit.x + buttonWidth) {
         toshow = Math.floor((my - data.legit.y - buttonHeight) / 20)
         if (toshow >= 0 && toshow <= 4) {
-            Renderer.drawRect(Renderer.BLACK, data.legit.x + buttonWidth, my - 10, Renderer.getStringWidth(legitDescription[toshow]) + 4, buttonHeight - 5)
+            rect(Renderer.BLACK, data.legit.x + buttonWidth, my - 10, Renderer.getStringWidth(legitDescription[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(legitDescription[toshow], data.legit.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.nether.x && mx < data.nether.x + buttonWidth) {
         toshow = Math.floor((my - data.nether.y - buttonHeight) / 20)
         if (toshow >= 0 && toshow <= 8) {
-            Renderer.drawRect(Renderer.BLACK, data.nether.x + buttonWidth, my - 10, Renderer.getStringWidth(netherDescriptions[toshow]) + 4, buttonHeight - 5)
+            rect(Renderer.BLACK, data.nether.x + buttonWidth, my - 10, Renderer.getStringWidth(netherDescriptions[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(netherDescriptions[toshow], data.nether.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.qol.x && mx < data.qol.x + buttonWidth) {
         toshow = Math.floor((my - data.qol.y - buttonHeight) / 20)
         if (toshow >= 0 && toshow <= 4) {
-            Renderer.drawRect(Renderer.BLACK, data.qol.x + buttonWidth, my - 10, Renderer.getStringWidth(qolDescription[toshow]) + 4, buttonHeight - 5)
+            rect(Renderer.BLACK, data.qol.x + buttonWidth, my - 10, Renderer.getStringWidth(qolDescription[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(qolDescription[toshow], data.qol.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.boss.x && mx < data.boss.x + buttonWidth) {
         toshow = Math.floor((my - data.boss.y - buttonHeight) / 20)
         if (toshow >= 0 && toshow <= 2) {
-            Renderer.drawRect(Renderer.BLACK, data.boss.x + buttonWidth, my - 10, Renderer.getStringWidth(bossDescription[toshow]) + 4, buttonHeight - 5)
+            rect(Renderer.BLACK, data.boss.x + buttonWidth, my - 10, Renderer.getStringWidth(bossDescription[toshow]) + 4, buttonHeight - 5)
             Renderer.drawStringWithShadow(bossDescription[toshow], data.boss.x + buttonWidth + 2, my - 7)
         }
     }
