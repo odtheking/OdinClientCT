@@ -41,7 +41,7 @@ register("command", (...args) => {
             }
             break
     }
-}).setName("esp")
+}).setName("esp").setTabCompletions("add, remove")
 
 
 register("command", () => {
