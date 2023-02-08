@@ -3,7 +3,7 @@ import { data } from "../stuff/guidk"
 import { modMessage} from "../utils";
 
 //bonsai being lazy
-
+/*
 register("worldLoad", () => {
     setTimeout(() => {
         if (Skyblock.inSkyblock) {
@@ -24,4 +24,4 @@ register('tick', () => {
             container.click(itemIndex, false, "MIDDLE")
         }
     }
-})
+})*/
