@@ -1,9 +1,12 @@
 import PogObject from "../../PogData"
 import Font from "../../fontlib"
-import { File, ResourceLocation } from "../java-stuff"
+import { File } from "../java-stuff"
 const font = new Font('OdinClient/stuff/OpenSans-Regular.ttf', 75)
 const font2 = new Font('OdinClient/stuff/Minecraft.ttf', 21)
-const image = new Image(new File("./config/ChatTriggers/modules/OdinClient/stuff/OdinClientNoBackround.png"))
+const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
+
+const Logo = new File("./config/ChatTriggers/modules/OdinClient/stuff/OdinClientNoBackround.png")
+const image = new Image(Logo)
 
 register('command', () => {
     mainGui.open()
@@ -137,25 +140,6 @@ const drawDesc = (mx, my, tab, index) => {
     }
 }
 
-const checkDrag = (dx, dy, mx, my, tab) => {
-    if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
-    if (my < (tab.y - 5) || my > (tab.y + buttonHeight) + 5) return
-    tab.x += dx
-    tab.y += dy
-}
-
-const checkTab = (mx, my, b, tab) => {
-    if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
-    toChange = Math.floor((my - (tab.y + buttonHeight)) / buttonHeight)
-    if (b == 0 && toChange >= 0 && toChange <= data.auto.options.length - 1) {
-        tab.options[toChange] = !tab.options[toChange]
-        makePressSound()
-    } else if (b == 1 && toChange == -1) {
-        tab.dropDown = !tab.dropDown
-        makePressSound()
-    }
-}
-
 register('renderOverlay', () => {
     if (!mainGui.isOpen()) {
         if (shouldRemove) {
@@ -166,17 +150,39 @@ register('renderOverlay', () => {
     }
     shouldRemove = true
     image?.draw(670, 400, 280, 140)
+
+    mx = Client.getMouseX()
+    my = Client.getMouseY()
+
     tabs.forEach((tab, index) => {
         rect(255, 215, 0, 225, tab.x, tab.y, buttonWidth, buttonHeight)
         centeredString(font2, tabTitles[index], tab.x, tab.y, 1, 0, 0, 1)
         drawTab(tab)
     })
-    tabs.forEach((tab, index) => drawDesc(Client.getMouseX(), Client.getMouseY(), tab, index))
+    tabs.forEach((tab, index) => drawDesc(mx, my, tab, index))
+
     Client.getMinecraft().field_71460_t.func_181022_b()
     Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
 })
 
+const checkDrag = (dx, dy, mx, my, tab) => {
+    if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
+    if (my < (tab.y - 5) || my > (tab.y + buttonHeight) + 5) return
+    tab.x += dx
+    tab.y += dy
+}
 
+const checkTab = (mx, my, b, tab) => {
+    if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
+    toChange = Math.floor((my - (tab.y + buttonHeight)) / buttonHeight)
+    if (b == 0 && toChange >= 0 && toChange <= tab.options.length - 1) {
+        tab.options[toChange] = !tab.options[toChange]
+        makePressSound()
+    } else if (b == 1 && toChange == -1) {
+        tab.dropDown = !tab.dropDown
+        makePressSound()
+    }
+}
 
 register('dragged', (dx, dy, x, y, b) => {
     if (!mainGui.isOpen() || b != 0) return

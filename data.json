@@ -25,8 +25,8 @@
         ]
     },
     "legit": {
-        "x": 234.5,
-        "y": 99.5,
+        "x": 222.5,
+        "y": 71,
         "dropDown": true,
         "options": [
             false,
