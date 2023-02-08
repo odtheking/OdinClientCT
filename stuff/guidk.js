@@ -106,12 +106,24 @@ let mainGui = new Gui()
 let buttonHeight = 20
 let buttonWidth = 100
 let shouldRemove = true
+const tabs = [data.auto, data.legit, data.nether, data.qol, data.boss]
+const tabTitles = ['Auto', 'Legit', 'Nether', 'QOL', 'Auto']
 
 const rect = (r,g,b,a,x,y,width,height) => Renderer.drawRect(Renderer.color(r, g, b, a), x, y, width, height)
-
 const centeredString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x+(70 - font2.getWidth(text)) / 2 + 15,y + 5,new java.awt.Color(r,g,b,a))
-
 const normalString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x,y + 5,new java.awt.Color(r,g,b,a))
+
+const drawTab = (tab) => {
+    if (!tab.dropDown) return
+    for (let i = 1; i <= tab.options.length; i++) {
+        rect(22, 25, 26, 175, tab.x, tab.y + (i * buttonHeight), buttonWidth, buttonHeight)
+        if (tab.options[i - 1]) {
+            centeredString(font2, tab.titles[i - 1], tab.x, tab.y + (i * buttonHeight), 0, 1, 0, 1)
+        } else {
+            centeredString(font2, tab.titles[i - 1], tab.x , tab.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
+        }
+    }
+}
 
 register('renderOverlay', () => {
     if (!mainGui.isOpen()) {
@@ -124,74 +136,11 @@ register('renderOverlay', () => {
     shouldRemove = true
     image?.draw(670, 400, 280, 140)
 
-    //font.drawStringWithShadow("§6Odin§4Client", 720, 490, new java.awt.Color(0, 1, 1, 1))
-    
-    rect(255, 215, 0, 225, data.auto.x, data.auto.y, buttonWidth, buttonHeight)
-    rect(255, 215, 0, 225, data.legit.x, data.legit.y, buttonWidth, buttonHeight)
-    rect(255, 215, 0, 225, data.nether.x, data.nether.y, buttonWidth, buttonHeight)
-    rect(255, 215, 0, 225, data.qol.x, data.qol.y, buttonWidth, buttonHeight)
-    rect(194, 178, 8, 225, data.boss.x, data.boss.y, buttonWidth, buttonHeight)
-    centeredString(font2, 'Auto', data.auto.x, data.auto.y, 1, 0, 0, 1)
-    centeredString(font2, 'Legit', data.legit.x, data.legit.y, 1, 0, 0, 1)
-    centeredString(font2, 'Nether', data.nether.x, data.nether.y, 1, 0, 0, 1)
-    centeredString(font2, 'QOL', data.qol.x, data.qol.y, 1, 0, 0, 1)
-    centeredString(font2, 'Auto', data.boss.x, data.boss.y, 1, 0, 0, 1)
-
-
-    if (data.auto.dropDown) { // auto
-        for (let i = 1; i <= data.auto.options.length; i++) {
-            rect(22, 25, 26, 175, data.auto.x, data.auto.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.auto.options[i - 1]) {
-                centeredString(font2, data.auto.titles[i - 1], data.auto.x, data.auto.y + (i * buttonHeight), 0, 1, 0, 1)
-            } else {
-                centeredString(font2, data.auto.titles[i - 1], data.auto.x , data.auto.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
-            }
-        }
-    }
-
-    if (data.legit.dropDown) { // legit
-        for (let i = 1; i <= data.legit.options.length; i++) {
-            rect(22, 25, 26, 175, data.legit.x, data.legit.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.legit.options[i - 1]) {
-                centeredString(font2, data.legit.titles[i - 1], data.legit.x, data.legit.y + (i * buttonHeight),0, 1, 0, 1)
-            } else {
-                centeredString(font2, data.legit.titles[i - 1], data.legit.x, data.legit.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
-            }
-        }
-    }
-
-    if (data.nether.dropDown) { // nether
-        for (let i = 1; i <= data.nether.options.length; i++) {
-            rect(22, 25, 26, 175, data.nether.x, data.nether.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.nether.options[i - 1]) {
-                centeredString(font2, data.nether.titles[i - 1], data.nether.x, data.nether.y + (i * buttonHeight), 0, 1, 0, 1)
-            } else {
-                centeredString(font2, data.nether.titles[i - 1], data.nether.x, data.nether.y  + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
-            }
-        }
-    }
-
-    if (data.qol.dropDown) { // qol
-        for (let i = 1; i <= data.qol.options.length; i++) {
-            rect(22, 25, 26, 175, data.qol.x, data.qol.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.qol.options[i - 1]) {
-                centeredString(font2, data.qol.titles[i - 1], data.qol.x, data.qol.y + (i * buttonHeight), 0, 1, 0, 1)
-            } else {
-                centeredString(font2, data.qol.titles[i - 1], data.qol.x, data.qol.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
-            }
-        }
-    }
-
-    if (data.boss.dropDown) { // boss
-        for (let i = 1; i <= data.boss.options.length; i++) {
-            rect(22, 25, 26, 175, data.boss.x, data.boss.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.boss.options[i - 1]) {
-                centeredString(font2, data.boss.titles[i - 1], data.boss.x, data.boss.y + (i * buttonHeight), 0, 1, 0, 1)
-            } else {
-                centeredString(font2, data.boss.titles[i - 1], data.boss.x, data.boss.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
-            }
-        }
-    }
+    tabs.forEach((tab, index) => {
+        rect(255, 215, 0, 225, tab.x, tab.y, buttonWidth, buttonHeight)
+        centeredString(font2, tabTitles[index], tab.x, tab.y, 1, 0, 0, 1)
+        drawTab(tab)
+    })
 
     //descriptions
     mx = Client.getMouseX()
@@ -244,11 +193,7 @@ const checkDrag = (dx, dy, mx, my, tab) => {
 
 register('dragged', (dx, dy, x, y, b) => {
     if (!mainGui.isOpen() || b != 0) return
-    checkDrag(dx, dy, mx, my, data.auto)
-    checkDrag(dx, dy, mx, my, data.legit)
-    checkDrag(dx, dy, mx, my, data.nether)
-    checkDrag(dx, dy, mx, my, data.qol)
-    checkDrag(dx, dy, mx, my, data.boss)
+    tabs.forEach(tab => checkDrag(dx, dy, mx, my, tab))
     data.save()
 })
 
@@ -270,10 +215,6 @@ const checkTab = (mx, my, b, tab) => {
 let toChange
 register('clicked', (x, y, b, isDown) => {
     if (!isDown || !mainGui.isOpen()) return
-    checkTab(x, y, b, data.auto)
-    checkTab(x, y, b, data.legit)
-    checkTab(x, y, b, data.nether)
-    checkTab(x, y, b, data.qol)
-    checkTab(x, y, b, data.boss)
+    tabs.forEach(tab => checkTab(x, y, b, tab))
     data.save()
 })
