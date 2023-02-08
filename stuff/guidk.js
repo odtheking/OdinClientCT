@@ -140,56 +140,56 @@ register('renderOverlay', () => {
 
 
     if (data.auto.dropDown) { // auto
-        for (let i = 1; i <= data.autoOptions.length; i++) {
+        for (let i = 1; i <= data.auto.options.length; i++) {
             rect(22, 25, 26, 175, data.auto.x, data.auto.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.autoOptions[i - 1]) {
-                centeredString(font2, data.autoTitles[i - 1], data.auto.x, data.auto.y + (i * buttonHeight), 0, 1, 0, 1)
+            if (data.auto.options[i - 1]) {
+                centeredString(font2, data.auto.titles[i - 1], data.auto.x, data.auto.y + (i * buttonHeight), 0, 1, 0, 1)
             } else {
-                centeredString(font2, data.autoTitles[i - 1], data.auto.x , data.auto.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
+                centeredString(font2, data.auto.titles[i - 1], data.auto.x , data.auto.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
             }
         }
     }
 
     if (data.legit.dropDown) { // legit
-        for (let i = 1; i <= data.legitOptions.length; i++) {
+        for (let i = 1; i <= data.legit.options.length; i++) {
             rect(22, 25, 26, 175, data.legit.x, data.legit.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.legitOptions[i - 1]) {
-                centeredString(font2, data.legitTitles[i - 1], data.legit.x, data.legit.y + (i * buttonHeight),0, 1, 0, 1)
+            if (data.legit.options[i - 1]) {
+                centeredString(font2, data.legit.titles[i - 1], data.legit.x, data.legit.y + (i * buttonHeight),0, 1, 0, 1)
             } else {
-                centeredString(font2, data.legitTitles[i - 1], data.legit.x, data.legit.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
+                centeredString(font2, data.legit.titles[i - 1], data.legit.x, data.legit.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
             }
         }
     }
 
     if (data.nether.dropDown) { // nether
-        for (let i = 1; i <= data.netherOptions.length; i++) {
+        for (let i = 1; i <= data.nether.options.length; i++) {
             rect(22, 25, 26, 175, data.nether.x, data.nether.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.netherOptions[i - 1]) {
-                centeredString(font2, data.netherTitles[i - 1], data.nether.x, data.nether.y + (i * buttonHeight), 0, 1, 0, 1)
+            if (data.nether.options[i - 1]) {
+                centeredString(font2, data.nether.titles[i - 1], data.nether.x, data.nether.y + (i * buttonHeight), 0, 1, 0, 1)
             } else {
-                centeredString(font2, data.netherTitles[i - 1], data.nether.x, data.nether.y  + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
+                centeredString(font2, data.nether.titles[i - 1], data.nether.x, data.nether.y  + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
             }
         }
     }
 
     if (data.qol.dropDown) { // qol
-        for (let i = 1; i <= data.qolOptions.length; i++) {
+        for (let i = 1; i <= data.qol.options.length; i++) {
             rect(22, 25, 26, 175, data.qol.x, data.qol.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.qolOptions[i - 1]) {
-                centeredString(font2, data.qolTitles[i - 1], data.qol.x, data.qol.y + (i * buttonHeight), 0, 1, 0, 1)
+            if (data.qol.options[i - 1]) {
+                centeredString(font2, data.qol.titles[i - 1], data.qol.x, data.qol.y + (i * buttonHeight), 0, 1, 0, 1)
             } else {
-                centeredString(font2, data.qolTitles[i - 1], data.qol.x, data.qol.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
+                centeredString(font2, data.qol.titles[i - 1], data.qol.x, data.qol.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
             }
         }
     }
 
     if (data.boss.dropDown) { // boss
-        for (let i = 1; i <= data.bossOptions.length; i++) {
+        for (let i = 1; i <= data.boss.options.length; i++) {
             rect(22, 25, 26, 175, data.boss.x, data.boss.y + (i * buttonHeight), buttonWidth, buttonHeight)
-            if (data.bossOptions[i - 1]) {
-                centeredString(font2, data.bossTitles[i - 1], data.boss.x, data.boss.y + (i * buttonHeight), 0, 1, 0, 1)
+            if (data.boss.options[i - 1]) {
+                centeredString(font2, data.boss.titles[i - 1], data.boss.x, data.boss.y + (i * buttonHeight), 0, 1, 0, 1)
             } else {
-                centeredString(font2, data.bossTitles[i - 1], data.boss.x, data.boss.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
+                centeredString(font2, data.boss.titles[i - 1], data.boss.x, data.boss.y + (i * buttonHeight), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
             }
         }
     }
@@ -201,32 +201,32 @@ register('renderOverlay', () => {
     if (mx > data.auto.x && mx < data.auto.x + buttonWidth) {
         toshow = Math.floor((my - data.auto.y - buttonHeight) / buttonHeight)
         if (toshow >= 0 && toshow <= autoDescriptions.length - 1) {
-            rect(45, 45, 45, 255, data.auto.x + buttonWidth, my+2, font2.getWidth(autoDescriptions[toshow]) + 2, buttonHeight - 3)
-            normalString(font2, autoDescriptions[toshow], data.auto.x+buttonWidth+1, my, 0.8, 0.8, 0.8, 1)
+            rect(45, 45, 45, 255, data.auto.x + buttonWidth, my, font2.getWidth(autoDescriptions[toshow]) + 2, buttonHeight - 3)
+            normalString(font2, autoDescriptions[toshow], data.auto.x+buttonWidth+1, my-1, 0.8, 0.8, 0.8, 1)
         }
     } else if (mx > data.legit.x && mx < data.legit.x + buttonWidth) {
         toshow = Math.floor((my - data.legit.y - buttonHeight) / buttonHeight)
         if (toshow >= 0 && toshow <= legitDescription.length - 1) {
-            rect(45, 45, 45, 255, data.legit.x + buttonWidth, my+2, font2.getWidth(legitDescription[toshow]) + 2, buttonHeight - 3)
-            normalString(font2, legitDescription[toshow], data.legit.x+buttonWidth+1, my, 0.8, 0.8, 0.8, 1)
+            rect(45, 45, 45, 255, data.legit.x + buttonWidth, my, font2.getWidth(legitDescription[toshow]) + 2, buttonHeight - 3)
+            normalString(font2, legitDescription[toshow], data.legit.x+buttonWidth+1, my-1, 0.8, 0.8, 0.8, 1)
         }
     } else if (mx > data.nether.x && mx < data.nether.x + buttonWidth) {
         toshow = Math.floor((my - data.nether.y - buttonHeight) / buttonHeight)
         if (toshow >= 0 && toshow <= netherDescriptions.length - 1) {
-            rect(45, 45, 45, 255, data.nether.x + buttonWidth, my+2, font2.getWidth(netherDescriptions[toshow]) + 2, buttonHeight - 3)
-            normalString(font2, netherDescriptions[toshow], data.nether.x+buttonWidth+1, my, 0.8, 0.8, 0.8, 1)
+            rect(45, 45, 45, 255, data.nether.x + buttonWidth, my, font2.getWidth(netherDescriptions[toshow]) + 2, buttonHeight - 3)
+            normalString(font2, netherDescriptions[toshow], data.nether.x+buttonWidth+1, my-1, 0.8, 0.8, 0.8, 1)
         }
     } else if (mx > data.qol.x && mx < data.qol.x + buttonWidth) {
         toshow = Math.floor((my - data.qol.y - buttonHeight) / buttonHeight)
         if (toshow >= 0 && toshow <= qolDescription.length - 1) {
-            rect(45, 45, 45, 255, data.qol.x + buttonWidth, my+2, font2.getWidth(qolDescription[toshow]) + 2, buttonHeight - 3)
-            normalString(font2, qolDescription[toshow], data.qol.x+buttonWidth+1, my, 0.8, 0.8, 0.8, 1)
+            rect(45, 45, 45, 255, data.qol.x + buttonWidth, my, font2.getWidth(qolDescription[toshow]) + 2, buttonHeight - 3)
+            normalString(font2, qolDescription[toshow], data.qol.x+buttonWidth+1, my-1, 0.8, 0.8, 0.8, 1)
         }
     } else if (mx > data.boss.x && mx < data.boss.x + buttonWidth) {
         toshow = Math.floor((my - data.boss.y - buttonHeight) / buttonHeight)
         if (toshow >= 0 && toshow <= bossDescription.length - 1) {
-            rect(45, 45, 45, 255, data.boss.x + buttonWidth, my+2, font2.getWidth(bossDescription[toshow]) + 2, buttonHeight - 3)
-            normalString(font2, bossDescription[toshow], data.boss.x+buttonWidth+1, my, 0.8, 0.8, 0.8, 1)
+            rect(45, 45, 45, 255, data.boss.x + buttonWidth, my, font2.getWidth(bossDescription[toshow]) + 2, buttonHeight - 3)
+            normalString(font2, bossDescription[toshow], data.boss.x+buttonWidth+1, my-1, 0.8, 0.8, 0.8, 1)
         }
     }
 
@@ -286,7 +286,7 @@ const makePressSound = () => World.playSound('gui.button.press', 1, 1)
 const checkTab = (mx, my, b, tab) => {
     if (mx > (tab.x - 10) && mx < (tab.x + buttonWidth) + 10) {
         toChange = Math.floor((my - (tab.y + buttonHeight)) / buttonHeight)
-        if (b == 0 && toChange >= 0 && toChange <= data.autoOptions.length - 1) {
+        if (b == 0 && toChange >= 0 && toChange <= data.auto.options.length - 1) {
             tab.options[toChange] = !tab.options[toChange]
             makePressSound()
         } else if (b == 1 && toChange == -1) {
@@ -298,72 +298,11 @@ const checkTab = (mx, my, b, tab) => {
 
 let toChange
 register('clicked', (x, y, b, isDown) => {
-    if (isDown && mainGui.isOpen()) {
-
-
-
-        // Check if user clicked auto tab
-
-        checkTab(x, y, b, data.auto)
-
-        // if (x > (data.auto.x - 10) && x < (data.auto.x + buttonWidth) + 10) {
-        //     toChange = Math.floor((y - (data.auto.y + buttonHeight)) / buttonHeight)
-        //     if (b == 0 && toChange >= 0 && toChange <= data.autoOptions.length - 1) {
-        //         data.autoOptions[toChange] = !data.autoOptions[toChange]
-        //         makePressSound()
-        //     } else if (b == 1 && toChange == -1) {
-        //         data.auto.dropDown = !data.auto.dropDown
-        //         makePressSound()
-        //     }
-        // }
-
-        // Check legit tab
-        if (x > (data.legit.x - 10) && x < (data.legit.x + buttonWidth) + 10) {
-            toChange = Math.floor((y - (data.legit.y + buttonHeight)) / buttonHeight)
-            if (b == 0 && toChange >= 0 && toChange <= data.legitOptions.length - 1) {
-                data.legitOptions[toChange] = !data.legitOptions[toChange]
-                makePressSound()
-            } else if (b == 1 && toChange == -1) {
-                data.legit.dropDown = !data.legit.dropDown
-                makePressSound()
-            }
-        }
-
-        // Check nether tab
-        if (x > (data.nether.x - 10) && x < (data.nether.x + buttonWidth) + 10) {
-            toChange = Math.floor((y - (data.nether.y + buttonHeight)) / buttonHeight)
-            if (b == 0 && toChange >= 0 && toChange <= data.netherOptions.length - 1) {
-                data.netherOptions[toChange] = !data.netherOptions[toChange]
-                makePressSound()
-            } else if (b == 1 && toChange == -1) {
-                data.nether.dropDown = !data.nether.dropDown
-                makePressSound()
-            }
-        }
-
-        // Check qol tab
-        if (x > (data.qol.x - 10) && x < (data.qol.x + buttonWidth) + 10) {
-            toChange = Math.floor((y - (data.qol.y + buttonHeight)) / buttonHeight)
-            if (b == 0 && toChange >= 0 && toChange <= data.qolOptions.length - 1) {
-                data.qolOptions[toChange] = !data.qolOptions[toChange]
-                makePressSound()
-            } else if (b == 1 && toChange == -1) {
-                data.qol.dropDown = !data.qol.dropDown
-                makePressSound()
-            }
-        }
-
-        // Check boss tab
-        if (x > (data.boss.x - 10) && x < (data.boss.x + buttonWidth) + 10) {
-            toChange = Math.floor((y - (data.boss.y + buttonHeight)) / buttonHeight)
-            if (b == 0 && toChange >= 0 && toChange <= data.bossOptions.length - 1) {
-                data.bossOptions[toChange] = !data.bossOptions[toChange]
-                makePressSound()
-            } else if (b == 1 && toChange == -1) {
-                data.boss.dropDown = !data.boss.dropDown
-                makePressSound()
-            }
-        }
-        data.save()
-    }
+    if (!isDown || !mainGui.isOpen()) return
+    checkTab(x, y, b, data.auto)
+    checkTab(x, y, b, data.legit)
+    checkTab(x, y, b, data.nether)
+    checkTab(x, y, b, data.qol)
+    checkTab(x, y, b, data.boss)
+    data.save()
 })
