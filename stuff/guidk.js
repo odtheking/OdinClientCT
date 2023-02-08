@@ -233,50 +233,22 @@ register('renderOverlay', () => {
     Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
 })
 
-register('dragged', (mx, my, x, y, b) => {
-    if (!mainGui.isOpen()) return
-    if (b != 0) return
-    
-    // auto tab
-    if (x > (data.auto.x - 10) && x < (data.auto.x + buttonWidth) + 10) {
-        if (y > (data.auto.y - 5) && y < (data.auto.y + buttonHeight) + 5) {
-            data.auto.x += mx
-            data.auto.y += my
+const checkDrag = (dx, dy, mx, my, tab) => {
+    if (mx > (tab.x - 10) && mx < (tab.x + buttonWidth) + 10) {
+        if (my > (tab.y - 5) && my < (tab.y + buttonHeight) + 5) {
+            tab.x += dx
+            tab.y += dy
         }
     }
+}
 
-    // Legit tab
-    if (x > (data.legit.x - 10) && x < (data.legit.x + buttonWidth) + 10) {
-        if (y > (data.legit.y - 5) && y < (data.legit.y + buttonHeight) + 5) {
-            data.legit.x += mx
-            data.legit.y += my
-        }
-    }
-
-    // nether tab
-    if (x > (data.nether.x - 10) && x < (data.nether.x + buttonWidth) + 10) {
-        if (y > (data.nether.y - 5) && y < (data.nether.y + buttonHeight) + 5) {
-            data.nether.x += mx
-            data.nether.y += my
-        }
-    }
-
-    // qol tab
-    if (x > (data.qol.x - 10) && x < (data.qol.x + buttonWidth) + 10) {
-        if (y > (data.qol.y - 5) && y < (data.qol.y + buttonHeight) + 5) {
-            data.qol.x += mx
-            data.qol.y += my
-        }
-    }
-
-    // boss tab
-    if (x > (data.boss.x - 10) && x < (data.boss.x + buttonWidth) + 10) {
-        if (y > (data.boss.y - 5) && y < (data.boss.y + buttonHeight) + 5) {
-            data.boss.x += mx
-            data.boss.y += my
-        }
-    }
-
+register('dragged', (dx, dy, x, y, b) => {
+    if (!mainGui.isOpen() || b != 0) return
+    checkDrag(dx, dy, mx, my, data.auto)
+    checkDrag(dx, dy, mx, my, data.legit)
+    checkDrag(dx, dy, mx, my, data.nether)
+    checkDrag(dx, dy, mx, my, data.qol)
+    checkDrag(dx, dy, mx, my, data.boss)
     data.save()
 })
 
