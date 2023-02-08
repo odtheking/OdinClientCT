@@ -20,42 +20,41 @@ export const data = new PogObject("OdinClient", {
         'x': 20,
         'y': 20,
         'dropDown': true,
+        "options": [false, false, false, false, false, false, false, false],
+        'titles': ['Auto Ready', 'Auto Mort', 'Auto Ult', 'Auto Shield', 'Auto Wish', 'Auto Mask', 'Auto Edrag', 'Auto Leap'],
     },
-    "autoOptions": [false, false, false, false, false, false, false, false],
-    'autoTitles': ['Auto Ready', 'Auto Mort', 'Auto Ult', 'Auto Shield', 'Auto Wish', 'Auto Mask', 'Auto Edrag', 'Auto Leap'],
 
     'legit': {
         'x': 220,
         'y': 20,
         'dropDown': true,
+        'options': [false, false, false, false, false, false],
+        'titles': ['Party cmds', 'Guild cmds', 'Guild GM', 'Dragons Boxes', 'Dragon Timer', 'Power Display'],
     },
-    'legitOptions': [false, false, false, false, false, false],
-    'legitTitles': ['Party cmds', 'Guild cmds', 'Guild GM', 'Dragons Boxes', 'Dragon Timer', 'Power Display'],
 
     'nether': {
         'x': 420,
         'y': 20,
         'dropDown': true,
+        'options': [false, false, false, false],
+        'titles': ['Broken Hype', 'Flare Timer', 'Vanq Notifier', 'Kuudra Alerts'],
     },
-    'netherOptions': [false, false, false, false],
-    'netherTitles': ['Broken Hype', 'Flare Timer', 'Vanq Notifier', 'Kuudra Alerts'],
-
+    
     'qol': {
         'x': 620,
         'y': 20,
         'dropDown': true,
+        'options': [false, false, false, false, false, false],
+        'titles': ['Relic Aura', 'Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE'],
     },
-    'qolOptions': [false, false, false, false, false, false],
-    'qolTitles': ['Relic Aura', 'Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE'],
 
     'boss': {
         'x': 820,
         'y': 20,
         'dropDown': true,
+        'options': [false, false, false, false, false],
+        'titles': ['Coming Soon!', 'Coming Soon!', 'Coming Soon!', 'Coming Soon!', 'Coming Soon!',],
     },
-    'bossOptions': [false, false, false, false, false],
-    'bossTitles': ['Coming Soon!', 'Coming Soon!', 'Coming Soon!', 'Coming Soon!', 'Coming Soon!',],
-
 }, "data.json")
 
 
@@ -284,21 +283,39 @@ register('dragged', (mx, my, x, y, b) => {
 
 const makePressSound = () => World.playSound('gui.button.press', 1, 1)
 
+const checkTab = (mx, my, b, tab) => {
+    if (mx > (tab.x - 10) && mx < (tab.x + buttonWidth) + 10) {
+        toChange = Math.floor((my - (tab.y + buttonHeight)) / buttonHeight)
+        if (b == 0 && toChange >= 0 && toChange <= data.autoOptions.length - 1) {
+            tab.options[toChange] = !tab.options[toChange]
+            makePressSound()
+        } else if (b == 1 && toChange == -1) {
+            tab.dropDown = !tab.dropDown
+            makePressSound()
+        }
+    }
+}
+
 let toChange
 register('clicked', (x, y, b, isDown) => {
     if (isDown && mainGui.isOpen()) {
 
+
+
         // Check if user clicked auto tab
-        if (x > (data.auto.x - 10) && x < (data.auto.x + buttonWidth) + 10) {
-            toChange = Math.floor((y - (data.auto.y + buttonHeight)) / buttonHeight)
-            if (b == 0 && toChange >= 0 && toChange <= data.autoOptions.length - 1) {
-                data.autoOptions[toChange] = !data.autoOptions[toChange]
-                makePressSound()
-            } else if (b == 1 && toChange == -1) {
-                data.auto.dropDown = !data.auto.dropDown
-                makePressSound()
-            }
-        }
+
+        checkTab(x, y, b, data.auto)
+
+        // if (x > (data.auto.x - 10) && x < (data.auto.x + buttonWidth) + 10) {
+        //     toChange = Math.floor((y - (data.auto.y + buttonHeight)) / buttonHeight)
+        //     if (b == 0 && toChange >= 0 && toChange <= data.autoOptions.length - 1) {
+        //         data.autoOptions[toChange] = !data.autoOptions[toChange]
+        //         makePressSound()
+        //     } else if (b == 1 && toChange == -1) {
+        //         data.auto.dropDown = !data.auto.dropDown
+        //         makePressSound()
+        //     }
+        // }
 
         // Check legit tab
         if (x > (data.legit.x - 10) && x < (data.legit.x + buttonWidth) + 10) {
