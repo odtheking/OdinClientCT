@@ -36,7 +36,7 @@ register('chat', (secondwind, item) => {
 
 register('tick', (ticks) => {
     if (ticks % 10 == 0) {
-        if (!data.autoOptions[5]) return
+        if (!data.auto.options[5]) return
         if (!shouldSwapItem) return
         if (!Client.currentGui.get()) {
             ChatLib.command('equipment')

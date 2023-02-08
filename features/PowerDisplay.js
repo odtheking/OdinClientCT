@@ -33,7 +33,7 @@ var pDisplay = new Display()
 
 
 const updatePowerDisplay = () => {
-  if (!Dungeon.inDungeon || !data.legitOptions[5] || powerMove.isOpen()) {
+  if (!Dungeon.inDungeon || !data.legit.options[5] || powerMove.isOpen()) {
     pDisplay.clearLines();
     return;
   }

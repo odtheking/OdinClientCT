@@ -10,7 +10,7 @@ const keyeye = new KeyBind("Precursor macro", Keyboard.KEY_NONE, "OdinClient");
 let toggled = false
 
 register("tick", () => {
-    if (!data.qolOptions[1]) return
+    if (!data.qol.options[1]) return
     if (keyaots.isPressed()) {
         toggled = !toggled
         modMessage("Item macro swap is now: " + toggled)
@@ -32,7 +32,7 @@ register("tick", () => {
 
 
 register("tick", () => {
-    if (!data.qolOptions[1]) return
+    if (!data.qol.options[1]) return
     if (keyspray.isPressed()) {
         index = Player?.getInventory()?.getItems()?.findIndex(item => item?.getName()?.includes("Ice Spray Wand"))
         if (index == -1) return
@@ -44,7 +44,7 @@ register("tick", () => {
 let precurserswitch = false
 
 register("tick", (ticks) => {
-    if (!data.qolOptions[1]) return
+    if (!data.qol.options[1]) return
     if (keyeye.isPressed()) {
         precurserswitch = !precurserswitch
         modMessage("Precursor eye is now: " + precurserswitch)

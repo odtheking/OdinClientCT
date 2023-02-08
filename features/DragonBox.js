@@ -16,7 +16,7 @@ register("worldLoad", () => {
 
 
 register('renderWorld', () => {
-    if (!data.legitOptions[5]) return
+    if (!data.legit.options[5]) return
     if (!World.isLoaded()) return
     if (!p4done) return
     //blue 

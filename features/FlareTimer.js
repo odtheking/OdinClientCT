@@ -49,7 +49,7 @@ let flaretype
 
 
 const flaretimerRenderOverlay = () => {
-  if (!data.netherOptions[1] || !flareShot || disabletimer) return
+  if (!data.nether.options[1] || !flareShot || disabletimer) return
 
   const timePassed = Date.now() - flareShot
   if (timePassed > 180000) {

@@ -7,7 +7,7 @@ const witherSwords = ["Astraea", "Hyperion", "Valkyrie", "Scylla"];
 // Auto Wither Shield
 
 register('step', () => {
-    if (!data.autoOptions[3]) return
+    if (!data.auto.options[3]) return
     if (Skyblock.area != 'Dungeon') return
     if (Player.getHP() >= 40) return
     let found = false

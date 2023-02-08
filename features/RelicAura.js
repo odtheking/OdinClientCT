@@ -12,7 +12,7 @@ register('worldLoad', () => {
 
 register('tick', (ticks) => {
     if (ticks % 2 !== 0) return
-    if (!data.qolOptions[0]) return
+    if (!data.qol.options[0]) return
     if (Skyblock.area != 'Dungeon') return
     if (!hasrelic) {
         World.getAllEntitiesOfType(EntityArmorStand.class).forEach(e => {

@@ -11,7 +11,7 @@ import { modMessage } from "../utils.js"
 
 // Cheater ESP
 register("command", (...args) => {
-    if (!data.qolOptions[4]) {
+    if (!data.qol.options[4]) {
         modMessage("Feature is disabled please turn on with /od")
         return
     }
@@ -55,7 +55,7 @@ const esplist = new PogObject("OdinClient", {
 
 let entitiesToRender = []
 register('step', () => {
-    if (!data.qolOptions[4]) return
+    if (!data.qol.options[4]) return
     entitiesToRender.length = 0
     const entities = World.getAllEntitiesOfType(EntityArmorStand.class)
     for (let i = 0, len = entities.length; i < len; i++) {
@@ -68,7 +68,7 @@ register('step', () => {
 }).setFps(10)
 
 register("renderWorld", () => {
-    if (!data.qolOptions[4]) return
+    if (!data.qol.options[4]) return
     entitiesToRender.forEach(e => {
         RenderLib.drawEspBox(e.getRenderX(), e.getRenderY() - 2, e.getRenderZ(), 1, 2, 1, 1, 0, 1, true)
         return;

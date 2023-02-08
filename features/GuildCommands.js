@@ -80,7 +80,7 @@ function flipCoin() {
 let godmod = false
 
 register("chat", (rank, name, guildrank, message) => {
-  if (!data.legitOptions[1]) return
+  if (!data.legit.options[1]) return
   if (blacklist.igns.includes(name.toLowerCase())) return
   switch (message.toLowerCase().split(" ")[0]) {
     case "8ball":
@@ -119,7 +119,7 @@ register("chat", (rank, name, guildrank, message) => {
 //bridge
 
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.legitOptions[1]) return
+  if (!data.legit.options[1]) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
   switch (message.toLowerCase().split(" ")[0]) {
     case "8ball":
@@ -146,7 +146,7 @@ register("chat", (rank, name, guildrank, bridgename, message) => {
 //dice 
 
 register("chat", (rank, name, guildrank, bridgename, message, max) => {
-  if (!data.legitOptions[1]) return
+  if (!data.legit.options[1]) return
   if (blacklist.igns.includes(name.toLowerCase())) return
   if (message.startsWith("dice")) {
     var randomNumber = Math.floor(Math.random() * max) + 1;
@@ -155,7 +155,7 @@ register("chat", (rank, name, guildrank, bridgename, message, max) => {
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > !(.+) (.+)/)
 
 register("chat", (rank, name, guildrank, message, max) => {
-  if (!data.legitOptions[1]) return
+  if (!data.legit.options[1]) return
   if (blacklist.igns.includes(name.toLowerCase())) return
   if (message.startsWith("dice")) {
     var randomNumber = Math.floor(Math.random() * max) + 1;
@@ -164,7 +164,7 @@ register("chat", (rank, name, guildrank, message, max) => {
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: !(.+) (.+)/)
 
 register("chat", (rank, name, guildrank, msg) => {
-  if (!data.legitOptions[2]) return
+  if (!data.legit.options[2]) return
   if (blacklist.igns.includes(name.toLowerCase())) return
   if (Player.getName() === name) return;
   if (msg.toLowerCase().startsWith("gm")) guildMessage("gm " + name);
@@ -173,7 +173,7 @@ register("chat", (rank, name, guildrank, msg) => {
 
 
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.legitOptions[2]) return
+  if (!data.legit.options[2]) return
   if (blacklist.igns.includes(name.toLowerCase())) return
   if (Player.getName() == name) return
   if (message.toLowerCase().startsWith("gm")) guildMessage("gm " + bridgename);
