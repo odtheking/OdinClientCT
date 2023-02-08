@@ -1,12 +1,8 @@
-import Skyblock from "../../BloomCore/Skyblock"
 import { data } from "../stuff/guidk"
 import RenderLib from "../../RenderLib"
-function modMessage(message) { ChatLib.chat("§6[Odin§4Client] §r" + message) }
-const rightClick = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag")
-rightClick.setAccessible(true)
+
 
 //Dragon box
-
 
 let p4done = false
 
@@ -19,11 +15,10 @@ register("worldLoad", () => {
 })
 
 
-
 register('renderWorld', () => {
-    if (!data.legitOptions[3]) return
+    if (!data.legitOptions[5]) return
     if (!World.isLoaded()) return
-    //if (!p4done) return
+    if (!p4done) return
     //blue 
     RenderLib.drawEspBox(84, 16 , 95, 25, 10, 0, 170/255, 170/255,1,false );
     //purple

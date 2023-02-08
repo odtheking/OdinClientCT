@@ -38,7 +38,15 @@ register("renderOverlay", (event) => {
 
 })
 
+register("worldLoad", () => {
+  disabletimer = true
+  flareShot = null
+})
+
 let flareShot = null;
+let disabletimer = false
+let flaretype
+
 
 const flaretimerRenderOverlay = () => {
   if (!data.netherOptions[1] || !flareShot || disabletimer) return
@@ -64,14 +72,6 @@ const flaretimerRenderOverlay = () => {
 };
 
 register("renderOverlay", flaretimerRenderOverlay);
-
-let disabletimer = false
-register("worldLoad", () => {
-  disabletimer = true
-  flareShot = null
-})
-
-let flaretype
 
 register("step", () => {
   const armorstands = World.getAllEntitiesOfType(EntityArmorStand.class)

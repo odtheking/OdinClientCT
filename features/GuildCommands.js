@@ -2,6 +2,7 @@ import { getSkullTexture } from "../../BloomCore/utils/Utils";
 import request from "../../requestV2"
 import { data } from "../stuff/guidk"
 import { modMessage, guildMessage } from "../utils";
+import { blacklist } from "./BlackList";
 
 // Guild Commands
 

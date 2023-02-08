@@ -45,7 +45,7 @@ register("command", (...args) => {
 
 
 register("command", () => {
-    modMessage(esplist.names[1])
+    modMessage(esplist.names)
 }).setName("getlist")
 
 const esplist = new PogObject("OdinClient", {

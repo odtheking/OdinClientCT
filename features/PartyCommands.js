@@ -2,6 +2,7 @@ import Skyblock from "../../BloomCore/Skyblock"
 import Party from "../../BloomCore/Party"
 import { data } from "../stuff/guidk"
 import { modMessage, partyMessage, privateMessage } from "../utils";
+import { blacklist } from "./BlackList";
 
 // Party Commands
 function eightBall() {

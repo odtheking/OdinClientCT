@@ -1,14 +1,13 @@
-import { data } from "../stuff/guidk"
 import PogObject from "../../PogData";
 import { modMessage} from "../utils";
-import { getRank } from "../../BloomCore/utils/Utils";
 
 //blacklist
+
+//if (blacklist.igns.toLowerCase().includes(name.toLowerCase()))
 
 export const blacklist = new PogObject("OdinClient", {
     igns: []
 }, "flaredata.json")
-
 
 register("command", (...args) => {
     if (!args || args.length < 1) {
@@ -47,6 +46,3 @@ register("command", (...args) => {
     }
 }).setName("odinlist").setTabCompletions("add, remove, clear, list")
 
-//idk how to check efficiently do i have to use a loop?
-//if (name.toLowerCase().includes(esplist.names[i]))
-//if (blacklist.igns.toLowerCase().includes(name.toLowerCase()))

@@ -1,7 +1,5 @@
 import { data } from "../stuff/guidk"
 import { modMessage } from "../utils"
-const rightClick = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag")
-rightClick.setAccessible(true)
 
 // Dragon Timer
 

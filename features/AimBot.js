@@ -5,27 +5,27 @@ const rightClickKey = Client.getKeyBindFromDescription('key.use')
 // for future projects?
 // Aimbot
 /*
-let MOB = "Villager"
+const MOB = "Villager";
 let enabled = false;
 
-register('step', () => {
-    e = World.getAllEntities().forEach(e => {   
-        if (!e) return 
-        if (e.getName() !== MOB) return
-        modMessage(e.getName())
-        X0 = Player.getX()
-        Y0 = Player.getY()
-        Z0 = Player.getZ()
-        X1 = e.getX()
-        Y1 = e.getY()
-        Z1 = e.getZ()
-        let dist = Math.sqrt(Math.pow(X1-X0,2) + Math.pow(Y1-Y0,2) + Math.pow(Z1-Z0,2))
-        let yaw = -Math.atan2((X1-X0), (Z1-Z0))/Math.PI*180;
-        let pitch = -Math.atan2((Y1-Y0), Math.sqrt(Math.pow(X1-X0,2) + Math.pow(Z1-Z0,2)))/Math.PI*180
-                        
-        Player.getPlayer().field_70177_z = yaw 
-        Player.getPlayer().field_70125_A = pitch - (dist / 6)
-    })
-})
+register("step", () => {
+  if (!enabled) return;
+
+  World.getAllEntities().forEach((entity) => {
+    if (!entity) return;
+    if (entity.getName() !== MOB) return;
+
+    const player = Player.getPlayer();
+    const [x0, y0, z0] = [player.getX(), player.getY(), player.getZ()];
+    const [x1, y1, z1] = [entity.getX(), entity.getY(), entity.getZ()];
+    const dist = Math.sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2 + (z1 - z0) ** 2);
+    const yaw = -Math.atan2(x1 - x0, z1 - z0) / Math.PI * 180;
+    const pitch = -Math.atan2(y1 - y0, Math.sqrt((x1 - x0) ** 2 + (z1 - z0) ** 2)) / Math.PI * 180;
+
+    player.field_70177_z = yaw;
+    player.field_70125_A = pitch - dist / 6;
+  });
+});
+
 */
 
