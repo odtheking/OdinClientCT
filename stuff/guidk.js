@@ -140,6 +140,25 @@ const drawDesc = (mx, my, tab, index) => {
     }
 }
 
+const checkDrag = (dx, dy, mx, my, tab) => {
+    if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
+    if (my < (tab.y - 5) || my > (tab.y + buttonHeight) + 5) return
+    tab.x += dx
+    tab.y += dy
+}
+
+const checkTab = (mx, my, b, tab) => {
+    if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
+    toChange = Math.floor((my - (tab.y + buttonHeight)) / buttonHeight)
+    if (b == 0 && toChange >= 0 && toChange <= data.auto.options.length - 1) {
+        tab.options[toChange] = !tab.options[toChange]
+        makePressSound()
+    } else if (b == 1 && toChange == -1) {
+        tab.dropDown = !tab.dropDown
+        makePressSound()
+    }
+}
+
 register('renderOverlay', () => {
     if (!mainGui.isOpen()) {
         if (shouldRemove) {
@@ -165,24 +184,7 @@ register('renderOverlay', () => {
     Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
 })
 
-const checkDrag = (dx, dy, mx, my, tab) => {
-    if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
-    if (my < (tab.y - 5) || my > (tab.y + buttonHeight) + 5) return
-    tab.x += dx
-    tab.y += dy
-}
 
-const checkTab = (mx, my, b, tab) => {
-    if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
-    toChange = Math.floor((my - (tab.y + buttonHeight)) / buttonHeight)
-    if (b == 0 && toChange >= 0 && toChange <= data.auto.options.length - 1) {
-        tab.options[toChange] = !tab.options[toChange]
-        makePressSound()
-    } else if (b == 1 && toChange == -1) {
-        tab.dropDown = !tab.dropDown
-        makePressSound()
-    }
-}
 
 register('dragged', (dx, dy, x, y, b) => {
     if (!mainGui.isOpen() || b != 0) return
