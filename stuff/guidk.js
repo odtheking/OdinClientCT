@@ -1,3 +1,4 @@
+/// <reference types="../../CTAutocomplete" />
 import PogObject from "../../PogData"
 import Font from "../../fontlib"
 import { File } from "../java-stuff"
@@ -110,7 +111,9 @@ let shouldRemove = true
 
 const rect = (r,g,b,a,x,y,width,height) => Renderer.drawRect(Renderer.color(r, g, b, a), x, y, width, height)
 
-const centeredString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x+(70 - Renderer.getStringWidth(text)) / 2 + 15,y + 5,new java.awt.Color(r,g,b,a))
+const centeredString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x+(70 - font2.getWidth(text)) / 2 + 15,y + 5,new java.awt.Color(r,g,b,a))
+
+const normalString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x,y + 5,new java.awt.Color(r,g,b,a))
 
 register('renderOverlay', () => {
     if (!mainGui.isOpen()) {
@@ -197,36 +200,34 @@ register('renderOverlay', () => {
     my = Client.getMouseY()
 
     if (mx > data.auto.x && mx < data.auto.x + buttonWidth) {
-        toshow = Math.floor((my - data.auto.y - buttonHeight) / 20)
+        toshow = Math.floor((my - data.auto.y - buttonHeight) / buttonHeight)
         if (toshow >= 0 && toshow <= autoDescriptions.length - 1) {
-            rect(0, 0, 0, 1, data.auto.x + buttonWidth, my - 10, Renderer.getStringWidth(autoDescriptions[toshow]) + 4, buttonHeight - 5)
-            Renderer.drawStringWithShadow(autoDescriptions[toshow], data.auto.x + buttonWidth + 2, my - 7)
+            rect(45, 45, 45, 255, data.auto.x + buttonWidth, my+2, font2.getWidth(autoDescriptions[toshow]) + 2, buttonHeight - 3)
+            normalString(font2, autoDescriptions[toshow], data.auto.x+buttonWidth+1, my, 0.8, 0.8, 0.8, 1)
         }
     } else if (mx > data.legit.x && mx < data.legit.x + buttonWidth) {
-        toshow = Math.floor((my - data.legit.y - buttonHeight) / 20)
+        toshow = Math.floor((my - data.legit.y - buttonHeight) / buttonHeight)
         if (toshow >= 0 && toshow <= legitDescription.length - 1) {
-            rect(0, 0, 0, 1, data.legit.x + buttonWidth, my - 10, Renderer.getStringWidth(legitDescription[toshow]) + 4, buttonHeight - 5)
-            Renderer.drawStringWithShadow(legitDescription[toshow], data.legit.x + buttonWidth + 2, my - 7)
+            rect(45, 45, 45, 255, data.legit.x + buttonWidth, my+2, font2.getWidth(legitDescription[toshow]) + 2, buttonHeight - 3)
+            normalString(font2, legitDescription[toshow], data.legit.x+buttonWidth+1, my, 0.8, 0.8, 0.8, 1)
         }
     } else if (mx > data.nether.x && mx < data.nether.x + buttonWidth) {
-        toshow = Math.floor((my - data.nether.y - buttonHeight) / 20)
+        toshow = Math.floor((my - data.nether.y - buttonHeight) / buttonHeight)
         if (toshow >= 0 && toshow <= netherDescriptions.length - 1) {
-            rect(0, 0, 0, 1, data.nether.x + buttonWidth, my - 10, Renderer.getStringWidth(netherDescriptions[toshow]) + 4, buttonHeight - 5)
-            Renderer.drawStringWithShadow(netherDescriptions[toshow], data.nether.x + buttonWidth + 2, my - 7)
+            rect(45, 45, 45, 255, data.nether.x + buttonWidth, my+2, font2.getWidth(netherDescriptions[toshow]) + 2, buttonHeight - 3)
+            normalString(font2, netherDescriptions[toshow], data.nether.x+buttonWidth+1, my, 0.8, 0.8, 0.8, 1)
         }
     } else if (mx > data.qol.x && mx < data.qol.x + buttonWidth) {
-        toshow = Math.floor((my - data.qol.y - buttonHeight) / 20)
+        toshow = Math.floor((my - data.qol.y - buttonHeight) / buttonHeight)
         if (toshow >= 0 && toshow <= qolDescription.length - 1) {
-            rect(0, 0, 0, 1, data.qol.x + buttonWidth, my - 10, Renderer.getStringWidth(qolDescription[toshow]) + 4, buttonHeight - 5)
-            ce
-            Renderer.drawStringWithShadow(qolDescription[toshow], data.qol.x + buttonWidth + 2, my - 7)
+            rect(45, 45, 45, 255, data.qol.x + buttonWidth, my+2, font2.getWidth(qolDescription[toshow]) + 2, buttonHeight - 3)
+            normalString(font2, qolDescription[toshow], data.qol.x+buttonWidth+1, my, 0.8, 0.8, 0.8, 1)
         }
     } else if (mx > data.boss.x && mx < data.boss.x + buttonWidth) {
-        toshow = Math.floor((my - data.boss.y - buttonHeight) / 20)
+        toshow = Math.floor((my - data.boss.y - buttonHeight) / buttonHeight)
         if (toshow >= 0 && toshow <= bossDescription.length - 1) {
-            rect(0, 0, 0, 1, data.boss.x + buttonWidth, my - 10, Renderer.getStringWidth(bossDescription[toshow]) + 4, buttonHeight - 5)
-            // Renderer.drawStringWithShadow(bossDescription[toshow], data.boss.x + buttonWidth + 2, my - 7)
-            centeredString(font2, bossDescription[toshow], data.boss.x, my, 0.4, 0.4, 0.4, 1)
+            rect(45, 45, 45, 255, data.boss.x + buttonWidth, my+2, font2.getWidth(bossDescription[toshow]) + 2, buttonHeight - 3)
+            normalString(font2, bossDescription[toshow], data.boss.x+buttonWidth+1, my, 0.8, 0.8, 0.8, 1)
         }
     }
 
