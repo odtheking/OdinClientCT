@@ -106,12 +106,14 @@ let mainGui = new Gui()
 let buttonHeight = 20
 let buttonWidth = 100
 let shouldRemove = true
+let toChange
 const tabs = [data.auto, data.legit, data.nether, data.qol, data.boss]
 const tabTitles = ['Auto', 'Legit', 'Nether', 'QOL', 'Auto']
 
 const rect = (r,g,b,a,x,y,width,height) => Renderer.drawRect(Renderer.color(r, g, b, a), x, y, width, height)
 const centeredString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x+(70 - font2.getWidth(text)) / 2 + 15,y + 5,new java.awt.Color(r,g,b,a))
 const normalString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x,y + 5,new java.awt.Color(r,g,b,a))
+const makePressSound = () => World.playSound('gui.button.press', 1, 1)
 
 const drawTab = (tab) => {
     if (!tab.dropDown) return
@@ -191,14 +193,6 @@ const checkDrag = (dx, dy, mx, my, tab) => {
     }
 }
 
-register('dragged', (dx, dy, x, y, b) => {
-    if (!mainGui.isOpen() || b != 0) return
-    tabs.forEach(tab => checkDrag(dx, dy, mx, my, tab))
-    data.save()
-})
-
-const makePressSound = () => World.playSound('gui.button.press', 1, 1)
-
 const checkTab = (mx, my, b, tab) => {
     if (mx > (tab.x - 10) && mx < (tab.x + buttonWidth) + 10) {
         toChange = Math.floor((my - (tab.y + buttonHeight)) / buttonHeight)
@@ -212,7 +206,12 @@ const checkTab = (mx, my, b, tab) => {
     }
 }
 
-let toChange
+register('dragged', (dx, dy, x, y, b) => {
+    if (!mainGui.isOpen() || b != 0) return
+    tabs.forEach(tab => checkDrag(dx, dy, mx, my, tab))
+    data.save()
+})
+
 register('clicked', (x, y, b, isDown) => {
     if (!isDown || !mainGui.isOpen()) return
     tabs.forEach(tab => checkTab(x, y, b, tab))
