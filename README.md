@@ -4,7 +4,8 @@ Very awesome ChatTriggers module for all kinds of feature from dungeons to nethe
 Has both legit and cheater versions
 
 
-command to toggle everything is "/od" or "/odinclient" for cheater
+command to toggle everything in cheater version is "/od" or "/odinclient" 
+
 command to toggle everything is "/ol" or "/odinlegit" for legit
 
 
@@ -31,8 +32,9 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - Party cmds: custom commands for party use !help in party chat
 - Guild cmds: custom commands for guild use !help in guild chat
 - Guild gm: Automatically sends gm/gn in guild chat when someone else says it
-- Powerdisplay: (shows the power blessing on ur screen) cmd is /movepower
+- Dragon boxes: Custom boxes around the statues in p5 more accurate than sbe
 - Dragon spawn: timer (m7 dragons dont be dumb)
+- Powerdisplay: (shows the power blessing on ur screen) cmd is /movepower
 - FragBot: automatically makes you a fragbot whenever you enter limbo automatically disables when leaving limbo 
 </details>
 
@@ -64,7 +66,6 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - Terminator ac: Automatically clicks when holding terminator randomized ac for very good anti cheat
 - COOKIE CLICKER
 - Customizeable esp: (you can add whatever mob name u want to see) cmd is /esp
-- Descriptions: when u hover at features in the gui
 - FUCK DIORITE": replaces the diorite with glass in the p2 pillars in f7/m7 so you can watch storm get stuck
 - Very awesome gui: reminder cmds are /od and /ol
 - Descriptions: when u hover at features in the gui
