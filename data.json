@@ -46,8 +46,8 @@
         "Power Display"
     ],
     "nether": {
-        "x": 420,
-        "y": 20,
+        "x": 416,
+        "y": 42,
         "dropDown": true
     },
     "netherOptions": [
@@ -84,12 +84,12 @@
         "FUCK DIORITE"
     ],
     "boss": {
-        "x": 820,
-        "y": 20,
+        "x": 736.5,
+        "y": 30,
         "dropDown": true
     },
     "bossOptions": [
-        false,
+        true,
         false,
         false,
         false,
