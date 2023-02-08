@@ -218,13 +218,15 @@ register('renderOverlay', () => {
         toshow = Math.floor((my - data.qol.y - buttonHeight) / 20)
         if (toshow >= 0 && toshow <= qolDescription.length - 1) {
             rect(0, 0, 0, 1, data.qol.x + buttonWidth, my - 10, Renderer.getStringWidth(qolDescription[toshow]) + 4, buttonHeight - 5)
+            ce
             Renderer.drawStringWithShadow(qolDescription[toshow], data.qol.x + buttonWidth + 2, my - 7)
         }
     } else if (mx > data.boss.x && mx < data.boss.x + buttonWidth) {
         toshow = Math.floor((my - data.boss.y - buttonHeight) / 20)
         if (toshow >= 0 && toshow <= bossDescription.length - 1) {
             rect(0, 0, 0, 1, data.boss.x + buttonWidth, my - 10, Renderer.getStringWidth(bossDescription[toshow]) + 4, buttonHeight - 5)
-            Renderer.drawStringWithShadow(bossDescription[toshow], data.boss.x + buttonWidth + 2, my - 7)
+            // Renderer.drawStringWithShadow(bossDescription[toshow], data.boss.x + buttonWidth + 2, my - 7)
+            centeredString(font2, bossDescription[toshow], data.boss.x, my, 0.4, 0.4, 0.4, 1)
         }
     }
 
