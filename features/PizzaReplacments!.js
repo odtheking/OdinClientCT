@@ -4,18 +4,24 @@ import { modMessage} from "../utils";
 
 //bonsai being lazy
 
-
-register("step", () => {
-    if (Skyblock.inSkyblock) return
-    modMessage("WTF NOT IN SB???")
-    ChatLib.command("play sb")
-    modMessage("NOW U R IN STUPOID LAZY MOTHERFUCKER")
-}).setFps(1)
-
+register("worldLoad", () => {
+    setTimeout(() => {
+        if (Skyblock.inSkyblock) {
+            modMessage("In SkyBlock")
+        } else {
+            modMessage("Not in Skyblock. Joining now...")
+            ChatLib.command("play sb")
+        }
+    }, 1000);
+    
+})
+    
 register('tick', () => {
     let container = Player.getContainer()
-    if (container.getName() === "Wood Chest") {
-        index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes('Open Reward Chest'))
-        container.click(index, false, "MIDDLE")
+    if (container && container.getName() === "Wood Chest") {
+        let itemIndex = container.getItems().findIndex(item => item && item.getName() && item.getName().includes('Open Reward Chest'))
+        if (itemIndex !== -1) {
+            container.click(itemIndex, false, "MIDDLE")
+        }
     }
 })
