@@ -1,4 +1,3 @@
-/// <reference types="../../CTAutocomplete" />
 import PogObject from "../../PogData"
 import Font from "../../fontlib"
 import { File } from "../java-stuff"
