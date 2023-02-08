@@ -10,11 +10,16 @@ register("worldUnload", () => {
 })
 
 function isGhost() {
-    index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes("Haunt"))
-    if (index != -1) {
-        return true
-    } 
-    return false
+    for(let i = 0; i < 8; i++){
+        try{
+            if(Player.getInventory().getStackInSlot(i).getName().toString().includes("Haunt")){
+                return true
+            }
+            return false
+        }catch(e){
+
+        }
+    }
 }
 
 Client.settings.getSettings().func_74300_a();

@@ -279,7 +279,7 @@ register('dragged', (mx, my, x, y, b) => {
     data.save()
 })
 
-const makePressSound = () => makePressSound()
+const makePressSound = () => World.playSound('gui.button.press', 1, 1)
 
 let toChange
 register('clicked', (x, y, b, isDown) => {

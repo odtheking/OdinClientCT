@@ -23,9 +23,9 @@ register("worldLoad", () => {
 register('renderWorld', () => {
     if (!data.legitOptions[3]) return
     if (!World.isLoaded()) return
-    if (!p4done) return
+    //if (!p4done) return
     //blue 
-    RenderLib.drawEspBox(84, 13 , 95, 25, 15, 0, 170/255, 170/255,1,false );
+    RenderLib.drawEspBox(84, 16 , 95, 25, 10, 0, 170/255, 170/255,1,false );
     //purple
     RenderLib.drawEspBox(57, 13, 125, 23, 10, 170/255, 0, 170/255,1,false );
     //green

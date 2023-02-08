@@ -76,6 +76,7 @@ let godmod = false;
 
 register("chat", (channel, rank, name, message) => {
     if (!data.legitOptions[0]) return;
+    if (blacklist.igns.includes(name.toLowerCase())) return
     switch (message.toLowerCase().split(" ")[0]) {
         case "warp":
             if (channel === "Party >") {
@@ -161,7 +162,7 @@ register("chat", (channel, rank, name, message) => {
 
 register('chat', (channel, rank, name, message, num) => {
     if (!data.legitOptions[0]) return
-
+    if (blacklist.igns.includes(name.toLowerCase())) return
     // Party invite command
     if ((message.toLowerCase().startsWith("inv")) && (message.toLowerCase().startsWith("invite")) && (Party?.leader == Player.getName() || Party.leader == null)) {
         ChatLib.command(`party invite ${name}`);

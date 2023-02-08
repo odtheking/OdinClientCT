@@ -27,4 +27,6 @@ import "./features/ESP"
 import "./features/dragspawntimer"
 import "./features/IHATEDIORITE"
 import "./features/AimBot"
+import "./features/DragonBox"
+import "./features/BlackList"
 

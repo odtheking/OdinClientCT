@@ -15,7 +15,7 @@ register('tick', (ticks) => {
     if (!data.autoOptions[6] || ticks % 10 !== 0 || !p4Done) return
     if (!Client.currentGui.get()) {
         ChatLib.command('pet')
-        modMessage("Trying to equip Ender Dragon pet...")
+        modMessage("Trying to equip Ender Dragon pet")
         return
     }
     if (Player.getContainer()?.getName()?.match(/\(\d\/\d\)? ?Pets/)) {

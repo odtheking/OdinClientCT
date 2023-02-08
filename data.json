@@ -12,7 +12,7 @@
         false,
         false,
         false,
-        false
+        true
     ],
     "autoTitles": [
         "Auto Ready",
@@ -25,17 +25,17 @@
         "Auto Leap"
     ],
     "legit": {
-        "x": 227,
-        "y": 46,
+        "x": 218.5,
+        "y": 35,
         "dropDown": true
     },
     "legitOptions": [
+        true,
         false,
         false,
+        true,
         false,
-        false,
-        false,
-        false
+        true
     ],
     "legitTitles": [
         "Party cmds",
