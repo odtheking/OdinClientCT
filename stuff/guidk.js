@@ -1,12 +1,9 @@
 import PogObject from "../../PogData"
 import Font from "../../fontlib"
-import { File } from "../java-stuff"
+import { File, ResourceLocation } from "../java-stuff"
 const font = new Font('OdinClient/stuff/OpenSans-Regular.ttf', 75)
 const font2 = new Font('OdinClient/stuff/Minecraft.ttf', 21)
-const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
-
-const Logo = new File("./config/ChatTriggers/modules/OdinClient/stuff/OdinClientNoBackround.png")
-const image = new Image(Logo)
+const image = new Image(new File("./config/ChatTriggers/modules/OdinClient/stuff/OdinClientNoBackround.png"))
 
 register('command', () => {
     mainGui.open()
@@ -169,17 +166,12 @@ register('renderOverlay', () => {
     }
     shouldRemove = true
     image?.draw(670, 400, 280, 140)
-
-    mx = Client.getMouseX()
-    my = Client.getMouseY()
-
     tabs.forEach((tab, index) => {
         rect(255, 215, 0, 225, tab.x, tab.y, buttonWidth, buttonHeight)
         centeredString(font2, tabTitles[index], tab.x, tab.y, 1, 0, 0, 1)
         drawTab(tab)
     })
-    tabs.forEach((tab, index) => drawDesc(mx, my, tab, index))
-
+    tabs.forEach((tab, index) => drawDesc(Client.getMouseX(), Client.getMouseY(), tab, index))
     Client.getMinecraft().field_71460_t.func_181022_b()
     Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
 })
