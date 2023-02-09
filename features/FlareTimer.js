@@ -47,8 +47,11 @@ register("renderOverlay", () => {
     font2.drawStringWithShadow("SOS", flaredata.flareX, flaredata.flareY, new Color(0.6, 0, 0.95, 1));
     font2.drawStringWithShadow("180s", flaredata.flareX, flaredata.flareY + 15, new Color(0, 0.9, 0.15, 1));
   } else if (data.nether.options[1]) {
-    const flareData = nearbyFlares.sort((a, b) => b[2] - a[2])?.[0]
-    if (!flareData) return
+    const flareData = nearbyFlares.sort((a, b) => b[2] - a[2]).find(f => f[3].distanceTo(Player.asPlayerMP()) <= 40)
+    if (!flareData) {
+      flareType = undefined
+      return
+    }
     flareType = flareData[1]
     const timePassed = Date.now() - flareData[2]
     const timeRemaining = ((180000 - timePassed) / 1000).toFixed(2)
@@ -74,20 +77,19 @@ register("step", () => {
     }
   })
   flares.sort((a, b) => b[2] - a[2]).forEach(flare => {
-    const flareEnt = flare[1]
+    const [type, flareEnt] = flare
     const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
     const [x1, y1, z1] = [flareEnt.getX(), flareEnt.getY(), flareEnt.getZ()]
     const dist = getDistance3D(x, y, z, x1, y1, z1)
     if (dist <= 40 && !nearbyFlares.find(f => f[0] == flareEnt.getEntity().func_145782_y())) {
-      nearbyFlares.push([flareEnt.getEntity().func_145782_y(), flare[0], Date.now(), flareEnt])
+      nearbyFlares.push([flareEnt.getEntity().func_145782_y(), type, Date.now(), flareEnt])
     }
   })
 }).setFps(10)
 
 function updateFlares() {
-  const now = Date.now()
   nearbyFlares.forEach(flare => {
-    if (now - flare[2] > 180000 || flare[3].isDead()) {
+    if (Date.now() - flare[2] > 180000 || flare[3].isDead()) {
       nearbyFlares.splice(nearbyFlares.indexOf(flare), 1)
     }
   })
