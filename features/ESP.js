@@ -2,7 +2,8 @@ import RenderLib from "../../RenderLib/index.js"
 import PogObject from "../../PogData/index.js"
 import { data } from "../stuff/guidk"
 import { EntityArmorStand } from "../../BloomCore/utils/Utils"
-import { modMessage } from "../utils.js"
+import { getEntityRenderParams, modMessage, noSqrt3DDistance } from "../utils.js"
+import { Executors } from "../java-stuff.js"
 
 // field_70131_O - Height
 // field_70130_N - Width
@@ -57,21 +58,38 @@ const esplist = new PogObject("OdinClient", {
     names: []
 }, "flaredata.json")
 
-let entitiesToRender = []
-register('step', () => {
-    if (!data.qol.options[4]) return
-    entitiesToRender.length = 0
-    World.getAllEntitiesOfType(EntityArmorStand.class)
-        .filter(e => esplist.names.some(name => e.getName().toLowerCase().includes(name)))
-        .map(e => e.getEntity())
-        .forEach(e => entitiesToRender.push(World.getWorld().func_72839_b(e, e.func_174813_aQ()).filter(e => !(e instanceof EntityArmorStand))[0]))
-}).setFps(10)
+let entitiesToRender = new Map() // key: ArmorStand, value: McEntity
 
-register("renderWorld", () => {
+register('step', () => {
+    console.log(entitiesToRender.size)
     if (!data.qol.options[4]) return
-    entitiesToRender.forEach(e => {
-        try {
-            RenderLib.drawEspBox(e.field_70142_S, e.field_70137_T, e.field_70136_U, e.field_70130_N, e.field_70131_O, 1, 1, 0, 1, true)
-        } catch (e) {}
+    World.getAllEntities().forEach(stand => {
+        const mcStand = stand.getEntity()
+        if (!(mcStand instanceof EntityArmorStand)) return
+        const matchingEntity = entitiesToRender.get(mcStand.func_145782_y())
+        if (matchingEntity && matchingEntity.field_70128_L) {
+            entitiesToRender.delete(mcStand.func_145782_y())
+        } else if (matchingEntity) return
+        const name = stand.getName().removeFormatting().toLowerCase()
+        if (!esplist.names.some(espName => name.includes(espName))) return
+        const entities = World.getWorld().func_72839_b(mcStand, mcStand.func_174813_aQ().func_72314_b(1, 5, 1)).filter(e => e && !(e instanceof EntityArmorStand) && e != Player.getPlayer())
+            .sort((a, b) => noSqrt3DDistance(a, mcStand) - noSqrt3DDistance(b, mcStand))
+        if (entities.length == 0) return
+        entitiesToRender.set(mcStand.func_145782_y(), entities[0])
+    })
+}).setFps(2)
+
+const espLoop = Executors.newSingleThreadExecutor()
+espLoop.execute(() => {
+    register("renderWorld", (partialTicks) => {
+        if (!data.qol.options[4]) return
+        entitiesToRender.forEach((value, key) => {
+            if (value && value.field_70128_L) {
+                entitiesToRender.delete(key)
+                return
+            }
+            const [x, y, z, w, h] = getEntityRenderParams(value, partialTicks)
+            RenderLib.drawEspBox(x, y, z, w, h, 1, 1, 0, 1, true)
+        })
     })
 })

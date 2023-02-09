@@ -45,4 +45,24 @@ export function useAbility() {
     Player.getPlayer()?.func_71040_bB(false)
 }
 
+export function getEntityRenderParams(mcEntity, partialTicks) {
+    return [
+        mcEntity.field_70142_S + (mcEntity.field_70165_t - mcEntity.field_70142_S) * partialTicks,
+        mcEntity.field_70137_T + (mcEntity.field_70163_u - mcEntity.field_70137_T) * partialTicks,
+        mcEntity.field_70136_U + (mcEntity.field_70161_v - mcEntity.field_70136_U) * partialTicks,
+        mcEntity.field_70130_N,
+        mcEntity.field_70131_O
+    ]
+}
 
+// no need to take the square root because we dont need the actual distance
+export function noSqrt3DDistance(mcEntity1, mcEntity2) {
+    return Math.pow(mcEntity1.field_70165_t - mcEntity2.field_70165_t, 2) +
+        Math.pow(mcEntity1.field_70163_u - mcEntity2.field_70163_u, 2) +
+        Math.pow(mcEntity1.field_70161_v - mcEntity2.field_70161_v, 2)
+}
+
+export function noSqrt2DDistance(mcEntity1, mcEntity2) {
+    return Math.pow(mcEntity1.field_70165_t - mcEntity2.field_70165_t, 2) +
+        Math.pow(mcEntity1.field_70161_v - mcEntity2.field_70161_v, 2)
+}
