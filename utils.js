@@ -1,4 +1,5 @@
-import { C02PacketUseEntity } from "../BloomCore/utils/Utils"
+import { Blockk, C02PacketUseEntity } from "../BloomCore/utils/Utils"
+import { ItemSkull } from "./java-stuff"
 
 export function modMessage(string) {
     ChatLib.chat("§6[Odin§4Client] §r" + string)
@@ -65,4 +66,20 @@ export function noSqrt3DDistance(mcEntity1, mcEntity2) {
 export function noSqrt2DDistance(mcEntity1, mcEntity2) {
     return Math.pow(mcEntity1.field_70165_t - mcEntity2.field_70165_t, 2) +
         Math.pow(mcEntity1.field_70161_v - mcEntity2.field_70161_v, 2)
+}
+
+export function getCtEntityHelmetTexture(entity) {
+    return getMcEntityHelmetTexture(entity.getEntity())
+}
+
+export function getMcEntityHelmetTexture(entity) {
+    const helmet = entity.func_71124_b(4)
+    if (!helmet || !(helmet.func_77973_b() instanceof ItemSkull)) return undefined
+    return getSkullTexture(helmet)
+}
+
+export function getSkullTexture(skull) {
+    const nbt = skull.func_77978_p()
+    if (!nbt?.func_150297_b("SkullOwner", 10)) return undefined
+    return nbt.func_74775_l("SkullOwner").func_74775_l("Properties").func_150295_c("textures", 10).func_150305_b(0).func_74779_i("Value")
 }
