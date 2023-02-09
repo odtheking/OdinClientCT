@@ -1,7 +1,7 @@
 import Skyblock from "../../BloomCore/Skyblock"
 import { EntityArmorStand, getDistance3D } from "../../BloomCore/utils/Utils"
 import { data } from "../stuff/guidk"
-import { rightClick, swapAndRightClick, interactWithMCP } from "../utils"
+import { rightClick, swapAndRightClick } from "../utils"
 
 //                    interactWithMCP(e.getEntity())
 

@@ -1,9 +1,9 @@
-import RenderLib from "../../RenderLib/index.js"
-import PogObject from "../../PogData/index.js"
-import { data } from "../stuff/guidk"
 import { EntityArmorStand } from "../../BloomCore/utils/Utils"
-import { getEntityRenderParams, modMessage, noSqrt3DDistance } from "../utils.js"
+import PogObject from "../../PogData/index.js"
+import RenderLib from "../../RenderLib/index.js"
 import { Executors } from "../java-stuff.js"
+import { data } from "../stuff/guidk"
+import { getEntityRenderParams, modMessage, noSqrt3DDistance } from "../utils.js"
 
 // field_70131_O - Height
 // field_70130_N - Width
@@ -29,6 +29,7 @@ register("command", (...args) => {
             } else {
                 esplist.names.push(entity)
                 modMessage(entity + " has been added to the list")
+                reloadMap()
                 esplist.save()
             }
             break
@@ -38,6 +39,7 @@ register("command", (...args) => {
             } else {
                 esplist.names = esplist.names.filter(ent => ent !== entity)
                 modMessage(entity + " has been removed from the list")
+                reloadMap()
                 esplist.save()
             }
             break
@@ -58,10 +60,26 @@ const esplist = new PogObject("OdinClient", {
     names: []
 }, "flaredata.json")
 
+function reloadMap() {
+    entitiesToRender.clear()
+    World.getAllEntities().forEach(stand => {
+      const mcStand = stand.getEntity()
+      if (!(mcStand instanceof EntityArmorStand)) return
+      const name = stand.getName().removeFormatting().toLowerCase()
+      // Check if the entity's name is in the esplist
+      if (!esplist.names.some(espName => name.includes(espName))) return
+      const entities = World.getWorld().func_72839_b(mcStand, mcStand.func_174813_aQ().func_72314_b(1, 5, 1)).filter(e => e && !(e instanceof EntityArmorStand) && e != Player.getPlayer())
+        .sort((a, b) => noSqrt3DDistance(a, mcStand) - noSqrt3DDistance(b, mcStand))
+      if (entities.length == 0) return
+      entitiesToRender.set(mcStand.func_145782_y(), entities[0])
+    })
+  }
+
+  
 let entitiesToRender = new Map() // key: ArmorStand, value: McEntity
 
 register('step', () => {
-    console.log(entitiesToRender.size)
+    //console.log(entitiesToRender.size)
     if (!data.qol.options[4]) return
     World.getAllEntities().forEach(stand => {
         const mcStand = stand.getEntity()
@@ -71,7 +89,12 @@ register('step', () => {
             entitiesToRender.delete(mcStand.func_145782_y())
         } else if (matchingEntity) return
         const name = stand.getName().removeFormatting().toLowerCase()
-        if (!esplist.names.some(espName => name.includes(espName))) return
+        // Check if the entity's name is in the esplist
+        if (!esplist.names.some(espName => name.includes(espName))) {
+            // If the entity's name is not in the esplist, remove it from the entitiesToRender map
+            entitiesToRender.delete(mcStand.func_145782_y())
+            return
+        }
         const entities = World.getWorld().func_72839_b(mcStand, mcStand.func_174813_aQ().func_72314_b(1, 5, 1)).filter(e => e && !(e instanceof EntityArmorStand) && e != Player.getPlayer())
             .sort((a, b) => noSqrt3DDistance(a, mcStand) - noSqrt3DDistance(b, mcStand))
         if (entities.length == 0) return

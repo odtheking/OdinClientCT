@@ -1,5 +1,5 @@
-import { data } from "../stuff/guidk"
 import renderBeaconBeam from "../../BeaconBeam"
+import { data } from "../stuff/guidk"
 import { modMessage } from "../utils"
 
 // Vanq Notifier
