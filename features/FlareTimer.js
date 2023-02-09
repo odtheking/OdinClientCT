@@ -70,6 +70,7 @@ register("step", () => {
   if (!data.nether.options[1]) return
   const flares = []
   World.getAllEntities().filter(e => e && e.getEntity() instanceof EntityArmorStand).forEach(e => {
+    if (nearbyFlares.find(f => f[0] == e.getEntity().func_145782_y())) return
     const texture = getCtEntityHelmetTexture(e)
     const type = flareTextures[texture]
     if (type) {
@@ -81,7 +82,7 @@ register("step", () => {
     const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
     const [x1, y1, z1] = [flareEnt.getX(), flareEnt.getY(), flareEnt.getZ()]
     const dist = getDistance3D(x, y, z, x1, y1, z1)
-    if (dist <= 40 && !nearbyFlares.find(f => f[0] == flareEnt.getEntity().func_145782_y())) {
+    if (dist <= 40) {
       nearbyFlares.push([flareEnt.getEntity().func_145782_y(), type, Date.now(), flareEnt])
     }
   })
