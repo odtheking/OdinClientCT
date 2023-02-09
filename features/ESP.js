@@ -48,41 +48,30 @@ register("command", () => {
     modMessage(esplist.names)
 }).setName("getlist")
 
+register("command", () => {
+    esplist.names = []
+    modMessage("Cleared esp list")
+}).setName("clearlist")
+
 const esplist = new PogObject("OdinClient", {
     names: []
 }, "flaredata.json")
 
-
-const AABB = Java.type("net.minecraft.util.AxisAlignedBB")
 let entitiesToRender = []
 register('step', () => {
     if (!data.qol.options[4]) return
     entitiesToRender.length = 0
-    let entities = World.getAllEntitiesOfType(EntityArmorStand.class)
-    for (let i = 0, len = entities.length; i < len; i++) {
-        for (let j = 0; j < esplist.names.length; j++) {
-            if (entities[i].getName().toLowerCase().includes(esplist.names[j])) {
-                // entitiesToRender.push(entities[i])
-                closeentities = World.getWorld().func_72839_b(entities[i].getEntity(), new AABB(entities[i].getRenderX()-2,entities[i].getRenderY()-10,entities[i].getRenderZ()-2,entities[i].getRenderX()+2,entities[i].getRenderY(),entities[i].getRenderZ()+2,))
-                distances = []
-                for (let k = 0; k < closeentities.length; k++) {
-                    if (closeentities[k] instanceof EntityArmorStand) {
-                        // console.log("this guy is an armorstand" + closeentities[k])
-                    } else {
-                        distances.push(closeentities[k].func_70032_d(entities[i].getEntity()))
-                    }
-                }
-                // console.log(closeentities[distances.indexOf(Math.min(...distances))])
-                entitiesToRender.push(closeentities[distances.indexOf(Math.min(...distances))])
-            }
-        }
-    }
+    World.getAllEntitiesOfType(EntityArmorStand.class)
+        .filter(e => esplist.names.some(name => e.getName().toLowerCase().includes(name)))
+        .map(e => e.getEntity())
+        .forEach(e => entitiesToRender.push(World.getWorld().func_72839_b(e, e.func_174813_aQ()).filter(e => !(e instanceof EntityArmorStand))[0]))
 }).setFps(10)
 
 register("renderWorld", () => {
     if (!data.qol.options[4]) return
     entitiesToRender.forEach(e => {
-        if (!e) return
-        RenderLib.drawEspBox(e.field_70142_S, e.field_70137_T, e.field_70136_U, e.field_70130_N, e.field_70131_O, 1, 1, 0, 1, true)
+        try {
+            RenderLib.drawEspBox(e.field_70142_S, e.field_70137_T, e.field_70136_U, e.field_70130_N, e.field_70131_O, 1, 1, 0, 1, true)
+        } catch (e) {}
     })
 })
