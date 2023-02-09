@@ -12,8 +12,7 @@ register('command', () => {
     mainGui.open()
 }).setName('odinclient').setAliases("od")
 
-// add the legit features to make the legit tab look richer question mark
-// change the toggle in all the modules zz
+
 export const data = new PogObject("OdinClient", {
     'auto': {
         'x': 20,
@@ -71,17 +70,18 @@ const descriptions = [
     [
         "Custom party commands use !help in party chat",
         "Custom guild commands use !help in guild chat",
-        "Reponsends to anyone in guild chat saying gm/gn",
+        "Responds to anyone in guild chat saying gm/gn",
         "Creates custom and decently accurate boxes in p5",
         "Shows the power blessing /movepower",
         "Shows when a M7 dragon will spawn"
     ],
 
     [
+        "Automatically alerts when your hype is broken",
         "Shows a timer and the type of the flare around you /moveflare",
         "Automatically sends a message in party chat and makes a beacon whenever odinclient/patcher sends coords in party chat",
-        "Shows messages on screen on specific events in kuudra",
-        "Automatically alerts when your hype is broken"
+        "Shows messages on screen on specific events in kuudra"
+
     ],
 
     [
@@ -89,8 +89,8 @@ const descriptions = [
         "Custom item macros check minecraft",
         "Spams right click while term is held ranomized cps",
         "Spams the cookie while in the cookie clicker menu",
-        "You can add whatever mob you want into the ist /esp",
-        "Replaces diorite with glass in p2",
+        "You can add whatever mob you want into the list /esp",
+        "Replaces diorite with glass in p2 (don't use connected blocks)",
     ],
 
     [

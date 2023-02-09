@@ -53,15 +53,27 @@ const esplist = new PogObject("OdinClient", {
 }, "flaredata.json")
 
 
+const AABB = Java.type("net.minecraft.util.AxisAlignedBB")
 let entitiesToRender = []
 register('step', () => {
     if (!data.qol.options[4]) return
     entitiesToRender.length = 0
-    const entities = World.getAllEntitiesOfType(EntityArmorStand.class)
+    let entities = World.getAllEntitiesOfType(EntityArmorStand.class)
     for (let i = 0, len = entities.length; i < len; i++) {
         for (let j = 0; j < esplist.names.length; j++) {
             if (entities[i].getName().toLowerCase().includes(esplist.names[j])) {
-                entitiesToRender.push(entities[i])
+                // entitiesToRender.push(entities[i])
+                closeentities = World.getWorld().func_72839_b(entities[i].getEntity(), new AABB(entities[i].getRenderX()-2,entities[i].getRenderY()-10,entities[i].getRenderZ()-2,entities[i].getRenderX()+2,entities[i].getRenderY(),entities[i].getRenderZ()+2,))
+                distances = []
+                for (let k = 0; k < closeentities.length; k++) {
+                    if (closeentities[k] instanceof EntityArmorStand) {
+                        // console.log("this guy is an armorstand" + closeentities[k])
+                    } else {
+                        distances.push(closeentities[k].func_70032_d(entities[i].getEntity()))
+                    }
+                }
+                // console.log(closeentities[distances.indexOf(Math.min(...distances))])
+                entitiesToRender.push(closeentities[distances.indexOf(Math.min(...distances))])
             }
         }
     }
@@ -70,7 +82,7 @@ register('step', () => {
 register("renderWorld", () => {
     if (!data.qol.options[4]) return
     entitiesToRender.forEach(e => {
-        RenderLib.drawEspBox(e.getRenderX(), e.getRenderY() - 2, e.getRenderZ(), 1, 2, 1, 1, 0, 1, true)
-        return;
+        if (!e) return
+        RenderLib.drawEspBox(e.field_70142_S, e.field_70137_T, e.field_70136_U, e.field_70130_N, e.field_70131_O, 1, 1, 0, 1, true)
     })
 })

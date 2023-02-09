@@ -1,8 +1,10 @@
 {
-    "flareX": 262,
-    "flareY": 134.5,
+    "igns": [],
     "names": [
-        "magma cube"
+        "magma cube",
+        "dasher spider",
+        "spider"
     ],
-    "igns": []
+    "flareX": 262,
+    "flareY": 134.5
 }
