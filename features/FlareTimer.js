@@ -8,9 +8,9 @@ import { modMessage } from "../utils";
 const firework = new Item ("fireworks")
 const font2 = new Font('OdinClient - legit/stuff/OpenSans-Bold.ttf', 28)
 
-const warningflare = '[0:{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjk2OTIzYWQyNDczMTAwMDdmNmFlNWQzMjZkODQ3YWQ1Mzg2NGNmMTZjMzU2NWExODFkYzhlNmIyMGJlMjM4NyJ9fX0="}]';
-const alertflare = ' [0:{Value:"ewogICJ0aW1lc3RhbXAiIDogMTY0NjY4NzMyNjQzMiwKICAicHJvZmlsZUlkIiA6ICI0MWQzYWJjMmQ3NDk0MDBjOTA5MGQ1NDM0ZDAzODMxYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJNZWdha2xvb24iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWQyYmY5ODY0NzIwZDg3ZmQwNmI4NGVmYTgwYjc5NWM0OGVkNTM5YjE2NTIzYzNiMWYxOTkwYjQwYzAwM2Y2YiIKICAgIH0KICB9Cn0="}]'
-const sosflare = '[0:{Value:"ewogICJ0aW1lc3RhbXAiIDogMTY0NjY4NzM0NzQ4OSwKICAicHJvZmlsZUlkIiA6ICI0MWQzYWJjMmQ3NDk0MDBjOTA5MGQ1NDM0ZDAzODMxYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJNZWdha2xvb24iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzAwNjJjYzk4ZWJkYTcyYTZhNGI4OTc4M2FkY2VmMjgxNWI0ODNhMDFkNzNlYTg3YjNkZjc2MDcyYTg5ZDEzYiIKICAgIH0KICB9Cn0="}]'
+let warningflare = '[0:{Value:"ewogICJ0aW1lc3RhbXAiIDogMTY0NjY4NzMwNjIyMywKICAicHJvZmlsZUlkIiA6ICI0MWQzYWJjMmQ3NDk0MDBjOTA5MGQ1NDM0ZDAzODMxYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJNZWdha2xvb24iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjJlMmJmNmMxZWMzMzAyNDc5MjdiYTYzNDc5ZTU4NzJhYzY2YjA2OTAzYzg2YzgyYjUyZGFjOWYxYzk3MTQ1OCIKICAgIH0KICB9Cn0="}]';
+let alertflare = ' [0:{Value:"ewogICJ0aW1lc3RhbXAiIDogMTY0NjY4NzMyNjQzMiwKICAicHJvZmlsZUlkIiA6ICI0MWQzYWJjMmQ3NDk0MDBjOTA5MGQ1NDM0ZDAzODMxYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJNZWdha2xvb24iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWQyYmY5ODY0NzIwZDg3ZmQwNmI4NGVmYTgwYjc5NWM0OGVkNTM5YjE2NTIzYzNiMWYxOTkwYjQwYzAwM2Y2YiIKICAgIH0KICB9Cn0="}]'
+let sosflare = '[0:{Value:"ewogICJ0aW1lc3RhbXAiIDogMTY0NjY4NzM0NzQ4OSwKICAicHJvZmlsZUlkIiA6ICI0MWQzYWJjMmQ3NDk0MDBjOTA5MGQ1NDM0ZDAzODMxYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJNZWdha2xvb24iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzAwNjJjYzk4ZWJkYTcyYTZhNGI4OTc4M2FkY2VmMjgxNWI0ODNhMDFkNzNlYTg3YjNkZjc2MDcyYTg5ZDEzYiIKICAgIH0KICB9Cn0="}]'
 
 const flareMove = new Gui()
 
@@ -51,9 +51,11 @@ let flaretype
 
 const flaretimerRenderOverlay = () => {
   if (!data.nether.options[1] || !flareShot || disabletimer) return
+
   if (!flare) return
   const timePassed = Date.now() - flareShot
   if (timePassed > 180000) {
+
     flareShot = null;
     return;
   }
@@ -74,30 +76,41 @@ const flaretimerRenderOverlay = () => {
 
 register("renderOverlay", flaretimerRenderOverlay);
 
+
 register("step", () => {
-  armorstands = World.getAllEntitiesOfType(EntityArmorStand.class)
+  armorstands = World.getAllEntitiesOfType(Java.type("net.minecraft.entity.item.EntityArmorStand"))
   for (let i = 0; i < armorstands.length; i++) {
     flare = new EntityLivingBase(armorstands[i]?.getEntity()).getItemInSlot(4)?.getNBT()?.getTag("tag")?.getTag("SkullOwner")?.getTag("Properties")?.getTag("textures")
-    if (flare == warningflare) flaretype = "Warning"
-    else if (flare == sosflare) flaretype = "SOS"
-    else if (flare == alertflare) flaretype = "Alert"
-   
-    if (flare == warningflare || flare == sosflare || flare == alertflare) {
-      flareloc = armorstands[i]
-      const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
-      const [x1, y1, z1] = [flareloc.getX(), flareloc.getY(), flareloc.getZ()]
-      dist = getDistance3D(x, y, z, x1, y1, z1)
+    flareloc = armorstands[i]
+    if (flare == warningflare) { flaretype = "Warning"}
+    if (flare == sosflare) { flaretype = "SOS"}
+    if (flare == alertflare) {flaretype = "Alert"}
+    if(flare == warningflare || flare == sosflare || flare == alertflare)
+    {
+      X0 = Player.getX()
+      Y0 = Player.getY()
+      Z0 = Player.getZ()
+      X1 = flareloc.getX()
+      Y1 = flareloc.getY()
+      Z1 = flareloc.getZ()
+      let dist = Math.sqrt(Math.pow(X1-X0,2) + Math.pow(Y1-Y0,2) + Math.pow(Z1-Z0,2))
       if (dist <= 40) {
-        if (!flareShot) flareShot = new Date().getTime()
+        if (flareShot == null) flareShot = new Date().getTime()
         disabletimer = false
+        return
       } else {
         flareShot = null
       }
     }
+
   }
 }).setFps(10)
 
-register("command", () => {
-  ChatLib.chat(flare)
-  
-}).setName("getflare")
+
+
+register('command', () => {
+  armorstands = World.getAllEntitiesOfType(Java.type("net.minecraft.entity.item.EntityArmorStand"))
+  for (let i = 0; i < armorstands.length; i++) {
+    modMessage(new EntityLivingBase(armorstands[i]?.getEntity()).getItemInSlot(4)?.getNBT()?.getTag("tag")?.getTag("SkullOwner")?.getTag("Properties")?.getTag("textures"))
+  }
+}).setName("checkentities")

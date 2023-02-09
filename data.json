@@ -30,10 +30,10 @@
         "dropDown": true,
         "options": [
             false,
+            false,
+            false,
+            false,
             true,
-            false,
-            false,
-            false,
             false
         ],
         "titles": [
@@ -51,7 +51,7 @@
         "dropDown": true,
         "options": [
             false,
-            false,
+            true,
             false,
             false
         ],
@@ -71,7 +71,7 @@
             false,
             false,
             false,
-            true,
+            false,
             false
         ],
         "titles": [
