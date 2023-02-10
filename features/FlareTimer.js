@@ -65,7 +65,6 @@ register("worldLoad", () => {
   flareType = undefined
   nearbyFlares.length = 0
 })
-
 register("step", () => {
   if (!data.nether.options[1]) return
   const flares = []
