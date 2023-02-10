@@ -4,6 +4,7 @@ import { data } from "../stuff/guidk"
 register('tick', () => {
     if (!data.qol.options[3]) return
     let container = Player.getContainer()
+    if (!container) return
     if (container.getName()?.startsWith('Cookie Clicker')) {
         container.click(13, false, "MIDDLE")
     }
