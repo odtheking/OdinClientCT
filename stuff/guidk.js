@@ -128,6 +128,7 @@ const drawTab = (tab) => {
 }
 
 const drawDesc = (mx, my, tab, index) => {
+    if (!tab.dropDown) return
     if (mx < tab.x || mx > tab.x+buttonWidth) return
     toshow = Math.floor((my - tab.y - buttonHeight) / buttonHeight)
     if (toshow < 0 || toshow > descriptions[index].length - 1) return

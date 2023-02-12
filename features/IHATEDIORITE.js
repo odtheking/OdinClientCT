@@ -93,7 +93,7 @@ var runLoop = Executors.newSingleThreadExecutor();
 
 runLoop.execute(() => {
     register("step", () => {
-        if (!World.isLoaded() || !data.qol.options[5]) return
+        if (!World.isLoaded() || !data.qol.options[5] || !inp2) return
         for (let height = 0; height < 37; height++) {
             for (let block of green) {
                 try {
@@ -112,3 +112,14 @@ runLoop.execute(() => {
         }
     }).setFps(10)
 });
+
+let inp2 = false
+
+register("chat", () => {
+    inp2 = true
+    
+}).setCriteria("[BOSS] Maxor: I'M TOO YOUNG TO DIE AGAIN!")
+
+register("chat", () => {
+    inp2 = false
+}).setCriteria("[BOSS] Storm: I should have known that I stood no chance.")

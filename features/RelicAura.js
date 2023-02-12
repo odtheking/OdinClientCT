@@ -7,19 +7,22 @@ import { rightClick, swapAndRightClick } from "../utils"
 
 // Relic Aura
 let hasrelic = false
+let disabler = false
 
 register('worldLoad', () => {
     hasrelic = false
+    disabler = false
 })
-/* future use
+//future use
 register('chat', (player, color) => {
-
-}).setCriteria("{player} picked the Corrupted {color} Relic!")*/
+    disabler = true
+}).setCriteria("{player} picked the Corrupted {color} Relic!")
 
 
 register('tick', (ticks) => {
     if (ticks % 2 !== 0 && Skyblock.area != 'Dungeon' && data.qol.options[0]) return
     if (hasrelic) return
+    if (disabler) return
     World.getAllEntitiesOfType(EntityArmorStand.class).forEach(e => {
         if (new EntityLivingBase(e?.getEntity()).getItemInSlot(4)?.getNBT()?.toString()?.includes("Relic")) {
             const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
@@ -32,19 +35,11 @@ register('tick', (ticks) => {
                 Player.getPlayer().field_70177_z = yaw
                 Player.getPlayer().field_70125_A = pitch
                 rightClick()
-                setTimeout(() => {
-                    rightClick()
-                }, 100);
 
             }
         }
     })
+
     
-    index = Player?.getInventory()?.getItems()?.findIndex(item => item?.getName()?.includes("Relic"))
-    if (index >= 0 && index < 9) {
-        swapAndRightClick(index, false)
-        hasrelic = true
-    } else {
-        hasrelic = false
-    }
+  
 })
