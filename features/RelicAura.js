@@ -20,9 +20,7 @@ register('chat', (player, color) => {
 
 
 register('tick', (ticks) => {
-    if (ticks % 2 !== 0 && Skyblock.area != 'Dungeon' && data.qol.options[0]) return
-    if (hasrelic) return
-    if (disabler) return
+    if (ticks % 2 !== 0 || Skyblock.area != 'Dungeon' || !data.qol.options[0] || hasrelic || disabler) return
     World.getAllEntitiesOfType(EntityArmorStand.class).forEach(e => {
         if (new EntityLivingBase(e?.getEntity()).getItemInSlot(4)?.getNBT()?.toString()?.includes("Relic")) {
             const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
@@ -39,7 +37,4 @@ register('tick', (ticks) => {
             }
         }
     })
-
-    
-  
 })
