@@ -72,6 +72,7 @@ const descriptions = [
         "Custom guild commands use !help in guild chat",
         "Responds to anyone in guild chat saying gm/gn",
         "Creates custom and decently accurate boxes in p5",
+        "Shows when a M7 dragon will spawn",
         "Shows the power blessing /movepower",
         "Shows when a M7 dragon will spawn"
     ],
