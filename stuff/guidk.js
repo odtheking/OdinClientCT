@@ -10,7 +10,7 @@ const image = new Image(Logo)
 
 register('command', () => {
     mainGui.open()
-}).setName('odinclient').setAliases("od")
+}).setName('odincheata').setAliases("oc")
 
 
 export const data = new PogObject("OdinClient", {
@@ -42,8 +42,8 @@ export const data = new PogObject("OdinClient", {
         'x': 620,
         'y': 20,
         'dropDown': true,
-        'options': [false, false, false, false, false, false],
-        'titles': ['Relic Aura', 'Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE'],
+        'options': [false, false, false, false, false, false, false],
+        'titles': ['Relic Aura', 'Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE', 'Pre GhostBlock'],
     },
 
     'boss': {
@@ -60,7 +60,7 @@ const descriptions = [
         "Automatically clicks in the ready GUI",
         "Automatically gets in range of mort and opens his GUI",
         "Automatically uses class ultimate on certain times",
-        "Automatically uses wither shield when not full hp",
+        "Automatically uses wither shield when not full hp and in boss",
         "Automatically uses wish when a temmate is low HP",
         "Automatically swaps between bonzo and spirit mask",
         "Automatically equips edrag after relics",

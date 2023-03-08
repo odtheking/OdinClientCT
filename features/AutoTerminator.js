@@ -6,4 +6,4 @@ register('step', () => {
     if (!data.qol.options[2]) return
     if (!Player?.getHeldItem()?.getName()?.includes("Terminator")) return
     setTimeout(() => { rightClick() }, Math.random() * 8)
-}).setFps(25)
+}).setFps(20)

@@ -13,7 +13,7 @@ import { getEntityRenderParams, modMessage, noSqrt3DDistance } from "../utils.js
 // Cheater ESP
 register("command", (...args) => {
     if (!data.qol.options[4]) {
-        modMessage("Feature is disabled please turn on with /od")
+        modMessage("Feature is disabled please turn on with /oc")
         return
     }
     if (!args || args.length < 2) {

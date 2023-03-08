@@ -18,7 +18,7 @@ register("chat", () => {
 let renderbeam = false;
 let renderx, rendery, renderz;
 
-register("chat", (rank, x, y, z, loc) => {
+const sixtySecondBeacon = (x, y, z) => {
     renderx = parseInt(x, 10);
     rendery = parseInt(y, 10);
     renderz = parseInt(z, 10);
@@ -26,24 +26,24 @@ register("chat", (rank, x, y, z, loc) => {
     setTimeout(() => {
         renderbeam = false
     }, 60000);
-})
-    .setCriteria(/Party > (\[.+\])? .{0,16}: Vanquisher spawned at: (-?\d+) (-?\d+) (-?\d+) (.+)/)
+}
+register("chat", (rank, x, y, z, loc) => {
+    sixtySecondBeacon(x,y,z)
+}).setCriteria(/Party > (\[.+\])? .{0,16}: Vanquisher spawned at: (-?\d+) (-?\d+) (-?\d+) (.+)/)
 
 register("chat", (player, x, y, z) => {
-    renderx = parseInt(x, 10);
-    rendery = parseInt(y, 10);
-    renderz = parseInt(z, 10);
-    renderbeam = true;
-    setTimeout(() => {
-        renderbeam = false
-    }, 60000);
+    sixtySecondBeacon(x,y,z)
 }).setCriteria("Party > ${player}: x: ${x} y: ${y} z: ${z}")
+
+register("chat", (player, x, y, z) => {
+    sixtySecondBeacon(x,y,z)
+}).setCriteria("${player}: x: ${x} y: ${y} z: ${z}")
 
 register("renderWorld", () => {
     if (!data.nether.options[2]) return
     if (!renderbeam) return;
     renderBeaconBeam(renderx, rendery + 1, renderz, 1, 0, 0, 0.5, false);
-    Tessellator.drawString(["vanq " + renderx, rendery, renderz].join(", "), renderx, rendery, renderz)
+    Tessellator.drawString(["x: " + renderx, "y: " +rendery, "z: " + renderz].join(", "), renderx, rendery, renderz)
 })
 
 

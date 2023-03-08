@@ -1,25 +1,15 @@
 import { data } from "../stuff/guidk"
 import RenderLib from "../../RenderLib"
 import { modMessage } from "../utils"
+import Skyblock from "../../BloomCore/Skyblock"
 
 
 //Dragon box
 
-let p4done = false
-
-register("chat", () => {
-    p4done = true
-    
-}).setCriteria("[BOSS] Wither King: You.. again?")
-
-register("worldLoad", () => {
-    p4done = false
-})
-
-
 register('renderWorld', () => {
     if (!data.legit.options[3]) return
-    if (!p4done) return
+    if (Player.getY() > 45 && Skyblock.area != 'Dungeon') return
+    
     //blue 
     RenderLib.drawEspBox(84, 16 , 95, 25, 10, 0, 170/255, 170/255,1,false );
     //purple

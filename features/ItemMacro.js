@@ -59,3 +59,17 @@ register("tick", (ticks) => {
         }).start()
     }
 }) 
+
+let veilswitch = false
+
+register("tick", (ticks) => {
+    if (!data.qol.options[1]) return
+    if (keyeye.isPressed()) {
+        veilswitch = !veilswitch
+        modMessage("Fire veil is now: " + veilswitch)
+    }
+    if (!veilswitch) return
+    if (ticks % 4800 == 0) {
+        swapAndRightClick("Fire Veil", false)
+    }
+}) 

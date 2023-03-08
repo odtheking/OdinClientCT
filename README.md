@@ -4,7 +4,7 @@ Very awesome ChatTriggers module for all kinds of feature from dungeons to nethe
 Has both legit and cheater versions
 
 
-command to toggle everything in cheater version is "/od" or "/odinclient" 
+command to toggle everything in cheater version is "/oc" or "/odinclient" 
 
 command to toggle everything is "/ol" or "/odinlegit" for legit
 
@@ -67,6 +67,6 @@ command to toggle everything is "/ol" or "/odinlegit" for legit
 - COOKIE CLICKER
 - Customizeable esp: (you can add whatever mob name u want to see) cmd is /esp
 - FUCK DIORITE": replaces the diorite with glass in the p2 pillars in f7/m7 so you can watch storm get stuck
-- Very awesome gui: reminder cmds are /od and /ol
+- Very awesome gui: reminder cmds are /oc and /ol
 - Descriptions: when u hover at features in the gui
 </details>

@@ -3,15 +3,6 @@ import { modMessage } from "../utils"
 
 // Dragon Timer
 
-//dragon timer
-
-import { data } from "../stuff/guidk"
-import { modMessage } from "../utils"
-
-// Dragon Timer
-
-//dragon timer
-
 let times = []
 times["orange"] = null
 times["red"] = null
@@ -77,13 +68,6 @@ register("worldLoad", () => {
     times["blue"] = null
     times["purple"] = null
 })
-register("command", () => {
-    ChatLib.command("particle flame 84 18 95 1 1 1 1 100")
-    ChatLib.command("particle flame 57 18 125 1 1 1 1 100")
-    ChatLib.command("particle flame 26 18 95 1 1 1 1 100")
-    ChatLib.command("particle flame 27 18 60 1 1 1 1 100")
-    ChatLib.command("particle flame 84 18 56 1 1 1 1 100")
-}).setName("testdragons")
 register("command", () => {
     ChatLib.command("particle flame 84 18 95 1 1 1 1 100")
     ChatLib.command("particle flame 57 18 125 1 1 1 1 100")
