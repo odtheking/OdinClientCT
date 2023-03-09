@@ -2,7 +2,7 @@ import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import { data } from "../stuff/guidk"
 import PogObject from "../../PogData"
 import Font from "../../fontlib"
-const font2 = new Font('OdinClient/stuff/Minecraft.ttf', 21)
+const font2 = new Font('OdinCheata/stuff/Minecraft.ttf', 21)
 
 // Power Display
 const powerMove = new Gui()
@@ -11,7 +11,7 @@ register("command", () => {
   powerMove.open()
 }).setName("movepower")
 
-const powerdata = new PogObject("OdinClient", {
+const powerdata = new PogObject("OdinCheata", {
   powerX: 50,
   powerY: 50,
 }, "flaredata.json")

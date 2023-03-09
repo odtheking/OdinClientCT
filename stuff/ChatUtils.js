@@ -1,5 +1,13 @@
 import { modMessage, partyMessage, privateMessage, guildMessage } from "../utils";
+import Skyblock from "../../BloomCore/Skyblock";
+import request from "../../requestV2";
 
+let cats
+register("gameLoad", () => {
+  request("https://pastebin.com/raw/m4L2e62y").then(stuff => {
+      cats = stuff
+  })
+})
 
 export function eightBall() {
     var responses = [
@@ -32,35 +40,13 @@ export function eightBall() {
 }
 
 export function catpics() {
-    var pics = [
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055577574765502484/Z.png cat image no way",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055770049715122186/cat-1045782__340.png that is a cat image??",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055770156028145664/communityIcon_x4lqmqzu1hi81.png wtf this is a cat image??",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055770278573117520/cat-1285634_960_720.png YO this is insane",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055770366892593172/cat-323262__340.png this is so cool man",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055770426518818816/cat-1455468__340.png :yes:",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055770589262008380/cat-300572__340.png o/ <3",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055770703900725318/cat-1046544__340.png PEEPOAWESOME",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055770788248158288/cat-914110__340.png :fire:",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055770861044519012/cat-5778777__340.png no way he just did that",
-      "https://cdn.discordapp.com/attachments/984220286666813460/1056647474221158410/image.png odinclient is so fucking cool",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055771007383769179/cat-5337501__340.png I love cats!",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055771075302137896/tabby-5946499__340.png try the help command for more cool features!",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055771214418804806/cat-6748193__340.png cat feature in a skyblock mod??",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055771282144247828/cat-7094808__340.png i have no idea what to write",
-      "https://cdn.discordapp.com/attachments/910078453481627678/1055772251246559252/cat-6838844__340.png another cat!",
-      "https://cdn.discordapp.com/attachments/984220286666813460/1056647167319752775/cheese_cat.png AAAAAAAAAA",
-      "https://cdn.discordapp.com/attachments/984220286666813460/1056647167609147453/da5eac86fe994bc1ba23460d6273f31c.png skyblock is such a good game trust me",
-      "https://cdn.discordapp.com/attachments/984220286666813460/1056647168468979732/juicecat.png is the cat drinking??",
-      "https://cdn.discordapp.com/attachments/984220286666813460/1056647168762597467/stare.png #votefordanta",
-      "https://cdn.discordapp.com/attachments/917006226133504061/1045399878865518684/IMG_0319.jpg WAIT THATS A DOG"
-    ]
-    var index = Math.floor(Math.random() * pics.length)
+  let catsArray = cats?.split(",")
+  var index = Math.floor(Math.random() * catsArray?.length)
   
-    return pics[index];
-  }
+  return catsArray[index];
+}
 
-
+ 
 export function flipCoin() {
     var result = Math.random();
     if (result < 0.5) {
@@ -73,7 +59,6 @@ export function flipCoin() {
 export function rollDice() {
   return Math.floor(Math.random() * 6) + 1;
 }
-  
 
 export const partyCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
@@ -81,21 +66,13 @@ export const partyCmdOptions = (message, name) => {
       partyMessage("[OdinClient] available commands are: coords, warp, allinvite, inv(ite), odin, boop, 8ball, cf, m(?), f(?), dice (max)");
     break;
     case "warp":
-          if (Party?.leader == Player.getName()) {
-              ChatLib.command("p warp");
-          } else {
-              modMessage("You are not leader")
-          }
+      ChatLib.command("p warp");
     break;
     case "coords":
       ChatLib.command("pc Current area: " + Skyblock.area + ". X: " + Math.round(Player.getX()) + " Y: " + Math.round(Player.getY()) + " Z: " + Math.round(Player.getZ()))        
     break;
     case "allinvite":
-        if (Party?.leader == Player.getName()) {
-            ChatLib.command("p settings allinvite");
-        } else {
-            modMessage("You are not leader")
-        }
+      ChatLib.command("p settings allinvite");
     break
     case "odin":
       partyMessage("OdinClient! https://discord.gg/2nCbC9hkxT");
@@ -112,6 +89,19 @@ export const partyCmdOptions = (message, name) => {
     case "cat":
       partyMessage(catpics());
     break
+    case "rs":
+      if (Party?.leader != Player.getName()) break
+      ChatLib.command("reparty", true)
+      setTimeout(() => {
+        floor = Dungeon.floor
+        if (!floor) return
+        if (floor.charAt(0) === "F") ChatLib.command(`joindungeon catacombs ${floor.charAt(1)}`)
+        else ChatLib.command(`joindungeon master_catacombs ${floor.charAt(1)}`)
+      }, 5000)
+      break
+    case "pt":
+      if (Party?.leader == Player.getName()) ChatLib.command("p transfer " + name)
+      break
 }
 }
 
@@ -119,7 +109,7 @@ export const privateCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
 
   case "help":
-    privateMessage("[OdinClient] available commands are: coords, warp, allinvite, inv(ite), odin, boop, 8ball, cf, m(?), f(?), dice (max)");
+    privateMessage("[OdinClient] available commands are: coords, warp, allinvite, inv(ite), odin, boop, 8ball, cf, dice (max)");
   case "boop":
     ChatLib.say("/boop " + name)
   break

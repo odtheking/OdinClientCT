@@ -6,7 +6,7 @@ import { getCtEntityHelmetTexture, modMessage } from "../utils";
 
 // Flare Timer
 const firework = new Item("fireworks")
-const font2 = new Font('OdinClient/stuff/OpenSans-Bold.ttf', 28)
+const font2 = new Font('OdinCheata/stuff/OpenSans-Bold.ttf', 28)
 
 let flareType = undefined
 let nearbyFlares = []
@@ -19,7 +19,7 @@ const flareTextures = {
 
 const flareMove = new Gui()
 
-const flaredata = new PogObject("OdinClient", {
+const flaredata = new PogObject("OdinCheata", {
   flareX: 50,
   flareY: 50,
 }, "flaredata.json")

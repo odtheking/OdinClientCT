@@ -1,11 +1,11 @@
 import PogObject from "../../PogData"
 import Font from "../../fontlib"
 import { File } from "../java-stuff"
-const font = new Font('OdinClient/stuff/OpenSans-Regular.ttf', 75)
-const font2 = new Font('OdinClient/stuff/Minecraft.ttf', 21)
+const font = new Font('OdinCheata/stuff/OpenSans-Regular.ttf', 75)
+const font2 = new Font('OdinCheata/stuff/Minecraft.ttf', 21)
 const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
 
-const Logo = new File("./config/ChatTriggers/modules/OdinClient/stuff/OdinClientNoBackround.png")
+const Logo = new File("./config/ChatTriggers/modules/OdinCheata/stuff/OdinClientNoBackround.png")
 const image = new Image(Logo)
 
 register('command', () => {
@@ -13,7 +13,7 @@ register('command', () => {
 }).setName('odincheata').setAliases("oc")
 
 
-export const data = new PogObject("OdinClient", {
+export const data = new PogObject("OdinCheata", {
     'auto': {
         'x': 20,
         'y': 20,
@@ -92,6 +92,7 @@ const descriptions = [
         "Spams the cookie while in the cookie clicker menu",
         "You can add whatever mob you want into the list /esp",
         "Replaces diorite with glass in p2 (don't use connected blocks)",
+        "Makes ghost blocks and covinient spots in the m7 boss",
     ],
 
     [

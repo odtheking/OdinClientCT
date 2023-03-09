@@ -1,4 +1,5 @@
 import renderBeaconBeam from "../../BeaconBeam"
+import RenderLib from "../../RenderLib"
 import { data } from "../stuff/guidk"
 import { modMessage } from "../utils"
 
@@ -19,9 +20,9 @@ let renderbeam = false;
 let renderx, rendery, renderz;
 
 const sixtySecondBeacon = (x, y, z) => {
-    renderx = parseInt(x, 10);
-    rendery = parseInt(y, 10);
-    renderz = parseInt(z, 10);
+    renderx = Math.round(parseInt(x, 10))
+    rendery = Math.round(parseInt(y, 10))
+    renderz = Math.round(parseInt(z, 10))
     renderbeam = true;
     setTimeout(() => {
         renderbeam = false
@@ -43,7 +44,8 @@ register("renderWorld", () => {
     if (!data.nether.options[2]) return
     if (!renderbeam) return;
     renderBeaconBeam(renderx, rendery + 1, renderz, 1, 0, 0, 0.5, false);
-    Tessellator.drawString(["x: " + renderx, "y: " +rendery, "z: " + renderz].join(", "), renderx, rendery, renderz)
+    RenderLib.drawEspBox(renderx, rendery, renderz, 1, 1, 1, 0, 0, 0.5, true)
+    Tessellator.drawString(["x: " + renderx, "y: " +rendery, "z: " + renderz].join(", "), renderx, rendery + 1, renderz)
 })
 
 

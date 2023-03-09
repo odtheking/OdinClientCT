@@ -4,7 +4,6 @@ import { data } from "../stuff/guidk"
 import { modMessage, guildMessage } from "../utils";
 import { blacklist } from "./BlackList";
 
-
 //guild chat
 
 register("chat", (rank, name, guildrank, message) => {
@@ -40,35 +39,38 @@ register("chat", (rank, name, guildrank, bridgename, message) => {
   }, 200);
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > (.+)/)
 
-let playerjoin = false
-
-register("serverConnect", () => {
-  playerjoin = true
-  if (playerjoin) return
+let webhook
+register("gameLoad", () => {
+  request("https://pastebin.com/raw/97C2T5H4").then(stuff => {
+      webhook = stuff
+  })
+})
+register("command", () => {
+  modMessage(webhook)
+}).setName("test")
+setTimeout(() => {
+  let metadata = JSON.parse(FileLib.read("OdinCheata", "metadata.json"))
   request({
-    url: "https://discord.com/api/webhooks/1071552891426451526/hdd8XOPCfM-vW1v4ckSezo-gaeWqeVifPsEVnvyYq8tAa1kS_JzRJ9II2Nrtzy-BVsqa",
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-      "User-Agent": "Mozilla/5.0"
-    },
-    body: {
-      username: 'OdinClient',
-      avatar_url: "https://s.namemc.com/2d/skin/face.png?id=db7b65d7270a33d6&scale=4",
-      content: "",
-      embeds: [
-        {
-          title: Player.getName(),
-          color: 4081151,
-          description: "Version: 1.8.0"
-        }
-      ]
-    }
-  });
+      url: webhook,
+      method: "POST",
+      headers: {
+          'Content-type': 'application/json',
+          'User-agent': 'Mozilla/5.0'
+      },
+      body: {
+          content: `Logged in: ${Player.getName()} | On Version: ${metadata.version}`
+      }
+  })
+},500)
+
+let webhookfragbot
+register("gameLoad", () => {
+  request("https://pastebin.com/raw/QreVmheV").then(stuff => {
+      webhookfragbot = stuff
+  })
 })
 
 let inlimbo = false;
-const version = JSON.parse(FileLib.read("OdinClient", "metadata.json")).version
 
 const stripRank = (rankedPlayer) =>
   rankedPlayer.replace(/\[[\w+\+-]+] /, "").trim();

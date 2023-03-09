@@ -6,15 +6,13 @@ import { blacklist } from "./BlackList";
 import { partyCmdOptions, privateCmdOptions, godMod } from "../stuff/ChatUtils";
 
 
-let godmod = false;
-
-register("chat", (channel, rank, name, message) => {
+register("chat", (rank, name, message) => {
     if (!data.legit.options[0] || blacklist.igns.includes(name.toLowerCase())) return;
     partyCmdOptions(message, name)
     godMod(message, name)
 }).setCriteria(/Party > (\[.+\])? ?(.+): !(.+)/);
 
-register("chat", (channel, rank, name, message) => {
+register("chat", (rank, name, message) => {
     if (!data.legit.options[0] || blacklist.igns.includes(name.toLowerCase())) return;
     privateCmdOptions(message, name)
     godMod(message, name)

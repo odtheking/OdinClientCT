@@ -56,7 +56,7 @@ register("command", () => {
     modMessage("Cleared esp list")
 }).setName("clearlist")
 
-const esplist = new PogObject("OdinClient", {
+const esplist = new PogObject("OdinCheata", {
     names: []
 }, "flaredata.json")
 

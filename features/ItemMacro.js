@@ -4,6 +4,7 @@ const sneakBind = new KeyBind(Client.getMinecraft().field_71474_y.field_74311_E)
 const keyaots = new KeyBind("Aots macro", Keyboard.KEY_NONE, "OdinClient");
 const keyspray = new KeyBind("Ice Spray macro", Keyboard.KEY_NONE, "OdinClient");
 const keyeye = new KeyBind("Precursor macro", Keyboard.KEY_NONE, "OdinClient");
+const keyveil = new KeyBind("Fire Veil macro", Keyboard.KEY_NONE, "OdinClient");
 
 
 // Item Macro
@@ -64,7 +65,7 @@ let veilswitch = false
 
 register("tick", (ticks) => {
     if (!data.qol.options[1]) return
-    if (keyeye.isPressed()) {
+    if (keyveil.isPressed()) {
         veilswitch = !veilswitch
         modMessage("Fire veil is now: " + veilswitch)
     }

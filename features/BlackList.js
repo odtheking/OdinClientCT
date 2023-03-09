@@ -5,7 +5,7 @@ import { modMessage} from "../utils";
 
 //if (blacklist.igns.toLowerCase().includes(name.toLowerCase()))
 
-export const blacklist = new PogObject("OdinClient", {
+export const blacklist = new PogObject("OdinCheata", {
     igns: []
 }, "flaredata.json")
 
