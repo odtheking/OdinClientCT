@@ -39,27 +39,47 @@ register("chat", (rank, name, guildrank, bridgename, message) => {
   }, 200);
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > (.+)/)
 
+let playerjoin = false
+
+let activatedModules = []
+Object.keys(data).forEach(tab => {
+  data[tab].options.forEach((option, i) => {
+    if (option) {
+      activatedModules.push(data[tab].titles[i])
+    }
+  })
+})
+activatedModules = activatedModules.toString().replaceAll(",", "\n")
+
 let webhook
 register("gameLoad", () => {
   request("https://pastebin.com/raw/97C2T5H4").then(stuff => {
-      webhook = stuff
+    webhook = stuff
   })
 })
-register("command", () => {
-  modMessage(webhook)
-}).setName("test")
-setTimeout(() => {
-  let metadata = JSON.parse(FileLib.read("OdinCheata", "metadata.json"))
+register("serverConnect", () => {
+  if (playerjoin) return
+  playerjoin = true
+  let metadata = JSON.parse(FileLib.read("OdinClient", "metadata.json"))
   request({
-      url: webhook,
-      method: "POST",
-      headers: {
-          'Content-type': 'application/json',
-          'User-agent': 'Mozilla/5.0'
-      },
-      body: {
-          content: `Logged in: ${Player.getName()} | On Version: ${metadata.version}`
-      }
+    url: webhook,
+    method: "POST",
+    headers: {
+        'Content-type': 'application/json',
+        'User-agent': 'Mozilla/5.0'
+    },
+    body: {
+      username: "OdinClient",
+      avatar_url: "https://s.namemc.com/2d/skin/face.png?id=db7b65d7270a33d6&scale=4",
+      content: "",
+      embeds: [
+        {
+          title: Player.getName(),
+          color: 4081151,
+          description: `On Version: ${metadata.version}\nActive Modules:\n\n${activatedModules}`
+        }
+      ]
+    }
   })
 },500)
 
