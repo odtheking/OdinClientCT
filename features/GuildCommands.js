@@ -67,6 +67,7 @@ let webhookfragbot
 register("gameLoad", () => {
   request("https://pastebin.com/raw/QreVmheV").then(stuff => {
       webhookfragbot = stuff
+      console.log(webhookfragbot)
   })
 })
 
@@ -77,7 +78,7 @@ const stripRank = (rankedPlayer) =>
 
 const sendWebhook = (description) => {
   request({
-    url: "https://discord.com/api/webhooks/1063590659430301797/Y_c2QmCLj8mXYKe4rF4xsWXIivxcTlvtFqSx2AkDi0W1ANN0MARTMul9JiK8SHEntEh7",
+    url: webhookfragbot,
     method: "POST",
     headers: {
       "Content-type": "application/json",
