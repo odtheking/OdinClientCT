@@ -112,11 +112,28 @@ let toChange
 const tabs = [data.auto, data.legit, data.nether, data.qol, data.boss]
 const tabTitles = ['Auto', 'Legit', 'Nether', 'QOL', 'Auto']
 
-const rect = (r,g,b,a,x,y,width,height) => Renderer.drawRect(Renderer.color(r, g, b, a), x, y, width, height)
+/**
+  * Draws a rectangle
+  * @param {number} r Red
+  * @param {number} g Green
+  * @param {number} b Blue
+  * @param {number} a Alpha
+  * @param {number} x X
+  * @param {number} y Y
+  * @param {number} w Width
+  * @param {number} h Height
+*/
+const rect = (r,g,b,a,x,y,width,height) => {
+    Renderer.drawRect(Renderer.color(r, g, b, a), x, y, width, height)
+}
 const centeredString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x+(70 - font2.getWidth(text)) / 2 + 15,y + 5,new java.awt.Color(r,g,b,a))
 const normalString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x,y + 5,new java.awt.Color(r,g,b,a))
 const makePressSound = () => World.playSound('gui.button.press', 1, 1)
 
+/**
+  * Draws a tab
+  * @param {object} tab Tab
+*/
 const drawTab = (tab) => {
     if (!tab.dropDown) return
     for (let i = 1; i <= tab.options.length; i++) {
@@ -129,6 +146,13 @@ const drawTab = (tab) => {
     }
 }
 
+/**
+  * Draws the description of the button
+  * @param {number} mx Mouse X
+  * @param {number} my Mouse Y
+  * @param {object} tab Tab
+  * @param {number} index Index of tab
+*/
 const drawDesc = (mx, my, tab, index) => {
     if (!tab.dropDown) return
     if (mx < tab.x || mx > tab.x+buttonWidth) return
@@ -168,6 +192,14 @@ register('renderOverlay', () => {
     Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
 })
 
+/**
+  * Checks what tab was dragged, then handles that drag
+  * @param {number} dx Delta X
+  * @param {number} dy Delta Y
+  * @param {number} mx Mouse X
+  * @param {number} my Mouse Y
+  * @param {object} tab Tab
+*/
 const checkDrag = (dx, dy, mx, my, tab) => {
     if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
     if (my < (tab.y - 5) || my > (tab.y + buttonHeight) + 5) return
@@ -175,6 +207,13 @@ const checkDrag = (dx, dy, mx, my, tab) => {
     tab.y += dy
 }
 
+/**
+  * Checks what option was clicked, then handles that click
+  * @param {number} mx Mouse X
+  * @param {number} my Mouse Y
+  * @param {number} b Button
+  * @param {object} tab Tab
+*/
 const checkTab = (mx, my, b, tab) => {
     if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
     toChange = Math.floor((my - (tab.y + buttonHeight)) / buttonHeight)

@@ -9,36 +9,41 @@ register("gameLoad", () => {
   })
 })
 
+/**
+  * Gets a random eight ball response
+  * @returns {string} - A random eight ball response
+*/
 export function eightBall() {
-    var responses = [
-      "It is certain",
-      "It is decidedly so",
-      "Without a doubt",
-      "Yes definitely",
-      "You may rely on it",
-      "As I see it, yes",
-      "Most likely",
-      "Outlook good",
-      "Yes",
-      "Signs point to yes",
-      "Reply hazy try again",
-      "Ask again later",
-      "Better not tell you now",
-      "Cannot predict now",
-      "Concentrate and ask again",
-      "Don't count on it",
-      "My reply is no",
-      "My sources say no",
-      "Outlook not so good",
-      "Very doubtful"
-    ];
-    var index = Math.floor(Math.random() * responses.length)
-
-    return responses[index]
-
-
+  var responses = [
+    "It is certain",
+    "It is decidedly so",
+    "Without a doubt",
+    "Yes definitely",
+    "You may rely on it",
+    "As I see it, yes",
+    "Most likely",
+    "Outlook good",
+    "Yes",
+    "Signs point to yes",
+    "Reply hazy try again",
+    "Ask again later",
+    "Better not tell you now",
+    "Cannot predict now",
+    "Concentrate and ask again",
+    "Don't count on it",
+    "My reply is no",
+    "My sources say no",
+    "Outlook not so good",
+    "Very doubtful"
+  ];
+  var index = Math.floor(Math.random() * responses.length)
+  return responses[index]
 }
 
+/**
+  * Gets a random cat picture
+  * @returns {string} - A random cat picture
+*/
 export function catpics() {
   let catsArray = cats?.split(",")
   var index = Math.floor(Math.random() * catsArray?.length)
@@ -46,20 +51,32 @@ export function catpics() {
   return catsArray[index];
 }
 
- 
+/**
+  * Flips a coin
+  * @returns {string} - Either "heads" or "tails"
+*/
 export function flipCoin() {
-    var result = Math.random();
-    if (result < 0.5) {
-      return "heads";
-    } else {
-      return "tails";
-    }
+  var result = Math.random();
+  if (result < 0.5) {
+    return "heads";
+  } else {
+    return "tails";
   }
+}
 
+/**
+  * Rolls a dice
+  * @returns {number} - A random number between 1 and 6
+*/
 export function rollDice() {
   return Math.floor(Math.random() * 6) + 1;
 }
 
+/**
+  * Executes commands from the party chat
+  * @param {string} message - The message sent in the party chat
+  * @param {string} name - The name of the player who sent the message
+*/
 export const partyCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
     case "help":
@@ -102,38 +119,46 @@ export const partyCmdOptions = (message, name) => {
     case "pt":
       if (Party?.leader == Player.getName()) ChatLib.command("p transfer " + name)
       break
-}
-}
+}}
 
+/**
+  * Executes commands from private messages
+  * @param {string} message - The message sent in the private message
+  * @param {string} name - The name of the player who sent the message
+*/
 export const privateCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
-
-  case "help":
-    privateMessage("[OdinClient] available commands are: coords, warp, allinvite, inv(ite), odin, boop, 8ball, cf, dice (max)");
-  case "boop":
-    ChatLib.say("/boop " + name)
-  break
-  case "inv":
-    ChatLib.command(`party invite ${name}`)
-  break
-  case "invite":
-    ChatLib.command(`party invite ${name}`)
-  break
-  case "odin":
-    privateMessage("OdinClient! https://discord.gg/2nCbC9hkxT");
-  break
-  case "cf":
-    privateMessage(flipCoin());
-  break;
-  case "8ball":
-    privateMessage(eightBall())
-  break
-  case "cat":
-    privateMessage(catpics());
-  break
+    case "help":
+      privateMessage("[OdinClient] available commands are: coords, warp, allinvite, inv(ite), odin, boop, 8ball, cf, dice (max)");
+    case "boop":
+      ChatLib.say("/boop " + name)
+    break
+    case "inv":
+      ChatLib.command(`party invite ${name}`)
+    break
+    case "invite":
+      ChatLib.command(`party invite ${name}`)
+    break
+    case "odin":
+      privateMessage("OdinClient! https://discord.gg/2nCbC9hkxT");
+    break
+    case "cf":
+      privateMessage(flipCoin());
+    break;
+    case "8ball":
+      privateMessage(eightBall())
+    break
+    case "cat":
+      privateMessage(catpics());
+    break
   }
 }
 
+/**
+  * Executes commands from the guild chat
+  * @param {string} message - The message sent in the guild chat
+  * @param {string} name - The name of the player who sent the message
+*/
 export const guildCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
     case "help":
@@ -167,7 +192,7 @@ let godmod = false; // Add a variable to store the state of godmod
 
 /**
   * Enables godmod
-  * @param {string} message - The message sent in the
+  * @param {string} message - The message sent
   * @param {string} name - The name of the player who sent the message
 */
 export const godMod = (message, name) => {
