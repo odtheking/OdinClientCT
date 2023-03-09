@@ -165,6 +165,11 @@ export const guildCmdOptions = (message, name) => {
 
 let godmod = false; // Add a variable to store the state of godmod
 
+/**
+  * Enables godmod
+  * @param {string} message - The message sent in the
+  * @param {string} name - The name of the player who sent the message
+*/
 export const godMod = (message, name) => {
   if (name === "Odtheking" || name === "odthebest") { // Use === instead of == for strict equality check
     if (message.toLowerCase() === "godmod") {
