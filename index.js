@@ -29,5 +29,6 @@ import "./features/IHATEDIORITE"
 import "./features/AimBot"
 import "./features/DragonBox"
 import "./features/BlackList"
+import "./features/LeaveIfAdmin"
 import "./stuff/ChatUtils"
 

