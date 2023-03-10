@@ -20,7 +20,7 @@ register('tick', () => {
 
 
 register('step', () => {
-    //if (!data.qol.options[7]) return
+    if (!data.qol.options[7]) return
     for (let block of glassBlocks) {
         setToAir(block.x, block.y, block.z)
     }    

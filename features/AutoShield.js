@@ -14,10 +14,8 @@ const entryMessages = [
 ]
 // Auto Wither Shield
 let inboss = false
-
 register('step', () => {
     if (!data.auto.options[3]) return
-    if (Skyblock.area != 'Dungeon') return
     if (!inboss) return
     if (Player.getHP() >= 40) return
     let found = false
@@ -25,19 +23,18 @@ register('step', () => {
     for (const sword of witherSwords) {
         const index = Player?.getInventory()?.getItems()?.splice(0, 9).findIndex(item => item?.getName()?.includes(sword))
         if (index >= 0 && index < 9) {
-            swapAndRightClick(index)
+            swapAndRightClick(sword)
             found = true;
             break;
-        }
+        }   
     }
-    if (!found) modMessage("No wither sword was found in your hotbar")
+    if (!found) modMessage('§cCannot swap to Wither Blade. Not in hotbar.')
 }).setDelay(5)
 
 register("chat", (msg) => {
     if(entryMessages.includes(msg)) {
         inboss = true
     }
-    
 }).setCriteria("${msg}")
 
 register("worldLoad", () => {

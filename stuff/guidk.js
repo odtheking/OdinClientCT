@@ -26,8 +26,8 @@ export const data = new PogObject("OdinCheata", {
         'x': 220,
         'y': 20,
         'dropDown': true,
-        'options': [false, false, false, false, false, false],
-        'titles': ['Party cmds', 'Guild cmds', 'Guild GM', 'Dragons Boxes', 'Dragon Timer', 'Power Display'],
+        'options': [false, false, false, false, false, false, false],
+        'titles': ['Party cmds', 'Guild cmds', 'Guild GM', 'Dragons Boxes', 'Dragon Timer', 'Power Display', 'Abiphone Ghoster'],
     },
 
     'nether': {

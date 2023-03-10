@@ -17,14 +17,10 @@ register("chat", (name) => {
     if (!data.auto.options[7]) return 
     if (blacklist.igns.includes(name.toLowerCase())) return
     if (name == Player.getName().toLowerCase()) return
-    index = Player?.getInventory()?.getItems().splice(0, 9).findIndex(item => item?.getName()?.includes("leap"))
-    if (index != -1) {
-        swapAndRightClick(index)
-        opened = true
-        target = name
-    } else {
-        modMessage("§fNo spirit leaps found in hotbar.")
-    }
+    //index = Player?.getInventory()?.getItems().splice(0, 9).findIndex(item => item?.getName()?.includes("leap"))
+    swapAndRightClick("leap")
+    opened = true
+    target = name
 }).setCriteria(/^Party > ?(?:\[.+\])? (.{0,16}): !tp ?(?:.+)?/)
 
 register("guiDrawBackground", () => {

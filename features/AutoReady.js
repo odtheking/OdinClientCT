@@ -33,14 +33,10 @@ register("tick", () => {
             interactWith(mort)
         }, 4000);
     }
-    const index = Player?.getInventory()?.getItems()?.splice(0, 9).findIndex(item => item?.getName()?.includes("Aspect")) //searching for aotv
-    if (index != -1) {
-        if (tped) return
-        swapAndRightClick(index)
-        tped = true
-    } else {
-        modMessage("§fno AOTV found in hotbar")
-    }
+    if (tped) return
+    swapAndRightClick("Aspect of the Void")
+    tped = true
+
 
 })
 

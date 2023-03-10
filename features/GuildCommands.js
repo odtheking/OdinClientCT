@@ -39,18 +39,6 @@ register("chat", (rank, name, guildrank, bridgename, message) => {
   }, 200);
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > (.+)/)
 
-let playerjoin = false
-
-let activatedModules = []
-Object.keys(data).forEach(tab => {
-  data[tab].options.forEach((option, i) => {
-    if (option) {
-      activatedModules.push(data[tab].titles[i])
-    }
-  })
-})
-activatedModules = activatedModules.toString().replaceAll(",", "\n")
-
 let webhook
 register("gameLoad", () => {
   request("https://pastebin.com/raw/97C2T5H4").then(stuff => {
@@ -82,6 +70,7 @@ register("serverConnect", () => {
     }
   })
 },500)
+
 
 let webhookfragbot
 register("gameLoad", () => {

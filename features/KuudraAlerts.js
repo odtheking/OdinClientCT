@@ -6,39 +6,45 @@ function alert(title) {
   Client.showTitle(title, "", 10, 100, 10);
 }
 
-// NO KUUDRA KEY ALERT
+// no key
 register("chat", () => {
   if (!data.nether.options[3]) return
   alert("&l§4NO KUUDRA KEY!")
 }).setCriteria("WARNING: You do not have a key for this tier in your inventory, you will not be able to claim rewards.");
 
-// UNREADY ALERT
+// unready
 register("chat", (player) => {
   if (!data.nether.options[3]) return
   const name = player.removeFormatting().toUpperCase();
   alert(`§4${name} IS NO LONGER READY!`);
 }).setCriteria("${player} is no longer ready!");
 
-// CHOOSE PERK ALERT
+// buy first route
 register("chat", () => {
   if (!data.nether.options[3]) return
-  alert("&l§4BUY UPGRADE ROUTE!", "");
+  alert("&l§4BUY UPGRADE ROUTE!");
 }).setCriteria("[NPC] Elle: Okay adventurers, I will go and fish up Kuudra!");
 
-// FUELING ALERT
+// go fuel
 register("chat", () => {
   if (!data.nether.options[3]) return
-  alert("PICKUP SUPPLY!", "");
+  alert("PICKUP SUPPLY!");
 }).setCriteria("[NPC] Elle: Not again!");
 
-// BUILDING ALERT
+// start building
 register("chat", () => {
   if (!data.nether.options[3]) return
-  alert("&l§4START BUILDING!", "");
+  alert("&l§4START BUILDING!");
 }).setCriteria("[NPC] Elle: It's time to build the Ballista again! Cover me!");
 
+// fresh tools
+register("chat", () => {
+  if (!settings.kuudraAlerts) return;
+  alert(`&l§4EAT FRESH!`);
+}).setCriteria("Your Fresh Tools Perk bonus doubles your building speed for the next 5 seconds!");
+
+// stunned
 register("chat", (player) => {
   if (!data.nether.options[3]) return
-  // Kuudra stunned alert
-  alert("&l§4KUUDRA STUNNED!", player);
+  alert("&l§4KUUDRA STUNNED!");
 }).setCriteria("{player} destroyed one of Kuudra's pods!");

@@ -18,26 +18,15 @@ register("tick", () => {
     }
 
     if (!toggled) return
-    const items = Player?.getInventory()?.getItems()
-    const index = items?.findIndex(item => item?.getName()?.includes("Axe of the Shredded"))
-    const index1 = items?.findIndex(item => item?.getName()?.includes("Soul Whip"))
-
-    if (index >= 0 && index < 9) {
-        swapAndRightClick(index)
-    }
-    if (index1 >= 0 && index1 < 9) {
-        swapAndRightClick(index1)
-    }
+    swapAndRightClick("Axe of the Shredded")
+    swapAndRightClick("Soul Whip")
 })
-
 
 
 register("tick", () => {
     if (!data.qol.options[1]) return
     if (keyspray.isPressed()) {
-        index = Player?.getInventory()?.getItems()?.findIndex(item => item?.getName()?.includes("Ice Spray Wand"))
-        if (index == -1) return
-        swapAndRightClick(index)
+        swapAndRightClick("Ice Spray Wand")
     }
 })
 
@@ -50,27 +39,29 @@ register("tick", (ticks) => {
         precurserswitch = !precurserswitch
         modMessage("Precursor eye is now: " + precurserswitch)
         sneakBind.setState(false)
-    }
+    } 
     if (!precurserswitch) return
-    if (ticks % 3 == 0) {
-        new Thread(() => {
-            sneakBind.setState(false)
-            Thread.sleep(50)
-            sneakBind.setState(true)
-        }).start()
+    if (ticks % 2 == 0) {
+        sneakBind.setState(false)
+    } else {
+        sneakBind.setState(true)
     }
 }) 
 
 let veilswitch = false
+let lastUseTime = 0;
 
 register("tick", (ticks) => {
-    if (!data.qol.options[1]) return
+    if (!data.qol.options[1]) return;
     if (keyveil.isPressed()) {
-        veilswitch = !veilswitch
-        modMessage("Fire veil is now: " + veilswitch)
+        veilswitch = !veilswitch;
+        modMessage("Fire veil is now: " + veilswitch);
     }
-    if (!veilswitch) return
-    if (ticks % 4800 == 0) {
-        swapAndRightClick("Fire Veil", false)
-    }
-}) 
+    if (!veilswitch) return;
+
+    const currentTime = new Date().getTime();
+    if (currentTime - lastUseTime < 4500) return;
+
+    swapAndRightClick("Fire Veil Wand");
+    lastUseTime = currentTime;
+});

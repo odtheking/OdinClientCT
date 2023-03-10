@@ -75,7 +75,10 @@ function reloadMap() {
     })
   }
 
-  
+register("worldLoad", () => {
+    reloadMap()
+})
+
 let entitiesToRender = new Map() // key: ArmorStand, value: McEntity
 
 register('step', () => {
