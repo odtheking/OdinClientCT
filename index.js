@@ -31,4 +31,5 @@ import "./features/BlackList"
 import "./features/LeaveIfAdmin"
 import "./stuff/ChatUtils"
 import "./features/Ghosting"
+import "./features/Trinity"
 
