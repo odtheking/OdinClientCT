@@ -19,6 +19,3 @@ register('soundPlay', (pos, name, vol, pitch, category, event) => {
         }
     }
 })
-
-
-
