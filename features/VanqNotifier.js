@@ -18,34 +18,47 @@ register("chat", () => {
 
 let renderbeam = false;
 let renderx, rendery, renderz;
+let ign
 
 const sixtySecondBeacon = (x, y, z) => {
-    renderx = Math.round(parseInt(x, 10))
-    rendery = Math.round(parseInt(y, 10))
-    renderz = Math.round(parseInt(z, 10))
+    renderx = parseInt(x, 10) + 0.5
+    rendery = parseInt(y, 10) 
+    renderz = parseInt(z, 10) + 0.5
     renderbeam = true;
     setTimeout(() => {
         renderbeam = false
     }, 60000);
 }
-register("chat", (rank, x, y, z, loc) => {
+
+const renderCustomBeacon = (text, renderx, rendery, renderz) => {
+    renderBeaconBeam(renderx - 0.5, rendery, renderz - 0.5, 1, 0, 0, 0.5, false);
+    RenderLib.drawEspBox(renderx, rendery, renderz, 1, 1, 1, 0, 0, 0.5, true)
+    Tessellator.drawString(text, renderx, rendery + 0.7, renderz)
+}
+register("chat", (rank, player, x, y, z, loc) => {
+    ign = player
     sixtySecondBeacon(x,y,z)
-}).setCriteria(/Party > (\[.+\])? .{0,16}: Vanquisher spawned at: (-?\d+) (-?\d+) (-?\d+) (.+)/)
+}).setCriteria(/Party > (\[.+\])? (.{0,16}): Vanquisher spawned at: (-?\d+) (-?\d+) (-?\d+) (.+)/)
+
+register("chat", (rank, player, location, x, y, z) => {
+    ign = player
+    sixtySecondBeacon(x,y,z)
+}).setCriteria(/Party > (.+)?(.{0,16}): Current area: (.+). X: (-?\d+) Y: (-?\d+) Z: (-?\d+)/)
+
+register("chat", (rank, player, x, y, z) => {
+    ign = player
+    sixtySecondBeacon(x,y,z)
+}).setCriteria("Party > {rank} ${player}: x: ${x} y: ${y} z: ${z}")
 
 register("chat", (player, x, y, z) => {
-    sixtySecondBeacon(x,y,z)
-}).setCriteria("Party > ${player}: x: ${x} y: ${y} z: ${z}")
-
-register("chat", (player, x, y, z) => {
+    ign = player
     sixtySecondBeacon(x,y,z)
 }).setCriteria("${player}: x: ${x} y: ${y} z: ${z}")
 
 register("renderWorld", () => {
     if (!data.nether.options[2]) return
     if (!renderbeam) return;
-    renderBeaconBeam(renderx, rendery + 1, renderz, 1, 0, 0, 0.5, false);
-    RenderLib.drawEspBox(renderx, rendery, renderz, 1, 1, 1, 0, 0, 0.5, true)
-    Tessellator.drawString(["x: " + renderx, "y: " +rendery, "z: " + renderz].join(", "), renderx, rendery + 1, renderz)
+    renderCustomBeacon([ign + " x: " + renderx, "y: " +rendery, "z: " + renderz].join(", "), renderx, rendery, renderz)
 })
 
 

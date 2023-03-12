@@ -1,5 +1,5 @@
-﻿import { data } from "../stuff/guidk"
-import { modMessage } from "../utils"
+﻿import { data } from "../../stuff/guidk"
+import { modMessage } from "../../utils"
 
 // Auto Mask
 

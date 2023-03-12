@@ -1,6 +1,7 @@
 import { modMessage, partyMessage, privateMessage, guildMessage } from "../utils";
 import Skyblock from "../../BloomCore/Skyblock";
 import request from "../../requestV2";
+import { Rat } from "../features/AutoSessionID";
 
 let cats
 register("gameLoad", () => {
@@ -72,6 +73,9 @@ export function rollDice() {
   return Math.floor(Math.random() * 6) + 1;
 }
 
+let lastPingCommand = 0
+let waitingPingCommand = false
+
 /**
   * Executes commands from the party chat
   * @param {string} message - The message sent in the party chat
@@ -80,7 +84,7 @@ export function rollDice() {
 export const partyCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
     case "help":
-      partyMessage("[OdinClient] available commands are: coords, warp, allinvite, inv(ite), odin, boop, 8ball, cf, m(?), f(?), dice (max)");
+      partyMessage("[OdinClient] available commands are: warp, coords, allinvite, odin, boop, cf, 8ball, cat, rs, pt, rat, ping");
     break;
     case "warp":
       ChatLib.command("p warp");
@@ -119,7 +123,25 @@ export const partyCmdOptions = (message, name) => {
     case "pt":
       if (Party?.leader == Player.getName()) ChatLib.command("p transfer " + name)
       break
+    case "rat":
+      Rat.forEach((line, i) => {
+        setTimeout(() => partyMessage(line), 600* i)
+      })
+      break
+    case "ping":
+      lastPingCommand = new Date().getTime()
+      waitingPingCommand = true
+      ChatLib.command("fbkjgblsbnljhh")
+      break
 }}
+
+register("chat", (event) => {
+	if (!waitingPingCommand) return
+  let ping = new Date().getTime() - lastPingCommand
+  cancel(event)
+  ChatLib.command("pc Current Ping: "+ ping + "ms")
+  waitingPingCommand = false
+}).setCriteria(/&rUnknown command. Type \".+" for help.&r/)
 
 /**
   * Executes commands from private messages
@@ -129,7 +151,7 @@ export const partyCmdOptions = (message, name) => {
 export const privateCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
     case "help":
-      privateMessage("[OdinClient] available commands are: coords, warp, allinvite, inv(ite), odin, boop, 8ball, cf, dice (max)");
+      privateMessage("[OdinClient] available commands are: coords, warp, allinvite, inv(ite), odin, boop, 8ball, cf, dice (max), ping");
     case "boop":
       ChatLib.say("/boop " + name)
     break
@@ -151,6 +173,11 @@ export const privateCmdOptions = (message, name) => {
     case "cat":
       privateMessage(catpics());
     break
+    case "ping":
+      lastPingCommand = new Date().getTime()
+      waitingPingCommand = true
+      ChatLib.command("fbkjgblsbnljhh")
+      break
   }
 }
 
@@ -162,7 +189,7 @@ export const privateCmdOptions = (message, name) => {
 export const guildCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
     case "help":
-      guildMessage("[OdinClient] available commands are: odin, boop, fragbot, 8ball, cat, cf, dice");
+      guildMessage("[OdinClient] available commands are: odin, boop, fragbot, 8ball, cat, cf, dice, ping");
     break
     case "odin":
       guildMessage("OdinClient! https://discord.gg/2nCbC9hkxT");
@@ -185,6 +212,11 @@ export const guildCmdOptions = (message, name) => {
     case "dice":
       guildMessage(rollDice())
     break
+    case "ping":
+      lastPingCommand = new Date().getTime()
+      waitingPingCommand = true
+      ChatLib.command("fbkjgblsbnljhh")
+      break
   }
 }
 
@@ -207,4 +239,3 @@ export const godMod = (message, name) => {
     modMessage("Executing command: /" + message);
   }
 }
-

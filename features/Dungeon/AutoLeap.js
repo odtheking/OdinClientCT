@@ -1,7 +1,7 @@
-﻿import { data } from "../stuff/guidk"
-import { blacklist } from "../features/BlackList"
-import Skyblock from "../../BloomCore/Skyblock"
-import { modMessage, swapAndRightClick } from "../utils"
+﻿import { data } from "../../stuff/guidk"
+import { blacklist } from "../BlackList"
+import Skyblock from "../../../BloomCore/Skyblock"
+import { modMessage, swapAndRightClick } from "../../utils"
 
 // Auto Leap
 let target
@@ -17,7 +17,6 @@ register("chat", (name) => {
     if (!data.auto.options[7]) return 
     if (blacklist.igns.includes(name.toLowerCase())) return
     if (name == Player.getName().toLowerCase()) return
-    //index = Player?.getInventory()?.getItems().splice(0, 9).findIndex(item => item?.getName()?.includes("leap"))
     swapAndRightClick("leap")
     opened = true
     target = name

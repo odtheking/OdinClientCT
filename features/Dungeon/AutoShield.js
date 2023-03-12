@@ -1,6 +1,6 @@
-﻿import Skyblock from "../../BloomCore/Skyblock"
-import { data } from "../stuff/guidk"
-import { modMessage, swapAndRightClick } from "../utils"
+﻿import Skyblock from "../../../BloomCore/Skyblock"
+import { data } from "../../stuff/guidk"
+import { modMessage, swapAndRightClick } from "../../utils"
 
 const witherSwords = ["Astraea", "Hyperion", "Valkyrie", "Scylla"];
 const entryMessages = [

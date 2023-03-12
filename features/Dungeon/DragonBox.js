@@ -1,14 +1,14 @@
-import { data } from "../stuff/guidk"
-import RenderLib from "../../RenderLib"
-import { modMessage } from "../utils"
-import Skyblock from "../../BloomCore/Skyblock"
+import { data } from "../../stuff/guidk"
+import RenderLib from "../../../RenderLib"
+import { modMessage } from "../../utils"
+import Skyblock from "../../../BloomCore/Skyblock"
 
 
 //Dragon box
 
 register('renderWorld', () => {
     if (!data.legit.options[3]) return
-    if (Player.getY() > 45 && Skyblock.area != 'Dungeon') return
+    if (Player.getY() > 45 || Skyblock.area !== 'Dungeon') return
     
     //blue 
     RenderLib.drawEspBox(84, 16 , 95, 25, 10, 0, 170/255, 170/255,1,false );
@@ -28,4 +28,3 @@ register('renderWorld', () => {
     ChatLib.command("particle flame 26 18 95 1 1 1 1 100")
     ChatLib.command("particle flame 27 18 60 1 1 1 1 100")
     ChatLib.command("particle flame 84 18 56 1 1 1 1 100")*/
-   

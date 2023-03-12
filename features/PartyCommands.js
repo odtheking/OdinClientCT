@@ -1,4 +1,3 @@
-import Skyblock from "../../BloomCore/Skyblock"
 import Party from "../../BloomCore/Party"
 import { data } from "../stuff/guidk"
 import { modMessage, partyMessage, privateMessage } from "../utils";
@@ -49,6 +48,4 @@ register('chat', (channel, rank, name, message, num) => {
             }
         }).start()
     }
-
-   
 }).setCriteria(/(Party >|From) (\[.+\])? ?(.+): !(.+) (.+)/);

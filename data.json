@@ -1,0 +1,109 @@
+{
+    "auto": {
+        "x": 20,
+        "y": 20,
+        "dropDown": true,
+        "options": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            true
+        ],
+        "titles": [
+            "Auto Ready",
+            "Auto Mort",
+            "Auto Ult",
+            "Auto Shield",
+            "Auto Wish",
+            "Auto Mask",
+            "Auto Edrag",
+            "Auto Leap"
+        ]
+    },
+    "legit": {
+        "x": 220,
+        "y": 20,
+        "dropDown": true,
+        "options": [
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            true
+        ],
+        "titles": [
+            "Party cmds",
+            "Guild cmds",
+            "Guild GM",
+            "Dragons Boxes",
+            "Dragon Timer",
+            "Power Display",
+            "Abiphone Ghoster"
+        ]
+    },
+    "nether": {
+        "x": 420,
+        "y": 20,
+        "dropDown": true,
+        "options": [
+            true,
+            true,
+            true,
+            true
+        ],
+        "titles": [
+            "Broken Hype",
+            "Flare Timer",
+            "Vanq Notifier",
+            "Kuudra Alerts"
+        ]
+    },
+    "qol": {
+        "x": 620,
+        "y": 20,
+        "dropDown": true,
+        "options": [
+            true,
+            true,
+            false,
+            false,
+            false,
+            false,
+            true
+        ],
+        "titles": [
+            "Relic Aura",
+            "Item Macros",
+            "Terminator AC",
+            "Cookie Clicker",
+            "ESP",
+            "FUCK DIORITE",
+            "Pre GhostBlock"
+        ]
+    },
+    "boss": {
+        "x": 820,
+        "y": 20,
+        "dropDown": true,
+        "options": [
+            false,
+            false,
+            false,
+            false,
+            false
+        ],
+        "titles": [
+            "Coming Soon!",
+            "Coming Soon!",
+            "Coming Soon!",
+            "Coming Soon!",
+            "Coming Soon!"
+        ]
+    }
+}

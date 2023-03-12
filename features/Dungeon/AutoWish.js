@@ -1,6 +1,6 @@
-import Skyblock from "../../BloomCore/Skyblock"
-import { data } from "../stuff/guidk"
-import { modMessage, useAbility } from "../utils"
+import Skyblock from "../../../BloomCore/Skyblock"
+import { data } from "../../stuff/guidk"
+import { modMessage, useAbility } from "../../utils"
 
 
 // Auto Wish (at low health)

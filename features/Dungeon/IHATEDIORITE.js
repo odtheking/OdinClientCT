@@ -1,5 +1,5 @@
-import { Executors } from "../java-stuff";
-import { data } from "../stuff/guidk"
+import { Executors } from "../../java-stuff";
+import { data } from "../../stuff/guidk"
 
 const green = [
     { x: 45, y: 169, z: 44 },
@@ -93,7 +93,7 @@ var runLoop = Executors.newSingleThreadExecutor();
 
 runLoop.execute(() => {
     register("step", () => {
-        if (!World.isLoaded() || !data.qol.options[5] || !inp2) return
+        if (!World.isLoaded() || !data.qol.options[6] || !inp2) return
         for (let height = 0; height < 37; height++) {
             for (let block of green) {
                 try {

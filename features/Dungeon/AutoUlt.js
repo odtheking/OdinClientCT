@@ -1,5 +1,5 @@
-﻿import { data } from "../stuff/guidk"
-import { modMessage, useAbility } from "../utils"
+﻿import { data } from "../../stuff/guidk"
+import { modMessage, useAbility } from "../../utils"
 
 // Auto Ult (for tanks/healers?)
 let firstlaser = false

@@ -1,5 +1,5 @@
-import { EntityArmorStand } from "../../BloomCore/utils/Utils"
-import { alert, modMessage, partyMessage } from "../utils"
+import { EntityArmorStand } from "../../../BloomCore/utils/Utils"
+import { alert, modMessage, partyMessage } from "../../utils"
 
 register("step", () => {
     if (World.getAllEntitiesOfType(EntityArmorStand).find(mort => mort.getName().includes('Trinity') )) {

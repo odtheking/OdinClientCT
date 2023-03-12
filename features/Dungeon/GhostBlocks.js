@@ -1,6 +1,6 @@
-import { BlockPoss, Blocks } from "../../BloomCore/utils/Utils"
-import { data } from "../stuff/guidk"
-import { modMessage } from "../utils"
+import { BlockPoss, Blocks } from "../../../BloomCore/utils/Utils"
+import { data } from "../../stuff/guidk"
+import { modMessage } from "../../utils"
 
 // Ghost Blocks
 const ghostBind = new KeyBind("Ghost Bind", Keyboard.KEY_NONE, "OdinClient")
@@ -20,7 +20,7 @@ register('tick', () => {
 
 
 register('step', () => {
-    if (!data.qol.options[7]) return
+    if (!data.qol.options[6]) return
     for (let block of glassBlocks) {
         setToAir(block.x, block.y, block.z)
     }    
@@ -116,9 +116,5 @@ export const glassBlocks = [
     {x:54, y:63, z: 79},
     {x:54, y:64, z: 78},
     {x:54, y:63, z: 78},
-
-
-
-
 
 ]

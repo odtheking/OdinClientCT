@@ -3,17 +3,19 @@ import { modMessage } from "../utils";
 
 let ghosting = false;
 
-register("chat", (event) => {
+register("chat", (npc, event) => {
     if (!data.legit.options[6]) return
-    modMessage("Ghosted a call from ${npc}!")
+    modMessage(`Ghosted a call from ${npc}!`);
     ghosting = true;
-    setTimeout(function () { ghosting = false }, 5000);
+    setTimeout(() => {
+        ghosting = false
+    }, 5000);
     cancel(event);
 
 }).setCriteria("✆ ${npc} ✆ ");
 
-register("chat", (event) => {
-    if (!data.legit.options[6] || !ghosting) return;
+register("chat", (rings, event) => {
+    if (!data.legit.options[6] /*|| !ghosting*/) return;
     cancel(event);
 }).setCriteria("✆ ${rings} [PICK UP]");
 

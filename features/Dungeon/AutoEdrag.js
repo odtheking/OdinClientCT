@@ -1,5 +1,5 @@
-import { data } from "../stuff/guidk"
-import { modMessage } from "../utils"
+import { data } from "../../stuff/guidk"
+import { modMessage } from "../../utils"
 
 // Auto Edrag
 let p4Done = false
@@ -8,12 +8,12 @@ register('worldLoad', () => p4Done = false)
 
 register("chat", () => {
     p4Done = true
-
 }).setCriteria("[BOSS] Wither King: You.. again?")
 
+let shouldOpen = true
 register('tick', (ticks) => {      
     if (!data.auto.options[6] || ticks % 10 !== 0 || !p4Done) return
-    if (!Client.currentGui.get()) {
+    if (!Client.currentGui.get() || shouldOpen) {
         ChatLib.command('pet')
         modMessage("Trying to equip Ender Dragon pet")
         return
@@ -29,3 +29,7 @@ register('tick', (ticks) => {
         }
     }
 }) 
+
+register("chat", () => {
+    shouldOpen = false
+}).setCriteria("Pets are disabled while spectating!")

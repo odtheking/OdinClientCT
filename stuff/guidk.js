@@ -26,8 +26,8 @@ export const data = new PogObject("OdinCheata", {
         'x': 220,
         'y': 20,
         'dropDown': true,
-        'options': [false, false, false, false, false, false, false],
-        'titles': ['Party cmds', 'Guild cmds', 'Guild GM', 'Dragons Boxes', 'Dragon Timer', 'Power Display', 'Abiphone Ghoster'],
+        'options': [false, false, false, false, false, false, false, false],
+        'titles': ['Party cmds', 'Guild cmds', 'Guild GM', 'Dragons Boxes', 'Dragon Timer', 'Power Display', 'Abiphone Ghoster', 'FPS Boost'],
     },
 
     'nether': {
@@ -43,7 +43,7 @@ export const data = new PogObject("OdinCheata", {
         'y': 20,
         'dropDown': true,
         'options': [false, false, false, false, false, false, false],
-        'titles': ['Relic Aura', 'Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE', 'Pre GhostBlock'],
+        'titles': ['Relic Aura','Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE', 'Pre GhostBlock'],
     },
 
     'boss': {
@@ -74,7 +74,7 @@ const descriptions = [
         "Creates custom and decently accurate boxes in p5",
         "Shows when a M7 dragon will spawn",
         "Shows the power blessing /movepower",
-        "Shows when a M7 dragon will spawn"
+        "Ghosts calls from abiphone"
     ],
 
     [
@@ -86,7 +86,7 @@ const descriptions = [
     ],
 
     [
-        "Looks at and picks up relics (WIP)",
+        "Automatically picks up relics when you are within 5 blocks of them",
         "Custom item macros check minecraft",
         "Spams right click while term is held ranomized cps",
         "Spams the cookie while in the cookie clicker menu",

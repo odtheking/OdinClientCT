@@ -1,5 +1,5 @@
-import { data } from "../stuff/guidk"
-import { rightClick } from "../utils"
+import { data } from "../../stuff/guidk"
+import { rightClick } from "../../utils"
 
 // Terminator Auto Clicker
 register('step', () => {

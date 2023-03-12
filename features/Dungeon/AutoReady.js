@@ -1,7 +1,7 @@
-﻿import Skyblock from "../../BloomCore/Skyblock"
-import { getDistance3D } from "../../BloomCore/utils/Utils"
-import { data } from "../stuff/guidk"
-import { interactWith, modMessage, swapAndRightClick } from "../utils"
+﻿import Skyblock from "../../../BloomCore/Skyblock"
+import { getDistance3D } from "../../../BloomCore/utils/Utils"
+import { data } from "../../stuff/guidk"
+import { interactWith, modMessage, swapAndRightClick } from "../../utils"
 
 // Auto Ready at Mort
 let tped = false
@@ -14,11 +14,8 @@ register("worldLoad", () => {
     playerready = false
 })
 
-register("tick", () => {
-    if (!data.auto.options[1]) return
-    if (Skyblock.area != 'Dungeon') return
-    if (playerready) return
-    if (click) return
+register("step", () => {
+    if (!data.auto.options[1] || Skyblock.area != 'Dungeon' || playerready || click) return
     const mort = World.getAllEntities().find(mort => mort.getName().includes('Mort'))
     if (!mort) return
     const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
@@ -36,9 +33,7 @@ register("tick", () => {
     if (tped) return
     swapAndRightClick("Aspect of the Void")
     tped = true
-
-
-})
+}).setFps(10)
 
 register("chat", (ign) => {
     if (!data.auto.options[0]) return
@@ -52,8 +47,7 @@ register("chat", (ign) => {
 
 //auto ready gui side
 register('tick', () => {
-    if (!data.auto.options[0]) return
-    if (playerready) return
+    if (!data.auto.options[0] || playerready || !Client.isInGui()) return
     let container = Player.getContainer()
     let playerName = Player.getName()
     if (container.getName() === "Start Dungeon?") {
@@ -67,5 +61,6 @@ register('tick', () => {
     if (container.getName().startsWith("Ready Up")) {
         index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes(playerName))
         container.click(index, false, "MIDDLE")
+        Client.currentGui.close()
     }
 })
