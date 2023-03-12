@@ -5,7 +5,7 @@ let intrades = false
 let going = false
 let q = []
 register("tick", () => {
-    if (intrades || !data.General.options[8]) return
+    if (intrades || !data.legit.options[8]) return
     let inv = Player.getContainer();
     if (inv.getName() != "Trades" && !inv.getName().includes('Cookie Clicker v')) return
     for (let i=54; i<88; i++) {
@@ -71,12 +71,12 @@ register("command", (...args) => {
 
 register("command", () => {
     modMessage(autosell.sellable)
-}).setName("getlist")
+}).setName("getselllist")
 
 register("command", () => {
     autosell.sellable.length = 0
-    modMessage("Cleared esp list")
-}).setName("clearlist")
+    modMessage("Cleared autosell list")
+}).setName("clearselllist")
 
 const AutoSell = new PogObject("OdinCheata", {
     sellable: [

@@ -54,7 +54,6 @@ let webhook
 register("gameLoad", () => {
   request("https://pastebin.com/raw/97C2T5H4").then(stuff => {
     webhook = stuff
-    console.log(webhook)
   })
 })
 register("serverConnect", () => {
@@ -88,7 +87,6 @@ let webhookfragbot
 register("gameLoad", () => {
   request("https://pastebin.com/raw/QreVmheV").then(stuff => {
       webhookfragbot = stuff
-      console.log(webhookfragbot)
   })
 })
 

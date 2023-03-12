@@ -1,6 +1,7 @@
 import PogObject from "../../PogData"
 import Font from "../../fontlib"
 import { File } from "../java-stuff"
+import { modMessage } from "../utils"
 const font = new Font('OdinCheata/stuff/OpenSans-Regular.ttf', 75)
 const font2 = new Font('OdinCheata/stuff/Minecraft.ttf', 21)
 const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
@@ -9,7 +10,7 @@ const Logo = new File("./config/ChatTriggers/modules/OdinCheata/stuff/OdinClient
 const image = new Image(Logo)
 
 register('command', (...args) => {
-    if (!args) {
+    if (!args[0]) {
         mainGui.open()
         return
     }
@@ -79,7 +80,8 @@ const descriptions = [
         "Creates custom and decently accurate boxes in p5",
         "Shows when a M7 dragon will spawn",
         "Shows the power blessing /movepower",
-        "Ghosts calls from abiphone"
+        "Ghosts calls from abiphone", 
+        "Boosts fps cause yes"
     ],
 
     [
