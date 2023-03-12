@@ -8,8 +8,12 @@ const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
 const Logo = new File("./config/ChatTriggers/modules/OdinCheata/stuff/OdinClientNoBackround.png")
 const image = new Image(Logo)
 
-register('command', () => {
-    mainGui.open()
+register('command', (...args) => {
+    if (!args) {
+        mainGui.open()
+        return
+    }
+    ChatLib.command(`ochat ${args.join(' ')}`)
 }).setName('odincheata').setAliases("oc")
 
 
@@ -18,8 +22,8 @@ export const data = new PogObject("OdinCheata", {
         'x': 20,
         'y': 20,
         'dropDown': true,
-        "options": [false, false, false, false, false, false, false, false],
-        'titles': ['Auto Ready', 'Auto Mort', 'Auto Ult', 'Auto Shield', 'Auto Wish', 'Auto Mask', 'Auto Edrag', 'Auto Leap'],
+        "options": [false, false, false, false, false, false, false, false, false],
+        'titles': ['Auto Ready', 'Auto Mort', 'Auto Ult', 'Auto Shield', 'Auto Wish', 'Auto Mask', 'Auto Edrag', 'Auto Leap', 'Auto Sell'],
     },
 
     'legit': {
@@ -64,7 +68,8 @@ const descriptions = [
         "Automatically uses wish when a temmate is low HP",
         "Automatically swaps between bonzo and spirit mask",
         "Automatically equips edrag after relics",
-        "Automatically leaps to a player when writing !tp in party chat"
+        "Automatically leaps to a player when writing !tp in party chat",
+        "Automatically sells items in the trades GUI, /autosell to configure"
     ],
 
     [
@@ -110,7 +115,7 @@ let buttonWidth = 100
 let shouldRemove = true
 let toChange
 const tabs = [data.auto, data.legit, data.nether, data.qol, data.boss]
-const tabTitles = ['Auto', 'Legit', 'Nether', 'QOL', 'Auto']
+const tabTitles = ['Auto', 'Legit', 'Nether', 'QOL', 'Boss']
 
 /**
   * Draws a rectangle
