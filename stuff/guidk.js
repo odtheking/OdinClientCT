@@ -46,8 +46,8 @@ export const data = new PogObject("OdinCheata", {
         'x': 620,
         'y': 20,
         'dropDown': true,
-        'options': [false, false, false, false, false, false, false, false],
-        'titles': ['Relic Aura','Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE', 'Pre GhostBlock', 'Custom M7 Sounds (beta)'],
+        'options': [false, false, false, false, false, false, false, false, false],
+        'titles': ['Relic Aura','Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE', 'Pre GhostBlock', 'Custom M7 Sounds (beta)', 'Superboom triggerbot'],
     },
 
     'boss': {
@@ -99,7 +99,8 @@ const descriptions = [
         "You can add whatever mob you want into the list /esp",
         "Replaces diorite with glass in p2 (don't use connected blocks)",
         "Makes ghost blocks and covinient spots in the m7 boss",
-        "Open the song.js file for instructions its wip if u dont know how to, then its not for you atm "
+        "Open the song.js file for instructions its wip if u dont know how to, then its not for you atm",
+        "Automatically uses superboom when you click while shift is held and you are looking at a cracked stone brick"
     ],
 
     [
