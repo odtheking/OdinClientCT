@@ -52,10 +52,19 @@ export function guildMessage(message) {
 const rightClickMethod = Client.getMinecraft().getClass().getDeclaredMethod("func_147121_ag")
 rightClickMethod.setAccessible(true)
 /**
-     * Makes the player right click
+    * Makes the player right click
 */
 export function rightClick() {
     rightClickMethod.invoke(Client.getMinecraft())
+}
+
+const leftClickMethod = Client.getMinecraft().getClass().getDeclaredMethod("func_147116_af")
+leftClickMethod.setAccessible(true)
+/**
+    * Makes the player left click
+*/
+export function leftClick() {
+    leftClickMethod.invoke(Client.getMinecraft())
 }
 
 /**
