@@ -2,7 +2,6 @@ import PogObject from "../../PogData"
 import Font from "../../fontlib"
 import { File } from "../java-stuff"
 import { modMessage } from "../utils"
-const font = new Font('OdinCheata/stuff/OpenSans-Regular.ttf', 75)
 const font2 = new Font('OdinCheata/stuff/Minecraft.ttf', 21)
 const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
 
@@ -48,7 +47,7 @@ export const data = new PogObject("OdinCheata", {
         'y': 20,
         'dropDown': true,
         'options': [false, false, false, false, false, false, false],
-        'titles': ['Relic Aura','Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE', 'Pre GhostBlock'],
+        'titles': ['Relic Aura','Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE', 'Pre GhostBlock', 'Custom M7 Sounds (beta)'],
     },
 
     'boss': {
@@ -100,6 +99,7 @@ const descriptions = [
         "You can add whatever mob you want into the list /esp",
         "Replaces diorite with glass in p2 (don't use connected blocks)",
         "Makes ghost blocks and covinient spots in the m7 boss",
+        "Open the song.js file for instructions its wip if u dont know how to, then its not for you atm "
     ],
 
     [
@@ -117,7 +117,7 @@ let buttonWidth = 100
 let shouldRemove = true
 let toChange
 const tabs = [data.auto, data.legit, data.nether, data.qol, data.boss]
-const tabTitles = ['Auto', 'Legit', 'Nether', 'QOL', 'Boss']
+const tabTitles = ['Auto', 'Legit', 'Nether', 'QOL', 'Auto Boss']
 
 /**
   * Draws a rectangle
