@@ -46,7 +46,7 @@ export const data = new PogObject("OdinCheata", {
         'x': 620,
         'y': 20,
         'dropDown': true,
-        'options': [false, false, false, false, false, false, false],
+        'options': [false, false, false, false, false, false, false, false],
         'titles': ['Relic Aura','Item Macros', 'Terminator AC', 'Cookie Clicker', 'ESP', 'FUCK DIORITE', 'Pre GhostBlock', 'Custom M7 Sounds (beta)'],
     },
 
