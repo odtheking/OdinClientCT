@@ -19,7 +19,6 @@ const p4 = new Sound({source: "p4.ogg"});
 const p5 = new Sound({source: "p5.ogg"});
 
 register("chat", () => {
-    modMessage("A")
     p1?.play()
 }).setCriteria("[BOSS] Maxor: WELL WELL WELL LOOK WHO’S HERE!")
 
