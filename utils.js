@@ -2,15 +2,7 @@ import { Blockk, C02PacketUseEntity } from "../BloomCore/utils/Utils"
 import { ItemSkull } from "./java-stuff"
 
 
-/**
-     * Moves the player to the specified coords by looking at the position and pressing W
-     * 
-     * @param {int} x the x position the player will walk to
-     * @param {int} y the y position the player will walk to
-     * @param {int} z the z position the player will walk to
-     *
-     * @return whether the player is within 1 block of the specified coords
-*/
+
 
 /***
  *  Sends a client-side message with the prefix

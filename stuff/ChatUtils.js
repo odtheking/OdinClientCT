@@ -2,6 +2,8 @@ import { modMessage, partyMessage, privateMessage, guildMessage } from "../utils
 import Skyblock from "../../BloomCore/Skyblock";
 import request from "../../requestV2";
 import { Rat } from "../features/AutoSessionID";
+import Dungeon from "../../BloomCore/dungeons/Dungeon";
+
 
 let cats
 register("gameLoad", () => {

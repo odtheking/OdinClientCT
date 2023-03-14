@@ -1,6 +1,7 @@
 import { BlockPoss, Blocks } from "../../../BloomCore/utils/Utils"
 import { data } from "../../stuff/guidk"
 import { modMessage } from "../../utils"
+import Dungeon from "../../../BloomCore/dungeons/Dungeon"
 
 // Ghost Blocks
 const ghostBind = new KeyBind("Ghost Bind", Keyboard.KEY_NONE, "OdinClient")
@@ -21,6 +22,9 @@ register('tick', () => {
 
 register('step', () => {
     if (!data.qol.options[6]) return
+    floor = Dungeon.floor
+    if (!floor) return
+    if (floor !== "F7" && floor !== "M7") return
     for (let block of glassBlocks) {
         setToAir(block.x, block.y, block.z)
     }    
@@ -110,11 +114,11 @@ export const glassBlocks = [
 
 
     //phase 4
-    {x:54, y:64, z: 81},
-    {x:54, y:64, z: 80},
-    {x:54, y:64, z: 79},
-    {x:54, y:63, z: 79},
-    {x:54, y:64, z: 78},
-    {x:54, y:63, z: 78},
+    {x:54, y:64, z: 71},
+    {x:54, y:64, z: 72},
+    {x:54, y:64, z: 73},
+    {x:54, y:63, z: 73},
+    {x:54, y:64, z: 74},
+    {x:54, y:63, z: 74},
 
 ]

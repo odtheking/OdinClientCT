@@ -1,7 +1,7 @@
 import { data } from "../stuff/guidk"
 import { modMessage, swapAndRightClick } from "../utils";
 const sneakBind = new KeyBind(Client.getMinecraft().field_71474_y.field_74311_E)
-const first = new KeyBind("Slot 1", Keyboard.KEY_NONE, "Auto Wardrobe").registerKeyPress(() => swapToSlot(1))
+//const first = new KeyBind("Slot 1", Keyboard.KEY_NONE, "Auto Wardrobe").registerKeyPress(() => swapToSlot(1))
 const keyaots = new KeyBind("Aots macro", Keyboard.KEY_NONE, "OdinClient").registerKeyPress(() => {toggled = !toggled;  modMessage("Item macro swap is now: " + toggled)})
 const keyspray = new KeyBind("Ice Spray macro", Keyboard.KEY_NONE, "OdinClient").registerKeyPress(() => swapAndRightClick("Ice Spray Wand")) 
 const keyeye = new KeyBind("Precursor macro", Keyboard.KEY_NONE, "OdinClient").registerKeyPress(() => {precurserswitch = !precurserswitch; modMessage("Precursor eye is now: " + precurserswitch); sneakBind.setState(false)});

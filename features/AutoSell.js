@@ -5,12 +5,12 @@ let intrades = false
 let going = false
 let q = []
 register("tick", () => {
-    if (intrades || !data.legit.options[8]) return
+    if (intrades || !data.auto.options[8]) return
     let inv = Player.getContainer();
     if (inv.getName() != "Trades" && !inv.getName().includes('Cookie Clicker v')) return
     for (let i=54; i<88; i++) {
         if (Player.getContainer().getStackInSlot(i) != null) continue
-        item = ChatLib.removeFormatting(Player.getContainer().getStackInSlot(i).getName().toLowerCase())
+        let item = ChatLib.removeFormatting(Player.getContainer().getStackInSlot(i).getName().toLowerCase())
         for (let toSell of AutoSell.sellable) {
             if (item.includes(toSell.toLowerCase())) {
                 q.push(i)

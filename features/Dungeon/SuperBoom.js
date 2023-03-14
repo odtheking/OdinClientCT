@@ -1,5 +1,5 @@
 import Skyblock from "../../../BloomCore/Skyblock"
-import { leftclick } from "../../utils"
+import { leftClick } from "../../utils"
 import { data } from "../../stuff/guidk"
 
 const mc = Client.getMinecraft()
@@ -13,6 +13,6 @@ register("clicked", (mouseX, mouseY, button, isButtonDown) => {
     const previousItemIndex = Player.getHeldItemIndex()
     if (superboom == -1 || null && superboom > 8) return
     Player.setHeldItemIndex(superboom)
-    leftclick()
+    leftClick()
     Player.setHeldItemIndex(previousItemIndex)
 })
