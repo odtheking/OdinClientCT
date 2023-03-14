@@ -87,7 +87,7 @@ let waitingPingCommand = false
 export const partyCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
     case "help":
-      partyMessage("[OdinClient] available commands are: warp, coords, allinvite, odin, m (?), f (?), boop, cf, 8ball, cat, rs, pt, rat, ping");
+      partyMessage("[OdinClient] available commands are: warp, coords, allinvite, odin, boop, cf, 8ball, cat, rs, pt, rat, ping");
     break;
     case "warp":
       ChatLib.command("p warp");
