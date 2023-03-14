@@ -15,7 +15,7 @@ register("chat", (npc, event) => {
 }).setCriteria("✆ ${npc} ✆ ");
 
 register("chat", (rings, event) => {
-    if (!data.legit.options[6] /*|| !ghosting*/) return;
+    if (!data.legit.options[6] || !ghosting) return;
     cancel(event);
 }).setCriteria("✆ ${rings} [PICK UP]");
 

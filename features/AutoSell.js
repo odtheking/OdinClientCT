@@ -1,18 +1,18 @@
 import { data } from "../stuff/guidk"
 import PogObject from "../../PogData/index.js"
 import { modMessage } from "../utils.js"
+
 let intrades = false
 let going = false
 let q = []
 register("tick", () => {
-    if (intrades || !data.legit.options[8]) return
+    if (intrades || !data.auto.options[8]) return
     let inv = Player.getContainer();
-    if (inv.getName() != "Trades" && !inv.getName().includes('Cookie Clicker v')) return
+    if (inv.getName() != "Trades" && !inv.getName().includes('Booster Cookie')) return
     for (let i=54; i<88; i++) {
-        if (Player.getContainer().getStackInSlot(i) != null) continue
-        item = ChatLib.removeFormatting(Player.getContainer().getStackInSlot(i).getName().toLowerCase())
+        let item = ChatLib.removeFormatting(Player.getContainer()?.getStackInSlot(i)?.getName()?.toLowerCase())
         for (let toSell of AutoSell.sellable) {
-            if (item.includes(toSell.toLowerCase())) {
+            if (item?.includes(toSell.toLowerCase())) {
                 q.push(i)
             }
         }
@@ -45,36 +45,36 @@ register("command", (...args) => {
         modMessage("Incorrect usage. /autosell add/remove <name>")
         return
     }
+     
+    type = args.splice(0,1)
     let name = args.join(" ").toLowerCase()
-    switch (args[0]) {
-        case "add":
-            if (autosell.sellable.includes(name)) {
-                modMessage(`${name} is already in the list`)
-            } else {
-                autosell.sellable.push(name)
-                modMessage(name + " has been added to the list")
-                autosell.save()
-            }
-            break
-        case "remove":
-            if (!autosell.sellable.includes(name)) {
-                modMessage("Couldn't remove " + name + " from the list")
-            } else {
-                autosell.sellable = autosell.sellable.filter(nam => nam !== name)
-                modMessage(name + " has been removed from the list")
-                autosell.save()
-            }
-            break
+    if (type == "add") {
+        modMessage("adding")
+        if (AutoSell.sellable.includes(name)) {
+            modMessage(`${name} is already in the list`)
+        } else {
+            AutoSell.sellable.push(name)
+            modMessage(name + " has been added to the list")
+            AutoSell.save()
+        }
+    } else if (type == "remove") {
+        if (!AutoSell.sellable.includes(name)) {
+            modMessage("Couldn't remove " + name + " from the list")
+        } else {
+            AutoSell.sellable = AutoSell.sellable.filter(nam => nam !== name)
+            modMessage(name + " has been removed from the list")
+            AutoSell.save()
+        }
     }
 }).setName("autosell").setTabCompletions("add, remove")
 
 
 register("command", () => {
-    modMessage(autosell.sellable)
+    modMessage(AutoSell.sellable)
 }).setName("getselllist")
 
 register("command", () => {
-    autosell.sellable.length = 0
+    AutoSell.length = 0
     modMessage("Cleared autosell list")
 }).setName("clearselllist")
 

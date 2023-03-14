@@ -43,7 +43,7 @@ register("dragged", (dx, dy, x, y) => {
 register("renderOverlay", () => {
   updateFlares()
   if (flareMove.isOpen()) {
-    firework.draw(flaredata.flareX - 53, flaredata.flareY, 3)
+    firework.draw(flaredata.flareX - 40, flaredata.flareY - 7, 3)
     font2.drawStringWithShadow("SOS", flaredata.flareX, flaredata.flareY, new Color(0.6, 0, 0.95, 1));
     font2.drawStringWithShadow("180s", flaredata.flareX, flaredata.flareY + 15, new Color(0, 0.9, 0.15, 1));
   } else if (data.nether.options[1]) {

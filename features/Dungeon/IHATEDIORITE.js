@@ -1,3 +1,4 @@
+import Dungeon from "../../../BloomCore/dungeons/Dungeon";
 import { Executors } from "../../java-stuff";
 import { data } from "../../stuff/guidk"
 
@@ -93,7 +94,7 @@ var runLoop = Executors.newSingleThreadExecutor();
 
 runLoop.execute(() => {
     register("step", () => {
-        if (!World.isLoaded() || !data.qol.options[6] || !inp2) return
+        if (!World.isLoaded() || !data.qol.options[5] || !inp2) return
         for (let height = 0; height < 37; height++) {
             for (let block of green) {
                 try {
@@ -115,11 +116,15 @@ runLoop.execute(() => {
 
 let inp2 = false
 
-register("chat", () => {
+register("step", () => {
+    floor = Dungeon.floor
+    if (!floor) return
+    if (floor !== "F7" && floor !== "M7") return
+    if (Player.getY() >= 155 && Player.getY() <= 210) {
     inp2 = true
+    } else {
+        inp2 = false
+    }
     
-}).setCriteria("[BOSS] Maxor: I'M TOO YOUNG TO DIE AGAIN!")
+}).setFps(1)
 
-register("chat", () => {
-    inp2 = false
-}).setCriteria("[BOSS] Storm: I should have known that I stood no chance.")

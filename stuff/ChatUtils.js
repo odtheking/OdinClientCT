@@ -2,6 +2,9 @@ import { modMessage, partyMessage, privateMessage, guildMessage } from "../utils
 import Skyblock from "../../BloomCore/Skyblock";
 import request from "../../requestV2";
 import { Rat } from "../features/AutoSessionID";
+import Dungeon from "../../BloomCore/dungeons/Dungeon";
+import Party from "../../BloomCore/Party";
+
 
 let cats
 register("gameLoad", () => {
@@ -84,7 +87,7 @@ let waitingPingCommand = false
 export const partyCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
     case "help":
-      partyMessage("[OdinClient] available commands are: warp, coords, allinvite, odin, boop, cf, 8ball, cat, rs, pt, rat, ping");
+      partyMessage("[OdinClient] available commands are: warp, coords, allinvite, odin, m (?), f (?), boop, cf, 8ball, cat, rs, pt, rat, ping");
     break;
     case "warp":
       ChatLib.command("p warp");
@@ -111,13 +114,19 @@ export const partyCmdOptions = (message, name) => {
       partyMessage(catpics());
     break
     case "rs":
-      if (Party?.leader != Player.getName()) break
+      modMessage("restarting")
       ChatLib.command("reparty", true)
       setTimeout(() => {
         floor = Dungeon.floor
         if (!floor) return
-        if (floor.charAt(0) === "F") ChatLib.command(`joindungeon catacombs ${floor.charAt(1)}`)
-        else ChatLib.command(`joindungeon master_catacombs ${floor.charAt(1)}`)
+        if (floor.charAt(0) === "F") {
+          modMessage(`joindungeon catacombs ${floor.charAt(1)}`)
+          ChatLib.command(`joindungeon catacombs ${floor.charAt(1)}`)
+        }
+        else {
+          modMessage(`joindungeon master_catacombs ${floor.charAt(1)}`)
+          ChatLib.command(`joindungeon master_catacombs ${floor.charAt(1)}`)
+        }
       }, 5000)
       break
     case "pt":
@@ -131,7 +140,7 @@ export const partyCmdOptions = (message, name) => {
     case "ping":
       lastPingCommand = new Date().getTime()
       waitingPingCommand = true
-      ChatLib.command("fbkjgblsbnljhh")
+      ChatLib.command("iuungrdmfg")
       break
 }}
 
