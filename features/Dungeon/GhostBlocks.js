@@ -21,7 +21,7 @@ register('tick', () => {
 
 
 register('step', () => {
-    if (!data.qol.options[6]) return
+    if (!data.qol.preGhostBlock.toggle) return
     floor = Dungeon.floor
     if (!floor) return
     if (floor !== "F7" && floor !== "M7") return

@@ -102,19 +102,19 @@ export const data = new PogObject("OdinCheata", {
         'x': 520,
         'y': 20,
         'dropDown': true,
-        "Broken Hype": {
+        "brokenHype": {
             "toggle": false,
             "name": "Broken Hype",
         },
-        "Flare Timer": {
+        "flareTimer": {
             "toggle": false,
             "name": "Flare Timer",
         },
-        "Vanq Notifier": {
+        "vanqNotifier": {
             "toggle": false,
             "name": "Vanq Notifier",
         },
-        "Kuudra Alerts": {
+        "kuudraAlerts": {
             "toggle": false,
             "name": "Kuudra Alerts",
         },
@@ -210,31 +210,6 @@ const drawDesc = (mx, my, tab, index) => {
     }
 }
 
-register('renderOverlay', () => {
-    if (!mainGui.isOpen()) {
-        if (shouldRemove) {
-            Client.getMinecraft().field_71460_t.func_181022_b()
-            shouldRemove = false
-        }
-        return
-    }
-    shouldRemove = true
-    image?.draw(670, 400, 280, 140)
-
-    mx = Client.getMouseX()
-    my = Client.getMouseY()
-
-    tabs.forEach((tab, index) => {
-        rect(255, 215, 0, 225, tab.x, tab.y, buttonWidth, buttonHeight)
-        centeredString(font2, tabTitles[index], tab.x, tab.y, 1, 0, 0, 1)
-        drawTab(tab)
-    })
-    tabs.forEach((tab, index) => drawDesc(mx, my, tab, index))
-
-    Client.getMinecraft().field_71460_t.func_181022_b()
-    Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
-})
-
 /**
   * Checks what tab was dragged, then handles that drag
   * @param {number} dx Delta X
@@ -269,6 +244,33 @@ const checkTab = (mx, my, b, tab) => {
         makePressSound()
     }
 }
+
+register('renderOverlay', () => {
+    if (!mainGui.isOpen()) {
+        if (shouldRemove) {
+            Client.getMinecraft().field_71460_t.func_181022_b()
+            shouldRemove = false
+        }
+        return
+    }
+    shouldRemove = true
+    image?.draw(670, 400, 280, 140)
+
+    mx = Client.getMouseX()
+    my = Client.getMouseY()
+
+    tabs.forEach((tab, index) => {
+        rect(255, 215, 0, 225, tab.x, tab.y, buttonWidth, buttonHeight)
+        centeredString(font2, tabTitles[index], tab.x, tab.y, 1, 0, 0, 1)
+        drawTab(tab)
+    })
+    tabs.forEach((tab, index) => drawDesc(mx, my, tab, index))
+
+    Client.getMinecraft().field_71460_t.func_181022_b()
+    Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
+})
+
+
 
 register('dragged', (dx, dy, x, y, b) => {
     if (!mainGui.isOpen() || b != 0) return

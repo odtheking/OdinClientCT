@@ -1,11 +1,9 @@
-import renderBeaconBeam from "../../BeaconBeam"
-import RenderLib from "../../RenderLib"
 import { data } from "../stuff/guidk"
-import { modMessage } from "../utils"
+import { modMessage, renderCustomBeacon } from "../utils"
 
 // Vanq Notifier
 register("chat", () => {
-    if (!data.nether.options[2]) return
+    if (!data.nether.vanqNotifier.toggle) return
     let scoreboard = Scoreboard.getLines().map(a => { return ChatLib.removeFormatting(a) })
     for (let line of scoreboard) {
         if (line.includes("⏣")) {
@@ -30,11 +28,7 @@ const sixtySecondBeacon = (x, y, z) => {
     }, 60000);
 }
 
-const renderCustomBeacon = (text, renderx, rendery, renderz) => {
-    renderBeaconBeam(renderx - 0.5, rendery, renderz - 0.5, 1, 0, 0, 0.5, false);
-    RenderLib.drawEspBox(renderx, rendery, renderz, 1, 1, 1, 0, 0, 0.5, true)
-    Tessellator.drawString(text, renderx, rendery + 0.7, renderz)
-}
+
 register("chat", (rank, player, x, y, z, loc) => {
     ign = player
     sixtySecondBeacon(x,y,z)
@@ -50,15 +44,15 @@ register("chat", (rank, player, x, y, z) => {
     sixtySecondBeacon(x,y,z)
 }).setCriteria("Party > {rank} ${player}: x: ${x} y: ${y} z: ${z}")
 
-register("chat", (player, x, y, z) => {
+register("chat", (rank, player, x, y, z) => {
     ign = player
     sixtySecondBeacon(x,y,z)
-}).setCriteria("${player}: x: ${x} y: ${y} z: ${z}")
+}).setCriteria("{rank} ${player}: x: ${x} y: ${y} z: ${z}")
 
 register("renderWorld", () => {
-    if (!data.nether.options[2]) return
+    if (!data.nether.vanqNotifier.toggle) return
     if (!renderbeam) return;
-    renderCustomBeacon([ign + " x: " + renderx, "y: " +rendery, "z: " + renderz].join(", "), renderx, rendery, renderz)
+    renderCustomBeacon([ign + " x: " + renderx, "y: " +rendery, "z: " + renderz].join(", "), renderx, rendery, renderz, 1, 0, 0)
 })
 
 

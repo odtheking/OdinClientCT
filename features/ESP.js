@@ -12,7 +12,7 @@ import { getEntityRenderParams, modMessage, noSqrt3DDistance } from "../utils.js
 
 // Cheater ESP
 register("command", (...args) => {
-    if (!data.qol.options[4]) {
+    if (!data.qol.esp.toggle) {
         modMessage("Feature is disabled please turn on with /oc")
         return
     }
@@ -83,7 +83,7 @@ let entitiesToRender = new Map() // key: ArmorStand, value: McEntity
 
 register('step', () => {
     //console.log(entitiesToRender.size)
-    if (!data.qol.options[4]) return
+    if (!data.qol.esp.toggle) return
     World.getAllEntities().forEach(stand => {
         const mcStand = stand.getEntity()
         if (!(mcStand instanceof EntityArmorStand)) return
@@ -108,7 +108,7 @@ register('step', () => {
 const espLoop = Executors.newSingleThreadExecutor()
 espLoop.execute(() => {
     register("renderWorld", (partialTicks) => {
-        if (!data.qol.options[4]) return
+        if (!data.qol.esp.toggle) return
         entitiesToRender.forEach((value, key) => {
             if (value && value.field_70128_L) {
                 entitiesToRender.delete(key)

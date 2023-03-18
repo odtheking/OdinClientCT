@@ -15,7 +15,7 @@ register("worldLoad", () => {
 })
 
 register("step", () => {
-    if (!data.auto.options[1] || Skyblock.area != 'Dungeon' || playerready || click) return
+    if (!data.auto.autoMort.toggle || Skyblock.area != 'Dungeon' || playerready || click) return
     const mort = World.getAllEntities().find(mort => mort.getName().includes('Mort'))
     if (!mort) return
     const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
@@ -36,7 +36,7 @@ register("step", () => {
 }).setFps(10)
 
 register("chat", (ign) => {
-    if (!data.auto.options[0]) return
+    if (!data.auto.autoReady.toggle) return
     if (Skyblock.area != 'Dungeon') return
     if (ign == Player.getName()) {
         playerready = true
@@ -47,20 +47,20 @@ register("chat", (ign) => {
 
 //auto ready gui side
 register('tick', () => {
-    if (!data.auto.options[0] || playerready || !Client.isInGui()) return
+    if (!data.auto.autoReady.toggle || playerready || !Client.isInGui()) return
     let container = Player.getContainer()
     let playerName = Player.getName()
     if (container.getName() === "Start Dungeon?") {
         index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes('Start Dungeon?'))
-        container.click(index, false, "MIDDLE")
+        container.click(index, false)
     }
     if (container.getName().startsWith("Catacombs - ")) {
         index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes(playerName))
-        container.click(index, false, "MIDDLE")
+        container.click(index, false)
     }
     if (container.getName().startsWith("Ready Up")) {
         index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes(playerName))
-        container.click(index, false, "MIDDLE")
+        container.click(index, false)
         Client.currentGui.close()
     }
 })

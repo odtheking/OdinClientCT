@@ -18,14 +18,14 @@ let lastUseTime = 0;
 let lastUseTime1 = 0;
 
 register("tick", () => { 
-    if (!data.qol.options[1]) return
+    if (!data.qol.itemMacros.toggle) return
     if (!toggled) return
     swapAndRightClick("Axe of the Shredded")
     swapAndRightClick("Soul Whip")
 })
 
 register("tick", (ticks) => {
-    if (!data.qol.options[1]) return 
+    if (!data.qol.itemMacros.toggle) return
     if (!precurserswitch) return
     if (Client.isInGui()) return
     
@@ -33,7 +33,7 @@ register("tick", (ticks) => {
 }) 
 
 register("tick", () => {
-    if (!data.qol.options[1]) return;
+    if (!data.qol.itemMacros.toggle) return
     if (!veilswitch) return;
 
     const currentTime = new Date().getTime();
@@ -44,7 +44,7 @@ register("tick", () => {
 });
 
 register("tick", () => {
-    if (!data.qol.options[1]) return;
+    if (!data.qol.itemMacros.toggle) return
     if (!wandswitch) return;
 
     const currentTime1 = new Date().getTime();

@@ -1,5 +1,5 @@
 import Skyblock from "../../../BloomCore/Skyblock"
-import { leftClick, modMessage } from "../../utils"
+import { leftClick, modMessage, hitWithItemFromInv } from "../../utils"
 import { data } from "../../stuff/guidk"
 
 const JavaBlockPos = Java.type("net.minecraft.util.BlockPos")
@@ -8,18 +8,27 @@ const C09PacketHeldItemChange = Java.type("net.minecraft.network.play.client.C09
 let lastclick = 0
 register("clicked", (mouseX, mouseY, mouseButton, isLeftMouseButtonPressed) => {
     if (!isLeftMouseButtonPressed || mouseButton !== 0 || Skyblock.area !== 'Dungeon' || Date.now() - lastclick < 2000 ||
-    Client.isInGui() || !data.qol.options[8] || Player.getHeldItem().getName().includes("TNT")) return
+    Client.isInGui() || !data.qol.superBoom.toggle || Player.getHeldItem()?.getName()?.includes("TNT")) return
 
     const lookingAt = Player.lookingAt()
     if (!(lookingAt instanceof Block)) return
-    if (!lookingAt.getState().toString().includes("cracked_stonebrick") && !lookingAt.getState().toString().includes("stone_brick_stairs") && !lookingAt.getState().toString().includes("stone_slab")) return
+    const state = lookingAt.getState().toString()
+    if (!state.includes("cracked_stonebrick") && 
+        !state.includes("stone_brick_stairs") && 
+        !state.includes("stone_slab") &&
+        !state.includes("barrier")
+    ) return
 
     const superboomIndex = Player.getInventory()?.getItems()?.findIndex(item => item?.getName()?.includes("TNT"))
-    if (superboomIndex === -1 || superboomIndex === null || superboomIndex > 8) return
-
+    if (superboomIndex === -1 || !superboomIndex) return
+    
     const blockpos = new JavaBlockPos(lookingAt.getX(), lookingAt.getY(), lookingAt.getZ())
 
     lastclick = Date.now()
+    if (superboomIndex > 8) {
+        hitWithItemFromInv(superboomIndex, blockpos)
+        return
+    }
     const previousItemIndex = Player.getHeldItemIndex()
 
     Client.sendPacket(new C09PacketHeldItemChange(superboomIndex))

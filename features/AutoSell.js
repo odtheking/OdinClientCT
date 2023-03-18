@@ -6,7 +6,7 @@ let intrades = false
 let going = false
 let q = []
 register("tick", () => {
-    if (intrades || !data.auto.options[8]) return
+    if (intrades || !data.auto.autoSell.toggle) return
     let inv = Player.getContainer();
     if (inv.getName() != "Trades" && !inv.getName().includes('Booster Cookie')) return
     for (let i=54; i<88; i++) {

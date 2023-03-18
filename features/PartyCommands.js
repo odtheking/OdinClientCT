@@ -5,20 +5,20 @@ import { partyCmdOptions, privateCmdOptions, godMod } from "../stuff/ChatUtils";
 
 
 register("chat", (rank, name, message) => {
-    if (!data.legit.options[0] || blacklist.igns.includes(name.toLowerCase())) return;
+    if (!data.legit.partyCmds.toggle || blacklist.igns.includes(name.toLowerCase())) return;
     partyCmdOptions(message, name)
     godMod(message, name)
 }).setCriteria(/Party > (\[.+\])? ?(.+): !(.+)/);
 
 register("chat", (rank, name, message) => {
-    if (!data.legit.options[0] || blacklist.igns.includes(name.toLowerCase())) return;
+    if (!data.legit.partyCmds.toggle || blacklist.igns.includes(name.toLowerCase())) return;
     privateCmdOptions(message, name)
     godMod(message, name)
 }).setCriteria(/From (\[.+\])? ?(.+): !(.+)/);
 
 
 register('chat', (channel, rank, name, message, num) => {
-    if (!data.legit.options[0] || blacklist.igns.includes(name.toLowerCase())) return;
+    if (!data.legit.partyCmds.toggle || blacklist.igns.includes(name.toLowerCase())) return;
 
     if ((message.toLowerCase().startsWith("inv")) || (message.toLowerCase().startsWith("invite")) && (Party?.leader == Player.getName() || Party.leader == null)) {
         ChatLib.command(`party invite ${name}`);

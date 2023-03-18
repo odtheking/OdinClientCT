@@ -15,7 +15,7 @@ const C02PacketUseEntity = Java.type('net.minecraft.network.play.client.C02Packe
 const Vec3 = Java.type('net.minecraft.util.Vec3')
 
 register('tick', (ticks) => {
-    if (ticks % 4 !== 0 || disabler || !data.qol.options[0]) return
+    if (ticks % 4 !== 0 || disabler || !data.qol.relicAura.toggle) return
     World.getAllEntitiesOfType(EntityArmorStand.class).forEach(e => {
         if (new EntityLivingBase(e?.getEntity()).getItemInSlot(4)?.getNBT()?.toString()?.includes("Relic")) {
             const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]

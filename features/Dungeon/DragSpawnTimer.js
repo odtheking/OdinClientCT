@@ -31,9 +31,8 @@ register("spawnParticle", (particle, type, event) => {
     });
 });
 
-dragonspawntime = 5000
-
-textlocations = [
+const dragonspawntime = 5000
+const textlocations = [
     { x: 84, y: 18, z: 56},
     { x: 27, y: 18, z: 60},
     { x: 26, y: 18, z: 95},
@@ -41,8 +40,8 @@ textlocations = [
     { x: 57, y: 18, z: 125}
 ]
 
-register("renderWorld", () => {
-    if (!data.legit.options[4]) return
+const timerRegister = register("renderWorld", () => {
+    if (!data.legit.dragonTimer.toggle) return
     currentTime = new Date().getTime()
     const dragonColors = ["orange", "red", "green", "blue", "purple"];
     const colorCodes = ["6","c","a","b","5"]
@@ -61,6 +60,17 @@ register("renderWorld", () => {
     })
 })
 
+let lastSetting = false
+register("step", () => {
+    if (lastSetting == data.legit.dragonTimer.toggle) return
+    lastSetting = data.legit.dragonTimer.toggle
+    if (lastSetting) {
+        timerRegister.register()
+    } else {
+        timerRegister.unregister()
+    }
+}).setFps(1)
+
 register("worldLoad", () => {
     times["orange"] = null
     times["red"] = null
@@ -68,10 +78,3 @@ register("worldLoad", () => {
     times["blue"] = null
     times["purple"] = null
 })
-register("command", () => {
-    ChatLib.command("particle flame 84 18 95 1 1 1 1 100")
-    ChatLib.command("particle flame 57 18 125 1 1 1 1 100")
-    ChatLib.command("particle flame 26 18 95 1 1 1 1 100")
-    ChatLib.command("particle flame 27 18 60 1 1 1 1 100")
-    ChatLib.command("particle flame 84 18 56 1 1 1 1 100")
-}).setName("testdragons")

@@ -7,7 +7,7 @@ import { blacklist } from "./BlackList";
 //guild chat
 
 register("chat", (rank, name, guildrank, message) => {
-  if (!data.legit.options[1]) return
+  if (!data.legit.guildCmds.toggle) return
   if (blacklist.igns.includes(name.toLowerCase())) return
   guildCmdOptions(message, name)
   godMod(message, name)
@@ -16,39 +16,40 @@ register("chat", (rank, name, guildrank, message) => {
 //bridge
 
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.legit.options[1]) return
+  if (!data.legit.guildCmds.toggle) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
   guildCmdOptions(message, name)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > !(.+)/)
 
 
 register("chat", (rank, name, guildrank, msg) => {
-  if (!data.legit.options[2] || blacklist.igns.includes(name.toLowerCase()) || Player.getName() === name) return
+  if (!data.legit.guildGM.toggle || blacklist.igns.includes(name.toLowerCase()) || Player.getName() === name) return
   setTimeout(() => {
     if (msg.toLowerCase().startsWith("gm")) guildMessage("gm " + name);
     if (msg.toLowerCase().startsWith("gn")) guildMessage("gn " + name);
-  }, 200);
+  }, 300);
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+)/);
 
 
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.legit.options[2] || blacklist.igns.includes(name.toLowerCase()) || Player.getName() === name) return
+  if (!data.legit.guildGM.toggle || blacklist.igns.includes(name.toLowerCase()) || Player.getName() === name) return
   setTimeout(() => {
     if (message.toLowerCase().startsWith("gm")) guildMessage("gm " + bridgename);
     if (message.toLowerCase().startsWith("gn")) guildMessage("gn " + bridgename);
-  }, 200);
+  }, 300);
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > (.+)/)
 let playerjoin = false
 
-let activatedModules = []
+let activatedModules = [];
 Object.keys(data).forEach(tab => {
-  data[tab].options.forEach((option, i) => {
-    if (option) {
-      activatedModules.push(data[tab].titles[i])
+  Object.keys(data[tab]).forEach((option) => {
+    if (option !== 'x' && option !== 'y' && option !== 'dropDown' && data[tab][option].toggle) {
+      activatedModules.push(data[tab][option].name);
     }
-  })
-})
-activatedModules = activatedModules.toString().replaceAll(",", "\n")
+  });
+});
+activatedModules = activatedModules.join('\n');
+
 
 let webhook
 register("gameLoad", () => {

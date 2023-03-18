@@ -95,7 +95,7 @@ var runLoop = Executors.newSingleThreadExecutor();
 
 runLoop.execute(() => {
     register("step", () => {
-        if (!World.isLoaded() || !data.qol.options[5] || getPhase() !== p2) return
+        if (!World.isLoaded() || !data.qol.fuckDiorite.toggle || getPhase() !== "p2") return
         for (let height = 0; height < 37; height++) {
             for (let block of green) {
                 try {

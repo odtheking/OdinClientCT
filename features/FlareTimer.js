@@ -40,13 +40,13 @@ register("dragged", (dx, dy, x, y) => {
   }
 })
 
-register("renderOverlay", () => {
+const flareRegister = register("renderOverlay", () => {
   updateFlares()
   if (flareMove.isOpen()) {
     firework.draw(flaredata.flareX - 40, flaredata.flareY - 7, 3)
     font2.drawStringWithShadow("SOS", flaredata.flareX, flaredata.flareY, new Color(0.6, 0, 0.95, 1));
     font2.drawStringWithShadow("180s", flaredata.flareX, flaredata.flareY + 15, new Color(0, 0.9, 0.15, 1));
-  } else if (data.nether.options[1]) {
+  } else if (data.nether.flareTimer.toggle) {
     const flareData = nearbyFlares.sort((a, b) => b[2] - a[2]).find(f => f[3].distanceTo(Player.asPlayerMP()) <= 40)
     if (!flareData) {
       flareType = undefined
@@ -61,12 +61,24 @@ register("renderOverlay", () => {
   }
 })
 
+let lastSetting = false
+register("step", () => {
+  if (lastSetting != data.nether.flareTimer.toggle) {
+    lastSetting = data.nether.flareTimer.toggle
+    if (data.nether.flareTimer.toggle) {
+      flareRegister.register()
+    } else {
+      flareRegister.unregister()
+    }
+  }
+}).setFps(1)
+
 register("worldLoad", () => {
   flareType = undefined
   nearbyFlares.length = 0
 })
 register("step", () => {
-  if (!data.nether.options[1]) return
+  if (!data.nether.flareTimer.toggle) return
   const flares = []
   World.getAllEntities().filter(e => e && e.getEntity() instanceof EntityArmorStand).forEach(e => {
     if (nearbyFlares.find(f => f[0] == e.getEntity().func_145782_y())) return

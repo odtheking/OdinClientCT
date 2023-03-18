@@ -15,6 +15,7 @@ const ChatEvents = {
 }
 
 register("chat", (msg) => {
+  if (!data.nether.kuudraAlerts.toggle) return
   Object.entries(ChatEvents).forEach(([message, title]) => {
     if (msg == message) {
       alert(title)
@@ -24,12 +25,12 @@ register("chat", (msg) => {
 
 // unready
 register("chat", (player) => {
-  if (!data.nether.options[3]) return
+  if (!data.nether.kuudraAlerts.toggle) return
   const name = player.removeFormatting().toUpperCase();
   alert(`§4${name} IS NO LONGER READY!`);
 }).setCriteria("${player} is no longer ready!");
 
 register("chat", (player) => {
-  if (!data.nether.options[3]) return
+  if (!data.nether.kuudraAlerts.toggle) return
   alert("&l§4KUUDRA STUNNED!");
 }).setCriteria("{player} destroyed one of Kuudra's pods!");

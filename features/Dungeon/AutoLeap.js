@@ -14,7 +14,7 @@ register("worldLoad", () => {
 
 // Actual thing
 register("chat", (name) => {
-    if (!data.auto.options[7]) return 
+    if (!data.auto.autoLeap.toggle) return 
     if (blacklist.igns.includes(name.toLowerCase())) return
     if (name == Player.getName().toLowerCase()) return
     swapAndRightClick("leap")
@@ -30,7 +30,8 @@ register("guiDrawBackground", () => {
     const items = container.getItems()
     let head = items.findIndex(item => item && item.getName().toLowerCase().includes(target))
     if (head != -1 || head != null) {
-        container.click(head, false, "MIDDLE")
+        container.click(head, false)
+        Client.currentGui.close() 
         modMessage(`§rLeaped to ${target}`)
         opened = false
         target = null

@@ -33,9 +33,7 @@ register('chat', (secondwind, item) => {
 }).setCriteria(/^(Second Wind Activated!)? ?Your (.+) saved your life!$/)
 
 register('tick', (ticks) => {
-    if (ticks % 10 != 0) return
-    if (!data.auto.options[5]) return
-    if (!shouldSwapItem) return
+    if (ticks % 10 != 0 || !data.auto.autoMask.toggle || !shouldSwapItem) return
     if (!Client.currentGui.get()) ChatLib.command('equipment')
 
     // Waiting until the GUI opens

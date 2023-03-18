@@ -12,7 +12,7 @@ register("chat", () => {
 
 let shouldOpen = true
 register('tick', (ticks) => {      
-    if (!data.auto.options[6] || ticks % 10 !== 0 || !p4Done) return
+    if (!data.auto.autoEdrag.toggle || ticks % 10 !== 0 || !p4Done) return
     if (!Client.currentGui.get() || shouldOpen) {
         ChatLib.command('pet')
         modMessage("Trying to equip Ender Dragon pet")

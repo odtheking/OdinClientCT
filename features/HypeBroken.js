@@ -8,7 +8,7 @@ var tracker_kills = 0
 var tracker_xp = 0
 
 register("entityDeath", () => {
-  if (data.nether.options[0] && Player.getHeldItem() != null && Skyblock.area != 'Dungeon') {
+  if (data.nether.brokenHype.toggle && Player.getHeldItem() != null && Skyblock.area != 'Dungeon') {
     const heldItem = Player.getHeldItem().getNBT().getCompoundTag("tag").getCompoundTag("ExtraAttributes").getString("id");
     const witherBlades = ["HYPERION", "ASTRAEA", "SCYLLA", "VALKYRIE", "NECRON_BLADE_UNREFINED"];
 

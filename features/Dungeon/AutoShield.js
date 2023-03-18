@@ -15,7 +15,7 @@ const entryMessages = [
 // Auto Wither Shield
 let inboss = false
 register('step', () => {
-    if (!data.auto.options[3]) return
+    if (!data.auto.autoShield.toggle) return
     if (!inboss) return
     if (Player.getHP() >= 40) return
     let found = false
