@@ -240,4 +240,21 @@ export function getPhase() {
     }
   
     return inBoss ? inPhase : false;
-  }
+}
+
+
+  /**
+  * Draws a rectangle
+  * @param {number} r Red
+  * @param {number} g Green
+  * @param {number} b Blue
+  * @param {number} a Alpha
+  * @param {number} x X
+  * @param {number} y Y
+  * @param {number} w Width
+  * @param {number} h Height
+*/
+export const rect = (r,g,b,a,x,y,width,height) => Renderer.drawRect(Renderer.color(r, g, b, a), x, y, width, height)
+export const centeredString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x+(70 - font2.getWidth(text)) / 2 + 15,y + 5,new java.awt.Color(r,g,b,a))
+export const normalString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWithShadow(text,x,y + 5,new java.awt.Color(r,g,b,a))
+export const makePressSound = () => World.playSound('gui.button.press', 1, 1)
