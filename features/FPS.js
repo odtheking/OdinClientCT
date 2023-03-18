@@ -1,5 +1,6 @@
 import { data } from "../stuff/guidk"
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
+import { getPhase, modMessage } from "../utils"
 
 let inp5
 const killEntity = entity => entity.func_70106_y()
@@ -26,3 +27,7 @@ register("chat", () => {
 register("worldLoad", () => {
     inp5 = false
 })
+
+register("chat", () => {
+  inp5 = false
+}).setCriteria("[BOSS] Wither King: Incredible. You did what I couldn't do myself.")

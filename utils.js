@@ -1,5 +1,7 @@
+import Dungeon from "../BloomCore/dungeons/Dungeon"
 import { Blockk, C02PacketUseEntity } from "../BloomCore/utils/Utils"
 import { ItemSkull } from "./java-stuff"
+
 
 
 
@@ -180,8 +182,62 @@ export function getSkullTexture(skull) {
     return nbt.func_74775_l("SkullOwner").func_74775_l("Properties").func_150295_c("textures", 10).func_150305_b(0).func_74779_i("Value")
 }
 
-
+/**
+ * 
+    * Gets text and displays it on the screen and plays a pling
+    * @param {string} string to be displayed
+ * 
+ */
 export function alert(title) {
     World.playSound("note.pling", 100, 1)
     Client.showTitle(title, "", 10, 100, 10);
 }
+
+export function isCoordinateInsideBox(coord, corner1, corner2) {
+    const min = {
+      x: Math.min(corner1.x, corner2.x),
+      y: Math.min(corner1.y, corner2.y),
+      z: Math.min(corner1.z, corner2.z)
+    };
+    const max = {
+      x: Math.max(corner1.x, corner2.x),
+      y: Math.max(corner1.y, corner2.y),
+      z: Math.max(corner1.z, corner2.z)
+    };
+    return coord.x >= min.x && coord.x <= max.x
+        && coord.y >= min.y && coord.y <= max.y
+        && coord.z >= min.z && coord.z <= max.z;
+}
+
+const corner1 = { x: -8, y: 254, z: 147 };
+const corner2 = { x: 134, y: 0, z: -8 };
+
+/**
+ * 
+    * Returns where abouts of the player
+    * @returns {inPhase} the phase you are in the m7
+    * @returns {inBoss} true if you are in the m7 boss
+ * 
+ */
+export function getPhase() {
+    let inBoss = false;
+    let inPhase = null;
+    if (Dungeon.floor != "F7" && Dungeon.floor != "M7") return
+
+    if (Dungeon.inDungeon && isCoordinateInsideBox({ x: Player.getX(), y: Player.getY(), z: Player.getZ() }, corner1, corner2)) {
+      inBoss = true;
+      if (Player.getY() > 210) {
+        inPhase = "p1";
+      } else if (Player.getY() > 155) {
+        inPhase = "p2";
+      } else if (Player.getY() > 100) {
+        inPhase = "p3";
+      } else if (Player.getY() > 45) {
+        inPhase = "p4";
+      } else {
+        inPhase = "p5";
+      }
+    }
+  
+    return inBoss ? inPhase : false;
+  }
