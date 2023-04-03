@@ -1,4 +1,5 @@
 import { registerForge } from "../../../ForgeEvents/exports.js"
+import { data } from "../../stuff/guidk.js"
 import { leftClick, modMessage, isFacingAABB } from "../../utils.js"
 import Dungeon from "../../../BloomCore/dungeons/Dungeon.js"
 
@@ -15,12 +16,12 @@ registerForge(net.minecraftforge.event.entity.EntityJoinWorldEvent, "NORMAL", (e
     if (!Dungeon.inDungeon) return
     const entity = e.entity
     if (!(entity instanceof EntityOtherPlayerMP)) return
+    if (Client.currentGui.get()) return
 
     const name = entity.func_70005_c_()
-
-    if (Client.currentGui.get()) return
-    if (!bloodMobs.contains(name) && !name.equals("Spirit Bear")) return
-    const posX = entity.field_70165_t; const posY = entity.field_70163_u; const posZ = entity.field_70161_v
-    if(!isFacingAABB(new AxisAlignedBB(posX - 0.5, posY - 2.0, posZ - 0.5, posX + 0.5, posY + 3.0, posZ + 0.5), 30.0)) return
-    leftClick()
+    if ((bloodMobs.includes(name) && data.qol.bloodTriggerBot.toggle) || (name == "Spirit Bear" && data.qol.bearTriggerBot.toggle)) {
+        const posX = entity.field_70165_t; const posY = entity.field_70163_u; const posZ = entity.field_70161_v
+        if(!isFacingAABB(new AxisAlignedBB(posX - 0.5, posY - 2.0, posZ - 0.5, posX + 0.5, posY + 3.0, posZ + 0.5), 30.0)) return
+        leftClick()
+    }
 })
