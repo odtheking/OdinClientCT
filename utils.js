@@ -329,3 +329,88 @@ export const hitWithItemFromInv = (itemIndex, blockpos) => {
   windowClick(itemIndex, 2)
   Player.getPlayer().field_71071_by.field_70462_a[Player.getPlayer().field_71071_by.field_70461_c] = currentHeldItemStack
 }
+
+const player = Client.getMinecraft().field_71439_g
+const EntityOtherPlayerMP = Java.type("net.minecraft.entity.player.EntityOtherPlayerMP")
+const Vec3 = Java.type("net.minecraft.util.Vec3")
+const MathHelper = Java.type("net.minecraft.util.MathHelper")
+const AxisAlignedBB = Java.type("net.minecraft.util.AxisAlignedBB")
+
+/**
+ * @returns {Number} The players eye height
+*/
+export const fastEyeHeight = () => {
+  return player.func_70093_af() ? 1.54 : 1.62
+}
+
+/**
+ * @param {Vec3} vec The Vector to check
+ * @param {AxisAlignedBB} aabb The Axis Aligned Bounding Box
+ * 
+ * @returns {Boolean} If the Vector is in the Axis Aligned Bounding Box
+*/
+export const isVecInYZ = (vec, aabb) => {
+  return (vec != null && vec.field_72448_b >= aabb.field_72338_b && vec.field_72448_b <= aabb.field_72337_e && vec.field_72449_c >= aabb.field_72339_c && vec.field_72449_c <= aabb.field_72334_f);
+}
+
+/**
+ * @param {Vec3} vec The Vector to check
+ * @param {AxisAlignedBB} aabb The Axis Aligned Bounding Box
+ * 
+ * @returns {Boolean} If the Vector is in the Axis Aligned Bounding Box
+*/
+export const isVecInXZ = (vec, aabb) => {
+  return (vec != null && vec.field_72450_a >= aabb.field_72340_a && vec.field_72450_a <= aabb.field_72336_d && vec.field_72449_c >= aabb.field_72339_c && vec.field_72449_c <= aabb.field_72334_f);
+}
+
+/**
+ * @param {Vec3} vec The Vector to check
+ * @param {AxisAlignedBB} aabb The Axis Aligned Bounding Box
+ * 
+ * @returns {Boolean} If the Vector is in the Axis Aligned Bounding Box
+*/
+export const isVecInXY = (vec, aabb) => {
+  return (vec != null && vec.field_72450_a >= aabb.field_72340_a && vec.field_72450_a <= aabb.field_72336_d && vec.field_72448_b >= aabb.field_72338_b && vec.field_72448_b <= aabb.field_72337_e);
+}
+
+/**
+ * @param {AxisAlignedBB} aabb The Axis Aligned Bounding Box
+ * @param {Number} range The Range
+ * @returns {Boolean} If the player is looking at the Axis Aligned Bounding Box
+*/
+export const isFacingAABB = (aabb, range) => {
+  return isInterceptable(aabb, range);
+}
+
+/**
+ * @param {Vec3} start The start position
+ * @param {Vec3} goal The goal position
+ * @param {AxisAlignedBB} aabb The Axis Aligned Bounding Box
+ * @returns {Boolean} If the start position is interceptable with the goal position and the Axis Aligned Bounding Box
+*/ 
+export const isInterceptable3 = (start, goal, aabb) => {
+  return (
+    isVecInYZ(start.func_72429_b(goal, aabb.field_72340_a), aabb) || 
+    isVecInYZ(start.func_72429_b(goal, aabb.field_72336_d), aabb) || 
+    isVecInXZ(start.func_72435_c(goal, aabb.field_72338_b), aabb) || 
+    isVecInXZ(start.func_72435_c(goal, aabb.field_72337_e), aabb) || 
+    isVecInXY(start.func_72434_d(goal, aabb.field_72339_c), aabb) || 
+    isVecInXY(start.func_72434_d(goal, aabb.field_72334_f), aabb)
+  );
+}
+
+/**
+ * @param {AxisAlignedBB} aabb The Axis Aligned Bounding Box
+ * @param {Number} range The Range
+ * @returns {Boolean} If the player is looking at the Axis Aligned Bounding Box
+*/ 
+export const isInterceptable = (aabb, range) => {
+  const position = new Vec3(player.field_70165_t, player.field_70163_u + fastEyeHeight(), player.field_70161_v)
+  const f2 = -MathHelper.func_76134_b(-player.field_70125_A * 0.017453292);
+  const look = new Vec3(
+    (MathHelper.func_76126_a(-player.field_70177_z * 0.017453292 - 3.1415927) * f2), 
+    MathHelper.func_76126_a(-player.field_70125_A * 0.017453292), 
+    (MathHelper.func_76134_b(-player.field_70177_z * 0.017453292 - 3.1415927) * f2)
+  )
+  return isInterceptable3(position, position.func_72441_c(look.field_72450_a * range, look.field_72448_b * range, look.field_72449_c * range), aabb)
+}
