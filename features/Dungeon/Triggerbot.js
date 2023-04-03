@@ -10,7 +10,6 @@ const bloodMobs = [
     "Parasite", "Flamer", "Skull", "Mr. Dead", "Vader", "Frost", "Walker", "Bonzo", "Scarf", "Livid", 
     "Wandering Soul"
 ]
- 
 
 registerForge(net.minecraftforge.event.entity.EntityJoinWorldEvent, "NORMAL", (e) => {
     if (!Dungeon.inDungeon) return

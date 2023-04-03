@@ -32,14 +32,16 @@ export const descriptions = [
 
     [
         "Automatically picks up relics when you are within 5 blocks of them",
-        "Custom item macros check minecraft",
-        "Spams right click while term is held ranomized cps",
+        "Custom item macros check controls",
+        "Spams right click while term is held, ranomized cps",
         "Spams the cookie while in the cookie clicker menu",
         "You can add whatever mob you want into the list /esp",
         "Replaces diorite with glass in p2 (don't use connected blocks)",
         "Makes ghost blocks and covinient spots in the m7 boss",
         "Open the song.js file for instructions its wip if u dont know how to, then its not for you atm",
-        "Uses superboom if you click on a crypt or boom-able wall"
+        "Uses superboom if you click on a crypt or boom-able wall",
+        "Instantly clicks if you are looking at a blood mob when it spawns",
+        "Instantly clicks if you are looking at a spirit bear when it spawns"
     ],
 
 ]

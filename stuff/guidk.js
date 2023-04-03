@@ -161,6 +161,14 @@ export const data = new PogObject("OdinCheata", {
             "toggle": false,
             "name": "Superboom",
         },
+        "bloodTriggerBot": {
+            "toggle": false,
+            "name": "Blood triggerbot"
+        },
+        "bearTriggerBot": {
+            "toggle": false,
+            "name": "Spirit Bear TB"
+        }
     }
 }, "data.json")
 

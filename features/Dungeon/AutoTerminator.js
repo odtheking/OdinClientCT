@@ -1,10 +1,12 @@
 import { data } from "../../stuff/guidk"
 import { rightClick } from "../../utils"
 
-// Terminator Auto Clicker
-register('step', () => {
-    if (!data.qol.terminatorAC.toggle) return
-    if (!Player?.getHeldItem()?.getName()?.includes("Terminator")) return
-    if (!Client.getMinecraft().field_71474_y.field_74313_G.func_151470_d()) return
-    setTimeout(() => { rightClick() }, Math.random() * 12)
-}).setFps(20)
+const delay = 50
+let nextClick = 0
+register("renderWorld", () => {
+    if (!data.qol.terminatorAC.toggle || !Player?.getHeldItem()?.getName()?.includes("Terminator") || !Client.getMinecraft().field_71474_y.field_74313_G.func_151470_d()) return
+    const nowMillis = Date.now()
+    if (nowMillis < nextClick) return
+    nextClick = nowMillis + delay + (Math.random() * 30)-15
+    rightClick()
+})
