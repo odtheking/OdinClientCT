@@ -1,5 +1,5 @@
 
-
+let rotation
 function checkRotation() {
     const px = Math.floor(Player.getX()); const py = Math.floor(Player.getY()); const pz = Math.floor(Player.getZ())  
     if (getBlockNameAt(px+4,py,pz) == "minecraft:stone_brick_stairs") {
