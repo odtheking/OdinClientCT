@@ -10,6 +10,7 @@
     "requestV2",
     "FontLib",
     "RenderLib",
-    "BeaconBeam"
+    "BeaconBeam",
+    "PromiseV2"
   ]
 }

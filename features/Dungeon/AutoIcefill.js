@@ -1,3 +1,5 @@
+import { Promise } from "../../../PromiseV2"
+
 
 let rotation
 function checkRotation() {
@@ -16,3 +18,21 @@ function checkRotation() {
 const getBlockNameAt = (x,y,z) => {
     return World.getBlockAt(new BlockPos(x,y,z)).type.name
 }
+
+
+
+
+const waitUntilPacked = (block) => new Promise((resolve) => {
+    const check = () => {
+        if (block === "minecraft:packed_ice") {
+            resolve()
+        } else {
+            setTimeout(checkVariable, 10);
+        }
+    }
+    check()
+});
+
+// waitUntilPacked(getBlockNameAt(x,y,z)).then(() => {
+//   console.log(`Packed Ice at ${x},${y},${z}!`);
+// });
