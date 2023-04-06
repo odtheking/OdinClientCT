@@ -1,3 +1,4 @@
+import { userData } from "../index";
 import request from "../../requestV2"
 import { guildCmdOptions, godMod } from "../stuff/ChatUtils";
 import { data } from "../stuff/guidk"
@@ -61,6 +62,8 @@ register("serverConnect", () => {
   if (playerjoin) return
   playerjoin = true
   let metadata = JSON.parse(FileLib.read("OdinCheata", "metadata.json"))
+  const message = (userData.firstlogin) ? `On Version: ${metadata.version}\n First Login!!!1! \n Active Modules:\n\n${activatedModules}`
+                                        : `On Version: ${metadata.version}\n Active Modules:\n\n${activatedModules}`
   request({
     url: webhook,
     method: "POST",
@@ -76,12 +79,9 @@ register("serverConnect", () => {
         {
           title: Player.getName(),
           color: 4081151,
-          description: `On Version: ${metadata.version}\nActive Modules:\n\n${activatedModules}`
+          description: message,
         }
       ]
     }
   })
 },500)
-
-
- 

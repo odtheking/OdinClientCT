@@ -36,8 +36,10 @@ import "./features/Dungeon/RelicAura"
 import "./features/AutoSell"
 import "./features/Dungeon/song"
 import "./features/Dungeon/SuperBoom"
+import "./features/Dungeon/Triggerbot"
+import "./features/Dungeon/AutoIcefill"
 
-const userData = new PogObject("OdinCheata", {
+export const userData = new PogObject("OdinCheata", {
   firstLogin: true
 }, "userData.json")
 let metadata = JSON.parse(FileLib.read("OdinCheata", "metadata.json"))

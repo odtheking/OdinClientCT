@@ -6,7 +6,6 @@ const font2 = new Font('OdinCheata/stuff/Minecraft.ttf', 21)
 import RenderLib from "../RenderLib"
 import renderBeaconBeam from "../BeaconBeam"
 
-
 /***
  *  Sends a client-side message with the prefix
  * 
@@ -225,7 +224,9 @@ export function getPhase() {
   return inBoss ? inPhase : false;
 }
 
-
+export let buttonHeight = 20
+export let buttonWidth = 100
+export const tabTitles = ['Auto', 'Legit', 'Nether', 'QOL', 'Auto Boss']
 /**
   * Draws a rectangle
   * @param {number} r Red
@@ -270,6 +271,82 @@ export const normalString = (thefont,text,x,y,r,g,b,a) => thefont.drawStringWith
   * Plays a gui clicking sound 
 */
 export const makePressSound = () => World.playSound('gui.button.press', 1, 1)
+
+/**
+  * Draws a tab
+  * @param {object} tab Tab
+*/
+export const drawTab = (tab) => {
+  if (!tab.dropDown) return
+  Object.entries(tab).forEach(([key, value], i) => {
+    if (key === 'x' || key === 'y' || key === 'dropDown') return
+    rect(0, 0, 0, 150, tab.x, tab.y + (buttonHeight * (i - 2)), buttonWidth, buttonHeight)
+    if (value.toggle) {
+      centeredString(font2, value.name, tab.x, tab.y + (buttonHeight * (i - 2)), 0, 200/255, 0, 1)
+    } else {
+      centeredString(font2, value.name, tab.x, tab.y + (buttonHeight * (i - 2)), 155 / 255, 155 / 255, 155 / 255, 220 / 255)
+    }
+  })
+}
+
+/**
+* Draws the description of the button
+* @param {number} mx Mouse X
+* @param {number} my Mouse Y
+* @param {object} tab Tab
+* @param {number} index Index of tab
+*/
+export const drawDesc = (mx, my, tab, index) => {
+  if (!tab.dropDown) return
+  if (mx < (tab.x) || mx > (tab.x + buttonWidth)) return
+  const toShow = Math.floor((my - (tab.y - buttonHeight)) / buttonHeight)
+  if (toShow < 2 || toShow > Object.keys(tab).length - 2) return
+  const key = tab[Object.keys(tab)[toShow + 1]]
+  const description = key.description
+  if (tab.x < 500) {
+    rect(45, 45, 45, 255, tab.x + buttonWidth, my - 5, font2.getWidth(description) + 2, buttonHeight - 3)
+    normalString(font2, description, tab.x+buttonWidth+1, my-6, 0.8, 0.8, 0.8, 1)
+  } else {
+    rect(45, 45, 45, 255, tab.x - font2.getWidth(description) - 4, my - 5, font2.getWidth(description) + 4, buttonHeight - 3)
+    normalString(font2, description, tab.x - font2.getWidth(description) - 2, my-6, 0.8, 0.8, 0.8, 1)
+  }
+}
+
+/**
+* Checks what tab was dragged, then handles that drag
+* @param {number} dx Delta X
+* @param {number} dy Delta Y
+* @param {number} mx Mouse X
+* @param {number} my Mouse Y
+* @param {object} tab Tab
+*/
+export const checkDrag = (dx, dy, mx, my, tab) => {
+  if (mx < (tab.x - 10) || mx > (tab.x + buttonWidth) + 10) return
+  if (my < (tab.y - 5) || my > (tab.y + buttonHeight) + 5) return
+  tab.x += dx
+  tab.y += dy
+}
+
+/**
+* Checks what option was clicked, then handles that click
+* @param {number} mx Mouse X
+* @param {number} my Mouse Y
+* @param {number} b Button
+* @param {object} tab Tab
+*/
+export const checkTab = (mx, my, b, tab) => {
+  if (mx < (tab.x) || mx > (tab.x + buttonWidth)) return
+  const toChange = Math.floor((my - (tab.y + buttonHeight)) / buttonHeight)
+  const key = tab[Object.keys(tab)[toChange + 3]]
+  if (b == 0 && toChange >= 0 && toChange <= Object.keys(tab).length - 4) {
+    key.toggle = !key.toggle
+    makePressSound()
+  } else if (b == 1 && toChange == -1) {
+    tab.dropDown = !tab.dropDown
+    makePressSound()
+  }
+}
+
 
 /**
   * Makes a beacon with a box at the start and text in the box
@@ -413,4 +490,18 @@ export const isInterceptable = (aabb, range) => {
     (MathHelper.func_76134_b(-player.field_70177_z * 0.017453292 - 3.1415927) * f2)
   )
   return isInterceptable3(position, position.func_72441_c(look.field_72450_a * range, look.field_72448_b * range, look.field_72449_c * range), aabb)
+}
+
+/**
+  * @return {Array} the current coordinates of the player
+*/
+export const getPlayerCoords = () => {
+  return [Player.getX(),Player.getY(),Player.getZ()]
+}
+
+/**
+  * @return {Array} the current coordinates of the player floored
+*/
+export const getFlooredPlayerCoords = () => {
+  return [Math.floor(Player.getX()),Math.floor(Player.getY()),Math.floor(Player.getZ())]
 }
