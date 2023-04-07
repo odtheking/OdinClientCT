@@ -10,11 +10,20 @@ the sounds are controleled by the main sound switch in game so if its low for yo
 all sounds are a pling except p1 
 make sure u have all the file names else it might crash u
 */
-const p1 = new Sound({source: "p1.ogg", priority: true, loop: true}).setVolume(1.0)
-const p2 = new Sound({source: "p2.ogg", priority: true, loop: true}).setVolume(1.0)
-const p3 = new Sound({source: "p3.ogg", priority: true, loop: true}).setVolume(1.0)
-const p4 = new Sound({source: "p4.ogg", priority: true, loop: true}).setVolume(1.0)
-const p5 = new Sound({source: "p5.ogg", priority: true, loop: true}).setVolume(1.0)
+
+let p1
+let p2
+let p3
+let p4
+let p5
+
+register("gameLoad", () => {
+    p1 = new Sound({source: "p1.ogg", priority: true, loop: true}).setVolume(1.0)
+    p2 = new Sound({source: "p2.ogg", priority: true, loop: true}).setVolume(1.0)
+    p3 = new Sound({source: "p3.ogg", priority: true, loop: true}).setVolume(1.0)
+    p4 = new Sound({source: "p4.ogg", priority: true, loop: true}).setVolume(1.0)
+    p5 = new Sound({source: "p5.ogg", priority: true, loop: true}).setVolume(1.0)
+})
 
 register("chat", () => {
     if (!data.m7.m7Sounds.toggle) return
