@@ -1,7 +1,7 @@
 ﻿import Skyblock from "../../../BloomCore/Skyblock"
 import { getDistance3D } from "../../../BloomCore/utils/Utils"
-import { data } from "../../stuff/guidk"
-import { interactWith, modMessage, swapAndRightClick } from "../../utils"
+import { data } from "../../gui"
+import { interactWith, modMessage, swapAndRightClick } from "../../utils/utils"
 
 // Auto Ready at Mort
 let tped = false
@@ -15,7 +15,7 @@ register("worldLoad", () => {
 })
 
 register("step", () => {
-    if (!data.auto.autoMort.toggle || Skyblock.area != 'Dungeon' || playerready || click) return
+    if (!data.dungeons.autoMort.toggle || Skyblock.area != 'Dungeon' || playerready || click) return
     const mort = World.getAllEntities().find(mort => mort.getName().includes('Mort'))
     if (!mort) return
     const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
@@ -36,7 +36,7 @@ register("step", () => {
 }).setFps(10)
 
 register("chat", (ign) => {
-    if (!data.auto.autoReady.toggle) return
+    if (!data.dungeons.autoReady.toggle) return
     if (Skyblock.area != 'Dungeon') return
     if (ign == Player.getName()) {
         playerready = true
@@ -47,7 +47,7 @@ register("chat", (ign) => {
 
 //auto ready gui side
 register('tick', () => {
-    if (!data.auto.autoReady.toggle || playerready || !Client.isInGui()) return
+    if (!data.dungeons.autoReady.toggle || playerready || !Client.isInGui()) return
     let container = Player.getContainer()
     let playerName = Player.getName()
     if (container.getName() === "Start Dungeon?") {
@@ -58,9 +58,9 @@ register('tick', () => {
         index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes(playerName))
         container.click(index, false)
     }
-    if (container.getName().startsWith("Ready Up")) {
+    /*if (container.getName().startsWith("Ready Up")) {
         index = Player.getContainer().getItems().findIndex(item => item?.getName()?.includes(playerName))
         container.click(index, false)
         Client.currentGui.close()
-    }
+    }*/
 })

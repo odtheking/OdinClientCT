@@ -1,6 +1,6 @@
 import Skyblock from "../../../BloomCore/Skyblock"
-import { leftClick, modMessage, hitWithItemFromInv } from "../../utils"
-import { data } from "../../stuff/guidk"
+import { leftClick, modMessage, hitWithItemFromInv } from "../../utils/utils"
+import { data } from "../../gui"
 
 const JavaBlockPos = Java.type("net.minecraft.util.BlockPos")
 const C09PacketHeldItemChange = Java.type("net.minecraft.network.play.client.C09PacketHeldItemChange")
@@ -8,7 +8,7 @@ const C09PacketHeldItemChange = Java.type("net.minecraft.network.play.client.C09
 let lastclick = 0
 register("clicked", (mouseX, mouseY, mouseButton, isLeftMouseButtonPressed) => {
     if (!isLeftMouseButtonPressed || mouseButton !== 0 || Skyblock.area !== 'Dungeon' || Date.now() - lastclick < 2000 ||
-    Client.isInGui() || !data.qol.superBoom.toggle || Player.getHeldItem()?.getName()?.includes("TNT")) return
+    Client.isInGui() || !data.dungeons.superBoom.toggle || Player.getHeldItem()?.getName()?.includes("TNT")) return
 
     const lookingAt = Player.lookingAt()
     if (!(lookingAt instanceof Block)) return

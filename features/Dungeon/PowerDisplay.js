@@ -1,7 +1,6 @@
 import Dungeon from "../../../BloomCore/dungeons/Dungeon"
-import { data } from "../../stuff/guidk"
+import { data } from "../../gui"
 import PogObject from "../../../PogData"
-import Font from "../../../fontlib"
 
 // Power Display
 const powerMove = new Gui()
@@ -32,7 +31,7 @@ var pDisplay = new Display()
 
 
 const updatePowerDisplay = () => {
-  if (!Dungeon.inDungeon || !data.legit.powerDisplay.toggle || powerMove.isOpen()) {
+  if (!Dungeon.inDungeon || !data.dungeons.powerDisplay.toggle || powerMove.isOpen()) {
     pDisplay.clearLines();
     return;
   }

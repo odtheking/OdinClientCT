@@ -1,5 +1,5 @@
-﻿import { data } from "../../stuff/guidk"
-import { modMessage, useAbility } from "../../utils"
+﻿import { data } from "../../gui"
+import { modMessage, useAbility } from "../../utils/utils"
 
 // Auto Ult (for tanks/healers?)
 let firstlaser = false
@@ -8,7 +8,7 @@ register("worldLoad", () => {
 })
 
 register("chat", () => {
-    if (!data.auto.autoUlt.toggle) return
+    if (!data.dungeons.autoUlt.toggle) return
     if (firstlaser) return
     modMessage("§2Frenzy soon... ULT TIME!")
     useAbility()

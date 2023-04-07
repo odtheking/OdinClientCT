@@ -1,6 +1,6 @@
 ﻿import Skyblock from "../../../BloomCore/Skyblock"
-import { data } from "../../stuff/guidk"
-import { modMessage, swapAndRightClick } from "../../utils"
+import { data } from "../../gui"
+import { modMessage, swapAndRightClick } from "../../utils/utils"
 
 const witherSwords = ["Astraea", "Hyperion", "Valkyrie", "Scylla"];
 const entryMessages = [
@@ -15,7 +15,7 @@ const entryMessages = [
 // Auto Wither Shield
 let inboss = false
 register('step', () => {
-    if (!data.auto.autoShield.toggle) return
+    if (!data.dungeons.autoShield.toggle) return
     if (!inboss) return
     if (Player.getHP() >= 40) return
     let found = false

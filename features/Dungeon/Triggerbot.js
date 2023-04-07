@@ -1,6 +1,6 @@
 import { registerForge } from "../../../ForgeEvents/exports.js"
-import { data } from "../../stuff/guidk.js"
-import { leftClick, modMessage, isFacingAABB } from "../../utils.js"
+import { data } from "../../gui"
+import { leftClick, modMessage, isFacingAABB } from "../../utils/utils"
 import Dungeon from "../../../BloomCore/dungeons/Dungeon.js"
 
 const EntityOtherPlayerMP = Java.type("net.minecraft.client.entity.EntityOtherPlayerMP")
@@ -12,7 +12,7 @@ const bloodMobs = [
     "WanderingSoul"
 ]
 
-registerForge(net.minecraftforge.event.entity.EntityJoinWorldEvent, "NORMAL", (e) => {
+register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (e) => {
     if (Dungeon.bloodDone || !Dungeon.bloodOpen) return
     const entity = e.entity
     if (!(entity instanceof EntityOtherPlayerMP)) return
@@ -20,7 +20,7 @@ registerForge(net.minecraftforge.event.entity.EntityJoinWorldEvent, "NORMAL", (e
 
     let name = entity.func_70005_c_()
     name = name.replace(" ", "")
-    if (!(bloodMobs.includes(name) && data.qol.bloodTriggerBot.toggle) && !(name == "Spirit Bear" && data.qol.bearTriggerBot.toggle)) return
+    if (!(bloodMobs.includes(name) && data.dungeons.bloodTriggerBot.toggle) && !(name == "Spirit Bear" && data.dungeons.bearTriggerBot.toggle)) return
 
     const posX = entity.field_70165_t
     const posY = entity.field_70163_u

@@ -1,7 +1,7 @@
-﻿import { data } from "../../stuff/guidk"
-import { blacklist } from "../BlackList"
+﻿import { data } from "../../gui"
+import { blacklist } from "../General/BlackList"
 import Skyblock from "../../../BloomCore/Skyblock"
-import { modMessage, swapAndRightClick } from "../../utils"
+import { modMessage, swapAndRightClick } from "../../utils/utils"
 
 // Auto Leap
 let target
@@ -14,7 +14,7 @@ register("worldLoad", () => {
 
 // Actual thing
 register("chat", (name) => {
-    if (!data.auto.autoLeap.toggle) return 
+    if (!data.dungeons.autoLeap.toggle) return 
     if (blacklist.igns.includes(name.toLowerCase())) return
     if (name == Player.getName().toLowerCase()) return
     swapAndRightClick("leap")

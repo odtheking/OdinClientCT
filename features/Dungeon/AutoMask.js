@@ -1,5 +1,5 @@
-﻿import { data } from "../../stuff/guidk"
-import { modMessage } from "../../utils"
+﻿import { data } from "../../gui"
+import { modMessage } from "../../utils/utils"
 
 // Auto Mask
 
@@ -33,7 +33,7 @@ register('chat', (secondwind, item) => {
 }).setCriteria(/^(Second Wind Activated!)? ?Your (.+) saved your life!$/)
 
 register('tick', (ticks) => {
-    if (ticks % 10 != 0 || !data.auto.autoMask.toggle || !shouldSwapItem) return
+    if (ticks % 10 != 0 || !data.dungeons.autoMask.toggle || !shouldSwapItem) return
     if (!Client.currentGui.get()) ChatLib.command('equipment')
 
     // Waiting until the GUI opens

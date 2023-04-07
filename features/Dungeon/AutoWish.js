@@ -1,7 +1,7 @@
 import Dungeon from "../../../BloomCore/dungeons/Dungeon"
 import Skyblock from "../../../BloomCore/Skyblock"
-import { data } from "../../stuff/guidk"
-import { modMessage, useAbility } from "../../utils"
+import { data } from "../../gui"
+import { modMessage, useAbility } from "../../utils/utils"
 
 
 // Auto Wish (at low health)
@@ -22,7 +22,7 @@ register("chat", (message) => {
     }
 }).setCriteria("${msg}")
 register("step", () => {
-    if (!data.auto.autoWish.toggle || Skyblock.area !== 'Dungeon') return
+    if (!data.dungeons.autoWish.toggle || Skyblock.area !== 'Dungeon') return
     Scoreboard.getLines().forEach(line => {
         const s = line.getName()
         if (ChatLib.removeFormatting(s).startsWith("[")) {
