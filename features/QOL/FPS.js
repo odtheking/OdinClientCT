@@ -25,17 +25,15 @@ register("renderTileEntity", (entity) => {
 })
 
 register("tick", () => {
-  if (!data.qol.fpsBoost.toggle) return
+  if (!data.qol.fpsBoost.toggle || !World.getWorld()) return
   if (Date.now() - lastClear >= 30000) {
-  if (!World.getWorld()) return
-  const entities = World.getWorld().field_73010_i
-  entities.forEach(e => {
-    if (e.field_70128_L) {
-      World.getWorld().field_73010_i.remove(e)
-    }
-    if (e.field_70165_t == 0 && e.field_70163_u == 0 && e.field_70161_v == 0) {
-      World.getWorld()?.func_73028_b(e.field_145783_c)
-    }
+    World.getWorld().field_73010_i.forEach(e => {
+      if (e.field_70128_L) {
+        World.getWorld().func_72900_e(e)
+      }
+      if (e.field_70165_t == 0 && e.field_70163_u == 0 && e.field_70161_v == 0) {
+        World.getWorld().func_72900_e(e)
+      }
   })
   lastClear = Date.now()
   }
