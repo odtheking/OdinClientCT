@@ -7,17 +7,16 @@ let scanned = false
 let currentPatterns = []
 const System = Java.type("java.lang.System")
 
-register("tick", () => {
+register("step", () => {
     if (!data.dungeons.autoIcefill.toggle) return
     if (scanned) return
     // if (!Dungeon.inDungeon) return
-    [px,py,pz] = getFlooredPlayerCoords()
+    const [px,py,pz] = getFlooredPlayerCoords()
     if (py !== 70) return
-    modMessage(getBlockNameAt(px,py-1,pz))
     if (getBlockNameAt(px,py-1,pz) !== "Ice") return
-    scan(px,py,pz, 0)
     scanned = true
-})
+    scan(px,py,pz, 0)
+}).setFps(5)
 
 const transform = (x, z, rotation) => {
     switch (rotation) {
@@ -42,9 +41,7 @@ const scan = (x,y,z, floorIndex) => {
         scanned = false
         return
     }
-    // rotation : north, east, south, west
     const floor = floors[floorIndex]
-    // block above currently checking block in pattern == air then continue loop
     let pattern
     outerLoop: for (let i = 0; i < floor.length; i++) {
         modMessage(`checking pattern ${i}`)
@@ -64,11 +61,14 @@ const scan = (x,y,z, floorIndex) => {
         }
         break
     }
+
+    const scanTime = (System.nanoTime()-startTime)/1000000
+    modMessage(`Scan took ${scanTime}ms`)
+
     currentPatterns.push(pattern)
 
-    const endTime = System.nanoTime()
-    const scanTime = (endTime-startTime)/1000000
-    modMessage(`Scan took ${scanTime}ms`)
+    renderPattern(x,y,z, pattern, rotation)
+
     move(x,y-1,z, currentPatterns[floorIndex], rotation, floorIndex)
 }
 
@@ -98,21 +98,17 @@ const move = (x,y,z, pattern, rotation, floorIndex) => {
 const clipToNext = (x,y,z, rotation, bx1, bz1, floorIndex) => {
     modMessage("clipping to next")
     setTimeout(() => {
-        [px, pz] = transform(0.5, 0, rotation)
-        clipTo(x + bx1 + px, y + 1.5, z + bz1 + pz)
-
+        [nx, nz] = transform(0.5, 0, rotation)
+        clipTo(x + bx1 + nx, y + 1.5, z + bz1 + nz)
         setTimeout(() => {
-            clipTo(x + bx1 + 2*px, y + 2, z + bz1 + 2*pz)
-
+            clipTo(x + bx1 + 2*nx, y + 2, z + bz1 + 2*nz)
             setTimeout(() => {
-                clipTo(x + bx1 + 4*px, y + 2, z + bz1 + 4*pz)
+                clipTo(x + bx1 + 4*nx, y + 2, z + bz1 + 4*nz)
                 scan(...getFlooredPlayerCoords(), floorIndex+1)
             }, 100);
         }, 100);
     }, 100);
 }
-
-
 
 const checkRotation = (x,y,z, floorIndex) => {
     const a = (floorIndex+1)*2+2
@@ -139,3 +135,59 @@ const waitUntilPacked = (x,y,z) => new Promise((resolve, reject) => {
     }
     check()
 });
+
+function getRainbowColor() {
+  const time = new Date().getTime();
+  const frequency = 0.001;
+  const r = Math.sin(frequency * time + 0) * 127 + 128;
+  const g = Math.sin(frequency * time + 2) * 127 + 128;
+  const b = Math.sin(frequency * time + 4) * 127 + 128;
+  return [r / 255, g / 255, b / 255];
+}
+
+let patternsToRender = []
+let renderRotation
+let tx = []
+let ty = []
+let tz = []
+const renderPattern = (x, y, z, pattern, rotation) => {
+    patternsToRender.push(pattern)
+    renderRotation = rotation
+    tx.push(x)
+    ty.push(y)
+    tz.push(z)
+}
+
+register("renderWorld", () => {
+    if (patternsToRender.length == 0) return
+
+
+    GL11.glBlendFunc(770, 771);
+    GL11.glEnable(GL11.GL_BLEND);
+    GL11.glLineWidth(10);
+    GL11.glDisable(GL11.GL_TEXTURE_2D);
+    GlStateManager.func_179094_E();
+    Tessellator.begin(GL11.GL_LINE_STRIP).colorize(...getRainbowColor(), 1);
+
+    
+
+    for (let i = 0; i < currentPatterns.length; i++) {
+        let pattern = patternsToRender[i];
+        let [rx, ry, rz] = [tx[i], ty[i], tz[i]]
+        Tessellator.pos(rx + 0.5, ry + 0.1, rz + 0.5);
+        let [bx, bz] = transform(pattern[i].x, pattern[i].z, renderRotation)
+        Tessellator.pos(rx + bx + 0.5, ry + 0.1, rz + bz + 0.5);
+
+        for (let j = 1; j < pattern.length; j++) {
+            [bx, bz] = transform(pattern[j-1].x, pattern[j-1].z, renderRotation)
+            Tessellator.pos(rx + bx + 0.5, ry + 0.1, rz + bz + 0.5);
+
+            [bx, bz] = transform(pattern[j].x, pattern[j].z, renderRotation)
+            Tessellator.pos(rx + bx + 0.5, ry + 0.1, rz + bz + 0.5);
+        }
+    }
+    Tessellator.draw();
+    GlStateManager.func_179121_F();
+    GL11.glEnable(GL11.GL_TEXTURE_2D);
+    GL11.glDisable(GL11.GL_BLEND);
+})
