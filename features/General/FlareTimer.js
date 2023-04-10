@@ -8,7 +8,7 @@ import { fontopenbold, getCtEntityHelmetTexture, modMessage } from "../../utils/
 const flaredata = new PogObject("OdinCheata", {
   flareX: 50,
   flareY: 50,
-}, "config/flaredata.json")
+}, "config/featuredata.json")
 const firework = new Item("fireworks")
 
 let flareType = undefined

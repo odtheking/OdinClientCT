@@ -57,7 +57,7 @@ register("command", () => {
 
 const esplist = new PogObject("OdinCheata", {
     names: []
-}, "flaredata.json")
+}, "config/featuredata.json")
 
 function reloadMap() {
     entitiesToRender.clear()

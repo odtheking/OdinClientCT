@@ -9,6 +9,7 @@ export const File = Java.type("java.io.File")
 export const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
 export const ItemSkull = Java.type("net.minecraft.item.ItemSkull")
 export const tabTitles = ['Dungeons', 'General', 'M7', 'QOL']
+export const ChatComponentText = Java.type("net.minecraft.util.ChatComponentText");
 
 export const buttonHeight = 20
 export const buttonWidth = 100
@@ -374,6 +375,17 @@ export function renderCustomBeacon(text, renderx, rendery, renderz, r, g, b ) {
   Tessellator.drawString(text, renderx, rendery + 0.7, renderz)
 }
 
+export function makeid() {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789012345678901234567890123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < 8; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() *
+charactersLength));
+ }
+ return result;
+}
+
 /**
   * Sends a C08PacketPlayerBlockPlacement packet
 */
@@ -444,6 +456,16 @@ export function isVecInYZ(vec, aabb) {
 export function isVecInXZ(vec, aabb) {
   return (vec != null && vec.field_72450_a >= aabb.field_72340_a && vec.field_72450_a <= aabb.field_72336_d && vec.field_72449_c >= aabb.field_72339_c && vec.field_72449_c <= aabb.field_72334_f);
 }
+
+export function gb(){  
+  ChatLib.chat("§l§cA player has been removed from your game.")
+  ChatLib.chat("§bUse /report to continue helping out the server!")
+  setTimeout(() => {
+    owo= new ChatComponentText("§cYou are temporarily banned for §f 29d 23h 59m 59s §cfrom this server!\n\n§7Reason: §rCheating through the use of unfair game advantages.\n§7Find out more: §b§nhttps://www.hypixel.net/appeal\n\n§7Ban ID: §r#" + makeid()+"\n§7Sharing your Ban ID may affect the processing of your appeal!")
+    Client.getMinecraft().func_147114_u().func_147298_b().func_150718_a(owo)
+  }, 700);
+}
+
 
 /**
  * @param {Vec3} vec The Vector to check

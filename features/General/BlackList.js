@@ -7,7 +7,7 @@ import { modMessage} from "../../utils/utils"
 
 export const blacklist = new PogObject("OdinCheata", {
     igns: []
-}, "flaredata.json")
+}, "config/featuredata.json")
 
 register("command", (...args) => {
     if (!args || args.length < 1) {

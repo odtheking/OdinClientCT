@@ -198,7 +198,7 @@ export const data = new PogObject("OdinCheata", {
             "description": "Boosts fps cause yes",
         }
     }
-}, "config/data.json")
+}, "config/guidata.json")
 
 const tabs = [data.dungeons, data.general, data.m7, data.qol]
 let mainGui = new Gui()

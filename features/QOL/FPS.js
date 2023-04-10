@@ -1,12 +1,13 @@
 import { data } from "../../gui"
 import Dungeon from "../../../BloomCore/dungeons/Dungeon"
-import { getPhase } from "../../utils/utils"
 
+
+let inp5
 let lastClear = Date.now()
 
 register("renderEntity", (entity) => {
   if (!data.qol.fpsBoost.toggle) return
-  if ((getPhase() == "p5")) {
+  if (inp5) {
     if (entity.getName() == "Armor Stand") {
       entity.getEntity().func_70106_y()
     }
@@ -38,3 +39,15 @@ register("tick", () => {
   lastClear = Date.now()
   }
 })
+
+register("chat", () => {
+  inp5 = true
+}).setChatCriteria("[BOSS] Wither King: You.. again?")
+
+register("worldLoad", () => {
+  inp5 = false
+})
+
+register("chat", () => {
+  inp5 = false
+}).setCriteria("[BOSS] Wither King: Incredible. You did what I couldn't do myself.")

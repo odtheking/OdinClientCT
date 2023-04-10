@@ -1,7 +1,6 @@
-import { EntityArmorStand, getDistance3D } from "../../../BloomCore/utils/Utils"
+import { C02PacketUseEntity, EntityArmorStand, getDistance3D } from "../../../BloomCore/utils/Utils"
 import { data } from "../../gui"
-import { modMessage } from "../../utils/utils"
-
+import { Vec3, modMessage } from "../../utils/utils"
 
 let disabler = false
 register('worldLoad', () => {
@@ -11,8 +10,6 @@ register("chat", () => {
     disabler = true
 }).setCriteria("[BOSS] Wither King: You.. again?")
 
-const C02PacketUseEntity = Java.type('net.minecraft.network.play.client.C02PacketUseEntity')
-const Vec3 = Java.type('net.minecraft.util.Vec3')
 
 register('tick', (ticks) => {
     if (ticks % 4 !== 0 || disabler || !data.m7.relicAura.toggle) return

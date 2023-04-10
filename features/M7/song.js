@@ -17,7 +17,7 @@ let p3
 let p4
 let p5
 
-register("gameLoad", () => {
+register("serverConnect", () => {
     p1 = new Sound({source: "p1.ogg", priority: true, loop: true}).setVolume(1.0)
     p2 = new Sound({source: "p2.ogg", priority: true, loop: true}).setVolume(1.0)
     p3 = new Sound({source: "p3.ogg", priority: true, loop: true}).setVolume(1.0)
@@ -55,10 +55,11 @@ register("chat", () => {
 }).setCriteria("[BOSS] Wither King: You.. again?")
 
 register("worldLoad", () => {
-    p1?.stop()
-    p2?.stop()
-    p3?.stop()
-    p4?.stop()
-    p5?.stop()
+    try {
+        p1?.stop()
+        p2?.stop()
+        p3?.stop()
+        p4?.stop()
+        p5?.stop()
+    } catch (e) {}
 })
-

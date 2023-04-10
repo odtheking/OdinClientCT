@@ -12,7 +12,7 @@ register("command", () => {
 const powerdata = new PogObject("OdinCheata", {
   powerX: 50,
   powerY: 50,
-}, "flaredata.json")
+}, "config/featuredata.json")
 
 register("dragged", (dx, dy, x, y) => {
   if (powerMove.isOpen()) {
@@ -55,7 +55,7 @@ const updatePowerDisplay = () => {
   }
 };
 
-register("step", updatePowerDisplay).setFps(60);
+register("step", updatePowerDisplay).setFps(1);
 
 const romanHash = {
   I: 1,
