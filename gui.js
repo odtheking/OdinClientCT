@@ -77,7 +77,6 @@ export const data = new PogObject("OdinCheata", {
             "name": "Superboom",
             "description": "Uses superboom if you click on a crypt or boom-able wall",
         },
-        
     },
 
     'general': {
