@@ -77,7 +77,6 @@ export const data = new PogObject("OdinCheata", {
             "name": "Superboom",
             "description": "Uses superboom if you click on a crypt or boom-able wall",
         },
-        
     },
 
     'general': {
@@ -196,7 +195,12 @@ export const data = new PogObject("OdinCheata", {
             "toggle": false,
             "name": "FPS Boost",
             "description": "Boosts fps cause yes",
-        }
+        },
+        "noBlockAnimation": {
+            "toggle": false,
+            "name": "No Block Animation",
+            "description": "Disables the block animation of swords with a right click ability",
+        },
     }
 }, "config/guidata.json")
 

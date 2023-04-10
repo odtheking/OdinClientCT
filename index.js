@@ -37,6 +37,7 @@ import "./features/QOL/FPS"
 import "./features/QOL/Ghosting"
 import "./features/QOL/HypeBroken"
 import "./features/QOL/VanqNotifier"
+import "./features/QOL/NoBlockAnimation"
 
 
 export const userData = new PogObject("OdinCheata", {

@@ -8,12 +8,9 @@ let currentPatterns = []
 const System = Java.type("java.lang.System")
 
 register("step", () => {
-    if (!data.dungeons.autoIcefill.toggle) return
-    if (scanned) return
-    // if (!Dungeon.inDungeon) return
+    if (!data.dungeons.autoIcefill.toggle || scanned || !Dungeon.inDungeon) return
     const [px,py,pz] = getFlooredPlayerCoords()
-    if (py !== 70) return
-    if (getBlockNameAt(px,py-1,pz) !== "Ice") return
+    if (py !== 70 || getBlockNameAt(px,py-1,pz) !== "Ice") return
     scanned = true
     scan(px,py,pz, 0)
 }).setFps(5)
@@ -33,7 +30,6 @@ const transform = (x, z, rotation) => {
 
 
 const scan = (x,y,z, floorIndex) => {
-    startTime = System.nanoTime()
     modMessage("scanning")
     const rotation = checkRotation(x,y,z, floorIndex)
     if (!rotation) {
@@ -43,15 +39,12 @@ const scan = (x,y,z, floorIndex) => {
     }
     const floor = floors[floorIndex]
     let pattern
+    const startTime = System.nanoTime()
     outerLoop: for (let i = 0; i < floor.length; i++) {
-        modMessage(`checking pattern ${i}`)
-        pattern = floor[i];
+        pattern = floor[i]
         for (let block of pattern) {
             let [bx, bz] = transform(block.x, block.z, rotation)
-            let blockName = getBlockNameAt(x + bx, y, z + bz)
-            modMessage(`block at ${x+bx}, ${y}, ${z+bz}: ${blockName}`)
-            if (blockName !== "Air") {
-                modMessage(`not air, moving to next pattern, it was ${blockName} at ${x+bx}, ${y}, ${z+bz}`)
+            if (getBlockNameAt(x + bx, y, z + bz) !== "Air") {
                 if (i >= floor.length) {
                     modMessage("no more patterns, stopping")
                     return
@@ -65,9 +58,8 @@ const scan = (x,y,z, floorIndex) => {
     const scanTime = (System.nanoTime()-startTime)/1000000
     modMessage(`Scan took ${scanTime}ms`)
 
+    renderPattern(x,y,z, rotation)
     currentPatterns.push(pattern)
-
-    renderPattern(x,y,z, pattern, rotation)
 
     move(x,y-1,z, currentPatterns[floorIndex], rotation, floorIndex)
 }
@@ -78,8 +70,7 @@ const move = (x,y,z, pattern, rotation, floorIndex) => {
         modMessage(`${x + bx}, ${y + 1},${z + bz}`)
         clipTo(x + bx, y + 1, z + bz)
     })
-    for (let i = 0; i < pattern.length; i++) {
-        const block = pattern[i];
+    for (let block of pattern) {
         if (i + 1 < pattern.length) var nextblock = pattern[i+1]
         let [bx, bz] = transform(block.x, block.z, rotation)
         let [bx1, bz1] = transform(nextblock.x, nextblock.z, rotation)
@@ -90,13 +81,11 @@ const move = (x,y,z, pattern, rotation, floorIndex) => {
     if (floorIndex === 2) return
     let [bx1, bz1] = transform(pattern[pattern.length-1].x, pattern[pattern.length-1].z, rotation)
     waitUntilPacked(x + bx1, y, z + bz1).then(() => {
-        modMessage("moving up " + floorIndex)
         clipToNext(x,y,z, rotation, bx1, bz1, floorIndex)
     })
 }
 
 const clipToNext = (x,y,z, rotation, bx1, bz1, floorIndex) => {
-    modMessage("clipping to next")
     setTimeout(() => {
         [nx, nz] = transform(0.5, 0, rotation)
         clipTo(x + bx1 + nx, y + 1.5, z + bz1 + nz)
@@ -112,26 +101,17 @@ const clipToNext = (x,y,z, rotation, bx1, bz1, floorIndex) => {
 
 const checkRotation = (x,y,z, floorIndex) => {
     const a = (floorIndex+1)*2+2
-    if (getBlockNameAt(x + a, y, z) == "Stone Brick Stairs") {
-        return "east"
-    } else if (getBlockNameAt(x - a, y, z) == "Stone Brick Stairs") {
-        return "west"
-    } else if (getBlockNameAt(x, y, z + a) == "Stone Brick Stairs") {
-        return "south"
-    } else if (getBlockNameAt(x, y, z - a) == "Stone Brick Stairs") {
-        return "north"
-    }
+    if      (getBlockNameAt(x + a, y, z) == "Stone Brick Stairs") return "east"
+    else if (getBlockNameAt(x - a, y, z) == "Stone Brick Stairs") return "west"
+    else if (getBlockNameAt(x, y, z + a) == "Stone Brick Stairs") return "south"
+    else if (getBlockNameAt(x, y, z - a) == "Stone Brick Stairs") return "north"
 }
 
 const waitUntilPacked = (x,y,z) => new Promise((resolve, reject) => {
     const check = () => {
         if (!data.dungeons.autoIcefill.toggle) reject()
-        const block = getBlockNameAt(x,y,z)
-        if (block === "Packed Ice") {
-            resolve()
-        } else {
-            setTimeout(check, 10);
-        }
+        if (getBlockNameAt(x,y,z) === "Packed Ice") resolve()
+        else setTimeout(check, 10);
     }
     check()
 });
@@ -145,13 +125,11 @@ function getRainbowColor() {
   return [r / 255, g / 255, b / 255];
 }
 
-let patternsToRender = []
 let renderRotation
 let tx = []
 let ty = []
 let tz = []
-const renderPattern = (x, y, z, pattern, rotation) => {
-    patternsToRender.push(pattern)
+const renderPattern = (x, y, z, rotation) => {
     renderRotation = rotation
     tx.push(x)
     ty.push(y)
@@ -159,8 +137,7 @@ const renderPattern = (x, y, z, pattern, rotation) => {
 }
 
 register("renderWorld", () => {
-    if (patternsToRender.length == 0) return
-
+    if (currentPatterns.length == 0) return
 
     GL11.glBlendFunc(770, 771);
     GL11.glEnable(GL11.GL_BLEND);
@@ -169,10 +146,8 @@ register("renderWorld", () => {
     GlStateManager.func_179094_E();
     Tessellator.begin(GL11.GL_LINE_STRIP).colorize(...getRainbowColor(), 1);
 
-    
-
     for (let i = 0; i < currentPatterns.length; i++) {
-        let pattern = patternsToRender[i];
+        let pattern = currentPatterns[i];
         let [rx, ry, rz] = [tx[i], ty[i], tz[i]]
         Tessellator.pos(rx + 0.5, ry + 0.1, rz + 0.5);
         let [bx, bz] = transform(pattern[i].x, pattern[i].z, renderRotation)
@@ -186,8 +161,17 @@ register("renderWorld", () => {
             Tessellator.pos(rx + bx + 0.5, ry + 0.1, rz + bz + 0.5);
         }
     }
+
     Tessellator.draw();
     GlStateManager.func_179121_F();
     GL11.glEnable(GL11.GL_TEXTURE_2D);
     GL11.glDisable(GL11.GL_BLEND);
+})
+
+register("worldLoad", () => {
+    currentPatterns = []
+    scanned = false
+    tx = []
+    ty = []
+    tz = []    
 })

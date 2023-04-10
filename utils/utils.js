@@ -393,6 +393,18 @@ export function sendPlacementPacket() {
   Client.sendPacket(new net.minecraft.network.play.client.C08PacketPlayerBlockPlacement(Player.getPlayer().field_71071_by.func_70448_g()))
 }
 
+
+const C08PacketPlayerBlockPlacement = Java.type("net.minecraft.network.play.client.C08PacketPlayerBlockPlacement")
+const BP = Java.type("net.minecraft.util.BlockPos")
+
+/**
+  * Sends a C08PacketPlayerBlockPlacement packet with specified item stack
+  * @param {MCItemStack} itemStack the item stack you want to send the packet with
+*/
+export function sendPlacementPacketWithStack(itemStack) {
+  Client.sendPacket(new C08PacketPlayerBlockPlacement(new BP(-1, -1, -1), 255, itemStack, 0, 0, 0))
+}
+
 /**
   * Clicks a window slot
   * 
