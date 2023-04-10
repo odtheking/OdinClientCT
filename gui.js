@@ -77,6 +77,11 @@ export const data = new PogObject("OdinCheata", {
             "name": "Superboom",
             "description": "Uses superboom if you click on a crypt or boom-able wall",
         },
+        "bloodTracker": {
+            "toggle": false, 
+            "name": "Blood Tracker",
+            "description": "Shows how many blood mobs are left",
+        }, 
     },
 
     'general': {
@@ -103,10 +108,10 @@ export const data = new PogObject("OdinCheata", {
             "name": "Auto Sell",
             "description": "Automatically sells items in the trades GUI, /autosell to configure"
         },
-        "flareTimer": {
+        "deployableTimer": {
             "toggle": false,
-            "name": "Flare Timer",
-            "description": "Shows a timer and the type of the flare around you /moveflare",
+            "name": "Deployable Timer",
+            "description": "Shows a timer and the type of the deployable around you /moveflare",
         },
         "kuudraAlerts": {
             "toggle": false,
@@ -155,6 +160,11 @@ export const data = new PogObject("OdinCheata", {
             "name": "Pre Ghostblock",
             "description": "Makes ghost blocks and covinient spots in the m7 boss",
         },
+        "p5Waypoints": {
+            "toggle": false,
+            "name": "P5 Waypoints",
+            "description": "Marks specific location in the p5 of m7",
+        },
         "m7Sounds": {
             "toggle": false,
             "name": "Custom M7 Music",
@@ -195,6 +205,11 @@ export const data = new PogObject("OdinCheata", {
             "toggle": false,
             "name": "FPS Boost",
             "description": "Boosts fps cause yes",
+        },
+        "wayPoints": {
+            "toggle": false,
+            "name": "WayPoints",
+            "description": "Makes a waypoint whenever getting coords in chat and /ow for an instant one of ur coords",
         },
         "noBlockAnimation": {
             "toggle": false,

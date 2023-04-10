@@ -3,7 +3,6 @@
 import PogObject from "../PogData"
 
 //huge thanks and credits to: Bonsai, AzuredBlue, Bloom, Cezar, Ilmars, Aton, Tebey, Turtle and many more ily all <3
-import "./gui"
 import "./features/Dungeon/AutoIcefill"
 import "./features/Dungeon/AutoLeap"
 import "./features/Dungeon/AutoMask"
@@ -14,11 +13,13 @@ import "./features/Dungeon/AutoWish"
 import "./features/Dungeon/PowerDisplay"
 import "./features/Dungeon/SuperBoom"
 import "./features/Dungeon/Triggerbot"
+import "./features/Dungeon/WatcherBar"
+import "./features/General/ArrowTrajectory"
 import "./features/General/AutoSell"
 import "./features/General/AutoSessionID"
 import "./features/General/BlackList"
 import "./features/General/ESP"
-import "./features/General/FlareTimer"
+import "./features/General/DeployableTimer"
 import "./features/General/GuildCommands"
 import "./features/General/ItemMacro"
 import "./features/General/KuudraAlerts"
@@ -27,6 +28,7 @@ import "./features/General/UpgradeButton"
 import "./features/M7/AutoEdrag"
 import "./features/M7/DragSpawnTimer"
 import "./features/M7/DragonBox"
+import "./features/M7/DragonDeathCheck"
 import "./features/M7/GhostBlocks"
 import "./features/M7/IHATEDIORITE"
 import "./features/M7/RelicAura"
@@ -36,9 +38,10 @@ import "./features/QOL/CookieClicker"
 import "./features/QOL/FPS"
 import "./features/QOL/Ghosting"
 import "./features/QOL/HypeBroken"
-import "./features/QOL/VanqNotifier"
 import "./features/QOL/NoBlockAnimation"
-
+import "./features/QOL/VanqNotifier"
+import "./features/QOL/WayPoints"
+import "./gui"
 
 export const userData = new PogObject("OdinCheata", {
   firstLogin: true
@@ -52,7 +55,7 @@ register("worldLoad", () => {
   ChatLib.chat(`§8On Version: §r${metadata.version}`);
   ChatLib.chat("§8Main cmd is §r/oc /odincheata");
   ChatLib.chat("§8Other commands are:")
-  ChatLib.chat("§r/odinlist /esp /autosell /moveflare /movepower");
+  ChatLib.chat("§r/odinlist /esp /autosell /moveflare /movepower /movedrag");
   ChatLib.chat("§dENJOY :)");
   ChatLib.chat("");
   userData.firstLogin = false

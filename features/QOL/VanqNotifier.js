@@ -14,45 +14,5 @@ register("chat", () => {
 }).setCriteria("A Vanquisher is spawning nearby!")
 
 
-let renderbeam = false;
-let renderx, rendery, renderz;
-let ign
-
-const sixtySecondBeacon = (x, y, z) => {
-    renderx = parseInt(x, 10) + 0.5
-    rendery = parseInt(y, 10) 
-    renderz = parseInt(z, 10) + 0.5
-    renderbeam = true;
-    setTimeout(() => {
-        renderbeam = false
-    }, 60000);
-}
-
-
-register("chat", (rank, player, x, y, z, loc) => {
-    ign = player
-    sixtySecondBeacon(x,y,z)
-}).setCriteria(/Party > (\[.+\])? (.{0,16}): Vanquisher spawned at: (-?\d+) (-?\d+) (-?\d+) (.+)/)
-
-register("chat", (rank, player, location, x, y, z) => {
-    ign = player
-    sixtySecondBeacon(x,y,z)
-}).setCriteria(/Party > (.+)?(.{0,16}): Current area: (.+). X: (-?\d+) Y: (-?\d+) Z: (-?\d+)/)
-
-register("chat", (rank, player, x, y, z) => {
-    ign = player
-    sixtySecondBeacon(x,y,z)
-}).setCriteria("Party > {rank} ${player}: x: ${x} y: ${y} z: ${z}")
-
-register("chat", (rank, player, x, y, z) => {
-    ign = player
-    sixtySecondBeacon(x,y,z)
-}).setCriteria("{rank} ${player}: x: ${x} y: ${y} z: ${z}")
-
-register("renderWorld", () => {
-    if (!data.qol.vanqNotifier.toggle) return
-    if (!renderbeam) return;
-    renderCustomBeacon([ign + " x: " + renderx, "y: " +rendery, "z: " + renderz].join(", "), renderx, rendery, renderz, 1, 0, 0)
-})
 
 

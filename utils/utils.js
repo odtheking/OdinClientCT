@@ -10,6 +10,7 @@ export const ResourceLocation = Java.type("net.minecraft.util.ResourceLocation")
 export const ItemSkull = Java.type("net.minecraft.item.ItemSkull")
 export const tabTitles = ['Dungeons', 'General', 'M7', 'QOL']
 export const ChatComponentText = Java.type("net.minecraft.util.ChatComponentText");
+export const BossStatus = Java.type("net.minecraft.entity.boss.BossStatus")
 
 export const buttonHeight = 20
 export const buttonWidth = 100

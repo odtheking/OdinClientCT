@@ -1,4 +1,3 @@
-import { registerForge } from "../../../ForgeEvents/exports.js"
 import { data } from "../../gui"
 import { leftClick, modMessage, isFacingAABB } from "../../utils/utils"
 import Dungeon from "../../../BloomCore/dungeons/Dungeon.js"

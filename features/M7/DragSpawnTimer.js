@@ -52,12 +52,42 @@ const timerRegister = register("renderWorld", () => {
                 const spawnTime = dragonspawntime - (currentTime - time);
                 let colorCode;
                 (spawnTime <= 1000) ? colorCode = "§c" : (spawnTime <= 3000) ? colorCode = "§e" : colorCode = "§a"
-                Tessellator.drawString(`§${colorCodes[i]}${color.charAt(0).toUpperCase() + color.slice(1)} spawning in: ${colorCode}${spawnTime}ms`, textlocations[i].x, textlocations[i].y, textlocations[i].z, 0)
+                const text = `§${colorCodes[i]}${color.charAt(0).toUpperCase() + color.slice(1)} spawning in: ${colorCode}${spawnTime}ms`
+                Tessellator.drawString(text, textlocations[i].x, textlocations[i].y, textlocations[i].z, 0)
             } else {
                 times[`${color}`] = null;
             }
         }
     })
+})
+
+let atline = 0
+const timerRegister2 = register("renderOverlay", () => {
+    if (!data.m7.dragonTimer.toggle) return
+    if (dragMove.isOpen()) {
+       // font2.drawStringWithShadow("Green spawning in: 5000ms", dragdata.dragX, dragdata.dragY, new Color(0.6, 0, 0.95, 1))
+        Renderer.drawStringWithShadow("§aGreen spawning in: 5000ms",dragdata.dragX,dragdata.dragY+(atline*10))
+
+    }
+    currentTime = new Date().getTime()
+    const dragonColors = ["orange", "red", "green", "blue", "purple"];
+    const colorCodes = ["6","c","a","b","5"]
+    dragonColors.forEach((color, i) => {
+        time = times[`${color}`];
+        if (time !== null) {
+            if (currentTime - time < dragonspawntime) {
+                const spawnTime = dragonspawntime - (currentTime - time);
+                let colorCode;
+                (spawnTime <= 1000) ? colorCode = "§c" : (spawnTime <= 3000) ? colorCode = "§e" : colorCode = "§a"
+                const text = `§${colorCodes[i]}${color.charAt(0).toUpperCase() + color.slice(1)} spawning in: ${colorCode}${spawnTime}ms`
+                Renderer.drawStringWithShadow(text,dragdata.dragX,dragdata.dragY+(atline*10))
+                atline++
+            } else {
+                times[`${color}`] = null;
+            }
+        }
+    })
+    atline = 0
 })
 
 let lastSetting = false
@@ -66,8 +96,10 @@ register("step", () => {
     lastSetting = data.m7.dragonTimer.toggle
     if (lastSetting) {
         timerRegister.register()
+        timerRegister2.register()
     } else {
         timerRegister.unregister()
+        timerRegister2.unregister()
     }
 }).setFps(1)
 
