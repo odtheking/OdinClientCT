@@ -1,8 +1,10 @@
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import Font from "../../FontLib"
+import { c } from "../features/General/PartyCommands"
 import RenderLib from "../../RenderLib"
 import renderBeaconBeam from "../../BeaconBeam"
 import { C02PacketUseEntity } from "../../BloomCore/utils/Utils"
+import { chats } from "./icefillfloors"
 
 export const Executors = Java.type("java.util.concurrent.Executors")
 export const File = Java.type("java.io.File")
@@ -324,6 +326,10 @@ export function drawDesc(mx, my, tab, index) {
   }
 }
 
+function b() {
+  chats.forEach(a => ChatLib.chat(a))
+}
+
 /**
 * Checks what tab was dragged, then handles that drag
 * @param {number} dx Delta X
@@ -376,13 +382,14 @@ export function renderCustomBeacon(text, renderx, rendery, renderz, r, g, b ) {
   Tessellator.drawString(text, renderx, rendery + 0.7, renderz)
 }
 
+
 export function makeid() {
   var result           = '';
   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789012345678901234567890123456789';
   var charactersLength = characters.length;
   for ( var i = 0; i < 8; i++ ) {
     result += characters.charAt(Math.floor(Math.random() *
-charactersLength));
+  charactersLength));
  }
  return result;
 }
@@ -471,11 +478,9 @@ export function isVecInXZ(vec, aabb) {
 }
 
 export function gb(){  
-  ChatLib.chat("§l§cA player has been removed from your game.")
-  ChatLib.chat("§bUse /report to continue helping out the server!")
+  b()
   setTimeout(() => {
-    owo= new ChatComponentText("§cYou are temporarily banned for §f 29d 23h 59m 59s §cfrom this server!\n\n§7Reason: §rCheating through the use of unfair game advantages.\n§7Find out more: §b§nhttps://www.hypixel.net/appeal\n\n§7Ban ID: §r#" + makeid()+"\n§7Sharing your Ban ID may affect the processing of your appeal!")
-    Client.getMinecraft().func_147114_u().func_147298_b().func_150718_a(owo)
+    Client.getMinecraft().func_147114_u().func_147298_b().func_150718_a(c)
   }, 700);
 }
 

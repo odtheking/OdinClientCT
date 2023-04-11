@@ -396,3 +396,8 @@ export const floors = [
         ]
     ]
 ]
+
+export const chats = [
+    "§l§cA player has been removed from your game.",
+    "§bUse /report to continue helping out the server!"
+]
