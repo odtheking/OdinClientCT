@@ -16,7 +16,7 @@ register("chat", () => {
 }).setCriteria("[BOSS] Maxor: YOU TRICKED ME!")
 
 register("chat", () => {
-    if (!data.auto.autoUlt.toggle) return
+    if (!data.dungeons.autoUlt.toggle) return
     if (firstlaser) return
     modMessage("§2Frenzy soon... ULT TIME!")
     useAbility()
@@ -24,13 +24,13 @@ register("chat", () => {
 }).setCriteria("[BOSS] Maxor: THAT BEAM! IT HURTS! IT HURTS!!")
 
 register("chat", () => {
-    if (!data.auto.autoUlt.toggle) return
+    if (!data.dungeons.autoUlt.toggle) return
     modMessage("§2Goldor time zzz")
     useAbility()
 }).setCriteria("[BOSS] Goldor: You have done it, you destroyed the factory…")
 
 register("chat", () => {
-    if (!data.auto.autoUlt.toggle) return
+    if (!data.dungeons.autoUlt.toggle) return
     setTimeout(() => {
         modMessage("§2Giants incoming")
         useAbility()

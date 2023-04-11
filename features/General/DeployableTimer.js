@@ -1,7 +1,7 @@
-import { data } from "../../gui";
 import PogObject from "../../../PogData"
 import { Color, EntityArmorStand, getDistance3D } from "../../../BloomCore/utils/Utils";
 import { File, fontopenbold, getCtEntityHelmetTexture, modMessage } from "../../utils/utils"
+import { data } from "../../gui";
 
 
 // Flare Timer
@@ -111,7 +111,7 @@ register("renderOverlay", () => {
     fontopenbold.drawStringWithShadow("SOS", flaredata.flareX, flaredata.flareY, new Color(0.6, 0, 0.95, 1));
     fontopenbold.drawStringWithShadow("180s", flaredata.flareX, flaredata.flareY + 15 , new Color(0, 0.9, 0.15, 1));
     firework.draw(flaredata.flareX - 40, flaredata.flareY - 9, 3)
-  } else if (data.qol.deployableTimer.toggle) {
+  } else if (data.general.deployableTimer.toggle) {
     const flareData = nearbyFlares.sort((a, b) => b[2] - a[2]).find(f => f[3].distanceTo(Player.asPlayerMP()) <= 40)
 
     const activeOrb = activeOrbs[0]

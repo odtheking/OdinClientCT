@@ -1,7 +1,24 @@
 import { data } from "../../gui"
 import { modMessage } from "../../utils/utils"
-
+import PogObject from "../../../PogData"
 // Dragon Timer
+const dragMove = new Gui()
+
+const dragdata = new PogObject("OdinCheata", {
+    dragX: 50,
+    dragY: 50,
+  }, "config/featuredata.json")
+  
+register("dragged", (dx, dy, x, y) => {
+    if (dragMove.isOpen()) {
+    dragdata.dragX += dx
+    dragdata.dragY += dy
+    dragdata.save()
+    }
+})
+register("command", () => {
+    dragMove.open()
+  }).setName("movedrag")
 
 let times = []
 times["orange"] = null

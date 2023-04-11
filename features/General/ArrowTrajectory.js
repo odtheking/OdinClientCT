@@ -6,12 +6,12 @@ let boxRenderQueue = []
 
 register("renderWorld", () => {
     if (!Player.getHeldItem()?.getName()?.includes("Terminator")) return
-    /*setTrajectoryHeading(-5, 0)
-    drawTrajectory()
+    setTrajectoryHeading(-5, 0)
+   // drawTrajectory()
     setTrajectoryHeading(0, -0.1)
-    drawTrajectory()
+   // drawTrajectory()
     setTrajectoryHeading(5, 0)
-    drawTrajectory()*/
+   // drawTrajectory()
     drawCollisionBoxes()
 })
 
