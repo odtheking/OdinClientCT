@@ -1,11 +1,50 @@
 import RenderLib from "../../../RenderLib"
 import { AxisAlignedBB, Vec3 } from "../../utils/utils"
 
-let trajectoryVertices = []
+//let trajectoryVertices = []
 let boxRenderQueue = []
+let dragonRenderQueue = []
+let entityPositions = {}
+const EntityDragon = Java.type("net.minecraft.entity.boss.EntityDragon")
+
+register("tick", () => {
+    World.getAllEntitiesOfType(EntityDragon).forEach(dragon => dragon.getEntity().func_70021_al().forEach(entity => {
+        if (!entityPositions[entity.func_145782_y()]) {
+          entityPositions[entity.func_145782_y()] = [entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v];
+        }
+    
+        entityPositions[entity.func_145782_y()][0] = entityPositions[entity.func_145782_y()][3]
+        entityPositions[entity.func_145782_y()][1] = entityPositions[entity.func_145782_y()][4]
+        entityPositions[entity.func_145782_y()][2] = entityPositions[entity.func_145782_y()][5]
+        entityPositions[entity.func_145782_y()][3] = entity.field_70165_t
+        entityPositions[entity.func_145782_y()][4] = entity.field_70163_u
+        entityPositions[entity.func_145782_y()][5] = entity.field_70161_v
+    }))
+})
+
+register("renderWorld", (partialTicks) => {
+    if (!dragonRenderQueue) return
+    dragonRenderQueue.forEach(dragon => dragon.getEntity().func_70021_al().forEach(entity => {
+        let lastX = entityPositions[entity.func_145782_y()][0]
+        let lastY = entityPositions[entity.func_145782_y()][1]
+        let lastZ = entityPositions[entity.func_145782_y()][2]
+        let x = entityPositions[entity.func_145782_y()][3]
+        let y = entityPositions[entity.func_145782_y()][4]
+        let z = entityPositions[entity.func_145782_y()][5]
+    
+        let dX = lastX + (x - lastX) * partialTicks
+        let dY = lastY + (y - lastY) * partialTicks
+        let dZ = lastZ + (z - lastZ) * partialTicks
+        let w = entity.field_70130_N
+        let h = entity.field_70131_O
+
+        RenderLib.drawEspBox(dX, dY, dZ, w, h, 0, 1, 1, 1, true)
+    }))
+    dragonRenderQueue.length = 0
+})
 
 register("renderWorld", () => {
-    if (!Player.getHeldItem()?.getName()?.includes("Terminator")) return
+    //if (!Player.getHeldItem()?.getName()?.includes("Terminator")) return
     setTrajectoryHeading(-5, 0)
    // drawTrajectory()
     setTrajectoryHeading(0, -0.1)
@@ -41,9 +80,14 @@ function calculateTrajectory(motion, pos) {
         let vec32 = new Vec3(pos.x + motion.x, pos.y + motion.y, pos.z + motion.z)
         let rayTrace = World.getWorld().func_147447_a(vec31, vec32, false, true, false)
         let bb = new AxisAlignedBB(0, 0, 0, 0, 0, 0).func_72317_d(pos.x, pos.y, pos.z).func_72321_a(motion.x, motion.y, motion.z).func_72314_b(0.01, 0.01, 0.01)
-        let entityHit = World.getWorld().func_72839_b(Player.getPlayer(), bb).filter(e => !(e instanceof net.minecraft.entity.projectile.EntityArrow))
+        let entityHit = World.getWorld().func_72839_b(Player.getPlayer(), bb).filter(e => !(e instanceof net.minecraft.entity.projectile.EntityArrow) || !(e instanceof net.minecraft.entity.item.EntityXPOrb) || e.func_70005_c_() == "Armor Stand")
         if (entityHit[0]) {
             let e = new Entity(entityHit[0])
+            if (e.getClassName() == "EntityDragon") {
+                dragonRenderQueue.push(e)
+                hitResult = true
+                return
+            }
             boxRenderQueue.push({x: e.getRenderX(), y: e.getRenderY(), z: e.getRenderZ(), w: e.getWidth(), h: e.getHeight()})
             hitResult = true
         } else if (rayTrace) {
@@ -58,11 +102,12 @@ function calculateTrajectory(motion, pos) {
         motion.y *= 0.99
         motion.z *= 0.99
         motion.y -= 0.05
-        trajectoryVertices.push(vec32)
+        //trajectoryVertices.push(vec32)
     }
-    if (!trajectoryVertices) return
+    //if (!trajectoryVertices) return
 }
 
+/*
 function drawTrajectory() {
     GL11.glLineWidth(2.0);
     GL11.glEnable(GL11.GL_LINE_SMOOTH)
@@ -86,6 +131,7 @@ function drawTrajectory() {
     GL11.glDisable(GL11.GL_LINE_SMOOTH)
     trajectoryVertices.length = 0
 }
+*/
 
 function drawCollisionBoxes() {
     if (boxRenderQueue) {
