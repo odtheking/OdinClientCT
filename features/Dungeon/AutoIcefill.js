@@ -71,7 +71,8 @@ const move = (x,y,z, pattern, rotation, floorIndex) => {
         modMessage(`${x + bx}, ${y + 1},${z + bz}`)
         clipTo(x + bx, y + 1, z + bz)
     })
-    for (let block of pattern) {
+    for (let i = 0; i < pattern.length; i++) {
+        const block = pattern[i]
         if (i + 1 < pattern.length) var nextblock = pattern[i+1]
         let [bx, bz] = transform(block.x, block.z, rotation)
         let [bx1, bz1] = transform(nextblock.x, nextblock.z, rotation)
