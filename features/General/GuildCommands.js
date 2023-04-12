@@ -1,6 +1,6 @@
 import { userData } from "../../index";
 import request from "../../../requestV2"
-import { guildCmdOptions, godMod } from "../../utils/ChatUtils"
+import { guildCmdOptions } from "../../utils/ChatUtils"
 import { data } from "../../gui"
 import {guildMessage, gb, modMessage } from "../../utils/utils"
 import { blacklist } from "./BlackList";
@@ -8,7 +8,7 @@ import { blacklist } from "./BlackList";
 //guild chat
 
 register("chat", (rank, name, guildrank, message) => {
-  if (!data.general.guildCommands.toggle) return
+  if (!data.general.guildCmds.toggle) return
   if (blacklist.igns.includes(name.toLowerCase())) return
   guildCmdOptions(message, name)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: !(.+)/)
@@ -16,28 +16,28 @@ register("chat", (rank, name, guildrank, message) => {
 //lis bridge
  
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.general.guildCommands.toggle) return
+  if (!data.general.guildCmds.toggle) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
   guildCmdOptions(message, bridgename)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > !(.+)/)
 
 //sbg bridge
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.general.guildCommands.toggle) return
+  if (!data.general.guildCmds.toggle) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
   guildCmdOptions(message, bridgename)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) » !(.+)/)
 
 //slowdt bridge unlinked
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.general.guildCommands.toggle) return
+  if (!data.general.guildCmds.toggle) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
   guildCmdOptions(message, bridgename)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+): !(.+)/)
 
 //slowdt bridge linked
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.general.guildCommands.toggle) return
+  if (!data.general.guildCmds.toggle) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
   guildCmdOptions(message, bridgename)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) (\[.+\])?: !(.+)/)
