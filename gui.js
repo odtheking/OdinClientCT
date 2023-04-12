@@ -123,6 +123,16 @@ export const data = new PogObject("OdinCheata", {
             "name": "ESP",
             "description": "You can add whatever mob you want into the list /esp",
         },
+        "arrowTrajectory": {
+            "toggle": false,
+            "name": "Arrow Trajectory",
+            "description": "Renders 3 boxes where an arrow of a terminator is expected to land. The farther the shot, the less error",
+        },
+        "portalFix": {
+            "toggle": false,
+            "name": "Portal Fix",
+            "description": "Allows you to open GUIs in a portal and removes the nausea effect and portal effect overlay",
+        },
         
     },
 
@@ -214,7 +224,7 @@ export const data = new PogObject("OdinCheata", {
         "noBlockAnimation": {
             "toggle": false,
             "name": "No Block Animation",
-            "description": "Disables the block animation of swords with a right click ability",
+            "description": "Disables the block animation of swords with a right click ability, acts like NoSlow",
         },
     }
 }, "config/guidata.json")

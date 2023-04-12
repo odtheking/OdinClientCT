@@ -1,5 +1,6 @@
 import RenderLib from "../../../RenderLib"
 import { AxisAlignedBB, Vec3 } from "../../utils/utils"
+import { data } from "../../gui"
 
 //let trajectoryVertices = []
 let boxRenderQueue = []
@@ -8,6 +9,7 @@ let entityPositions = {}
 const EntityDragon = Java.type("net.minecraft.entity.boss.EntityDragon")
 
 register("tick", () => {
+    if (!data.general.arrowTrajectory.toggle) return
     World.getAllEntitiesOfType(EntityDragon).forEach(dragon => dragon.getEntity().func_70021_al().forEach(entity => {
         if (!entityPositions[entity.func_145782_y()]) {
           entityPositions[entity.func_145782_y()] = [entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v];
@@ -44,7 +46,8 @@ register("renderWorld", (partialTicks) => {
 })
 
 register("renderWorld", () => {
-    //if (!Player.getHeldItem()?.getName()?.includes("Terminator")) return
+    if (!data.general.arrowTrajectory.toggle) return
+    if (!Player.getHeldItem()?.getName()?.includes("Terminator")) return
     setTrajectoryHeading(-5, 0)
    // drawTrajectory()
     setTrajectoryHeading(0, -0.1)
@@ -74,13 +77,13 @@ function setTrajectoryHeading(yawOffset, yOffset) {
 
 function calculateTrajectory(motion, pos) {
     let hitResult = false
-    for (let j = 0; j < 120; j++) {
+    for (let j = 0; j < 60; j++) {
         if (hitResult) return
         let vec31 = new Vec3(pos.x, pos.y, pos.z)
         let vec32 = new Vec3(pos.x + motion.x, pos.y + motion.y, pos.z + motion.z)
         let rayTrace = World.getWorld().func_147447_a(vec31, vec32, false, true, false)
         let bb = new AxisAlignedBB(0, 0, 0, 0, 0, 0).func_72317_d(pos.x, pos.y, pos.z).func_72321_a(motion.x, motion.y, motion.z).func_72314_b(0.01, 0.01, 0.01)
-        let entityHit = World.getWorld().func_72839_b(Player.getPlayer(), bb).filter(e => !(e instanceof net.minecraft.entity.projectile.EntityArrow) || !(e instanceof net.minecraft.entity.item.EntityXPOrb) || e.func_70005_c_() == "Armor Stand")
+        let entityHit = World.getWorld().func_72839_b(Player.getPlayer(), bb).filter(e => !(e instanceof net.minecraft.entity.projectile.EntityArrow))
         if (entityHit[0]) {
             let e = new Entity(entityHit[0])
             if (e.getClassName() == "EntityDragon") {
@@ -134,11 +137,10 @@ function drawTrajectory() {
 */
 
 function drawCollisionBoxes() {
-    if (boxRenderQueue) {
-        boxRenderQueue.forEach(b => {
-            RenderLib.drawEspBox(b.x, b.y - 0.15, b.z, b.w, b.h, 0, 1, 1, 1, false)
-            
-        })
-    }
+    if (!boxRenderQueue) return
+    boxRenderQueue.forEach(b => {
+        if (Math.hypot(Player.getRenderX() - b.x, Player.getRenderY() + Player.asPlayerMP().getEyeHeight() - b.y, Player.getRenderZ() - b.z) < 2) return
+        RenderLib.drawEspBox(b.x, b.y - 0.15, b.z, b.w, b.h, 0, 1, 1, 1, false)
+    })
     boxRenderQueue.length = 0
 }
