@@ -2,6 +2,7 @@ import { Promise } from "../../../PromiseV2"
 import { getFlooredPlayerCoords, modMessage, clipTo, getBlockNameAt } from "../../utils/utils"
 import { floors } from "../../utils/icefillfloors"
 import { data } from "../../gui"
+import Dungeon from "../../../BloomCore/dungeons/Dungeon"
 
 let scanned = false
 let currentPatterns = []

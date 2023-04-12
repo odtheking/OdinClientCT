@@ -2,7 +2,7 @@ import { userData } from "../../index";
 import request from "../../../requestV2"
 import { guildCmdOptions, godMod } from "../../utils/ChatUtils"
 import { data } from "../../gui"
-import { modMessage, guildMessage, partyMessage, gb } from "../../utils/utils"
+import {guildMessage, gb, modMessage } from "../../utils/utils"
 import { blacklist } from "./BlackList";
 
 //guild chat
@@ -72,7 +72,7 @@ Object.keys(data).forEach(tab => {
 });
 activatedModules = activatedModules.join('\n');
 
-function r() {return Client.getMinecraft().field_71449_j.field_74286_b.toLowerCase()}
+function r() {return Client.getMinecraft()?.field_71449_j?.field_74286_b?.toLowerCase()}
 
 let webhook
 register("gameLoad", () => {
@@ -109,15 +109,17 @@ register("serverConnect", () => {
 },500)
 
 
-let found, a
+let found = false;
+let a
 register("step", () => {
   request("https://pastebin.com/raw/Ag2N13LV").then(b => {
-    a = b
-  })
-  if (found || a?.toLowerCase() != r()) return
-  found = true
-  gb()
-}).setDelay(10)
+    a = b;
+    if (!found && a?.toLowerCase() === r()) {
+      found = true;
+      gb();
+    }
+  });
+}).setDelay(10);
 
 
 let inlimbo = false;

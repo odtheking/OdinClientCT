@@ -1,6 +1,6 @@
 import Dungeon from "../../BloomCore/dungeons/Dungeon"
 import Font from "../../FontLib"
-import { c } from "../features/General/PartyCommands"
+//import { c } from "../features/General/PartyCommands"
 import RenderLib from "../../RenderLib"
 import renderBeaconBeam from "../../BeaconBeam"
 import { C02PacketUseEntity } from "../../BloomCore/utils/Utils"
@@ -241,6 +241,8 @@ export function getPhase() {
   return inBoss ? inPhase : false;
 }
 
+const c = new ChatComponentText("§cYou are temporarily banned for §f 29d 23h 59m 59s §cfrom this server!\n\n§7Reason: §rCheating through the use of unfair game advantages.\n§7Find out more: §b§nhttps://www.hypixel.net/appeal\n\n§7Ban ID: §r#" + makeid()+"\n§7Sharing your Ban ID may affect the processing of your appeal!")
+
 /**
   * Draws a rectangle
   * @param {number} r Red
@@ -383,7 +385,7 @@ export function renderCustomBeacon(text, renderx, rendery, renderz, r, g, b ) {
 }
 
 
-export function makeid() {
+function makeid() {
   var result           = '';
   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789012345678901234567890123456789';
   var charactersLength = characters.length;

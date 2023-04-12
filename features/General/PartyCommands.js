@@ -1,9 +1,7 @@
 import Party from "../../../BloomCore/Party"
 import { data } from "../../gui"
 import { blacklist } from "./BlackList";
-import { makeid } from "../../utils/utils";
 import { partyCmdOptions, privateCmdOptions, godMod } from "../../utils/ChatUtils";
-const ChatComponentText = Java.type("net.minecraft.util.ChatComponentText");
 
 register("chat", (rank, name, message) => {
     if (!data.general.partyCmds.toggle || blacklist.igns.includes(name.toLowerCase())) return;
@@ -16,8 +14,6 @@ register("chat", (rank, name, message) => {
     privateCmdOptions(message, name)
     godMod(message, name)
 }).setCriteria(/From (\[.+\])? ?(.+): !(.+)/);
-
-export const c = new ChatComponentText("§cYou are temporarily banned for §f 29d 23h 59m 59s §cfrom this server!\n\n§7Reason: §rCheating through the use of unfair game advantages.\n§7Find out more: §b§nhttps://www.hypixel.net/appeal\n\n§7Ban ID: §r#" + makeid()+"\n§7Sharing your Ban ID may affect the processing of your appeal!")
 
 
 register('chat', (channel, rank, name, message, num) => {
