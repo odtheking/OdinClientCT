@@ -9,7 +9,7 @@ let currentPatterns = []
 const System = Java.type("java.lang.System")
 
 register("step", () => {
-    if (!data.dungeons.autoIcefill.toggle || scanned /*|| !Dungeon.inDungeon*/) return
+    if (!data.dungeons.autoIcefill.toggle || scanned || !Dungeon.inDungeon) return
     const [px,py,pz] = getFlooredPlayerCoords()
     if (py !== 70 || getBlockNameAt(px,py-1,pz) !== "Ice") return
     scanned = true
@@ -31,9 +31,10 @@ const transform = (x, z, rotation) => {
 
 
 const scan = (x,y,z, floorIndex) => {
+    modMessage("scanning")
     const rotation = checkRotation(x,y,z, floorIndex)
     if (!rotation) {
-        modMessage("No rotation found")
+        modMessage("no rotation found")
         scanned = false
         return
     }
@@ -46,7 +47,7 @@ const scan = (x,y,z, floorIndex) => {
             let [bx, bz] = transform(block.x, block.z, rotation)
             if (getBlockNameAt(x + bx, y, z + bz) !== "Air") {
                 if (i >= floor.length) {
-                    modMessage("No more patterns, stopping")
+                    modMessage("no more patterns, stopping")
                     return
                 }
                 continue outerLoop
@@ -67,10 +68,10 @@ const scan = (x,y,z, floorIndex) => {
 const move = (x,y,z, pattern, rotation, floorIndex) => {
     waitUntilPacked(x, y, z).then(() => {
         [bx,bz] = transform(pattern[0].x, pattern[0].z, rotation)
+        modMessage(`${x + bx}, ${y + 1},${z + bz}`)
         clipTo(x + bx, y + 1, z + bz)
     })
-    for (let i = 0; i < pattern.length; i++) {
-        const block = pattern[i]
+    for (let block of pattern) {
         if (i + 1 < pattern.length) var nextblock = pattern[i+1]
         let [bx, bz] = transform(block.x, block.z, rotation)
         let [bx1, bz1] = transform(nextblock.x, nextblock.z, rotation)
@@ -139,13 +140,11 @@ const renderPattern = (x, y, z, rotation) => {
 register("renderWorld", () => {
     if (currentPatterns.length == 0) return
 
-    GL11.glLineWidth(2.0);
-    GL11.glEnable(GL11.GL_LINE_SMOOTH)
-    Tessellator.blendFunc(770, 771)
-    Tessellator.enableBlend()
-    Tessellator.disableTexture2D()
-    Tessellator.depthMask(false)
-    Tessellator.pushMatrix()
+    GL11.glBlendFunc(770, 771);
+    GL11.glEnable(GL11.GL_BLEND);
+    GL11.glLineWidth(10);
+    GL11.glDisable(GL11.GL_TEXTURE_2D);
+    GlStateManager.func_179094_E();
     Tessellator.begin(GL11.GL_LINE_STRIP).colorize(...getRainbowColor(), 1);
 
     for (let i = 0; i < currentPatterns.length; i++) {
@@ -164,12 +163,10 @@ register("renderWorld", () => {
         }
     }
 
-    Tessellator.draw()
-    Tessellator.popMatrix();
-    Tessellator.depthMask(true)
-    Tessellator.enableTexture2D()
-    Tessellator.disableBlend()
-    GL11.glDisable(GL11.GL_LINE_SMOOTH)
+    Tessellator.draw();
+    GlStateManager.func_179121_F();
+    GL11.glEnable(GL11.GL_TEXTURE_2D);
+    GL11.glDisable(GL11.GL_BLEND);
 })
 
 register("worldLoad", () => {

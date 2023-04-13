@@ -57,31 +57,30 @@ let activeOrbs = []
 let activeFlare
 const flareMove = new Gui()
 let flareType = undefined
-let nearbyFlares = []
+let activeFlares = []
 
 register("step", () => {
   if (!data.general.deployableTimer.toggle) return
+  updateFlares();
   getOrb()
-  const flares = []
-  World.getAllEntities().filter(e => e && e.getEntity() instanceof EntityArmorStand).forEach(e => {
-    if (nearbyFlares.find(f => f[0] == e.getEntity().func_145782_y())) return
-    const texture = getCtEntityHelmetTexture(e)
-    const type = flareTextures[texture]
-    if (type) {
-      flares.push([type, e])
-    }
-  })
   activeOrbs.sort((a, b) => orbPriorities[b.orb] - orbPriorities[a.orb])
-  flares.sort((a, b) => orbPriorities[b] - orbPriorities[a]).forEach(flare => {
-    const [type, flareEnt] = flare
-    const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
-    const [x1, y1, z1] = [flareEnt.getX(), flareEnt.getY(), flareEnt.getZ()]
-    const dist = getDistance3D(x, y, z, x1, y1, z1)
-    if (dist <= 40) {
-      nearbyFlares.push([flareEnt.getEntity().func_145782_y(), type, Date.now(), flareEnt])
-    }
-  })
+  getFlares(activeFlares, orbPriorities, flareTextures)
 }).setFps(10)
+
+
+register("renderOverlay", () => {
+  if (!data.general.deployableTimer.toggle) return
+  
+  if (flareMove.isOpen()) {
+    fontopenbold.drawStringWithShadow("SOS", flaredata.flareX, flaredata.flareY, new Color(0.6, 0, 0.95, 1));
+    fontopenbold.drawStringWithShadow("180s", flaredata.flareX, flaredata.flareY + 15 , new Color(0, 0.9, 0.15, 1));
+    firework.draw(flaredata.flareX - 40, flaredata.flareY - 9, 3)
+  } else if (data.general.deployableTimer.toggle) {
+    renderDeployable(activeFlares,activeOrbs,orbPriorities)
+  }
+
+});
+
 
 const getOrb = () => {
   Object.keys(orbPriorities).forEach((orb) => {
@@ -102,44 +101,55 @@ const getOrb = () => {
   });
 }
 
+const getFlares = (activeFlares, orbPriorities, flareTextures) => {
+  const flares = []
+  World.getAllEntities().filter(e => e && e.getEntity() instanceof EntityArmorStand).forEach(e => {
+    if (activeFlares.find(f => f[0] == e.getEntity().func_145782_y())) return
+    const texture = getCtEntityHelmetTexture(e)
+    const type = flareTextures[texture]
+    if (type) {
+      flares.push([type, e])
+    }
+  })
+  flares.sort((a, b) => orbPriorities[b] - orbPriorities[a]).forEach(flare => {
+    const [type, flareEnt] = flare
+    const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
+    const [x1, y1, z1] = [flareEnt.getX(), flareEnt.getY(), flareEnt.getZ()]
+    const dist = getDistance3D(x, y, z, x1, y1, z1)
+    if (dist <= 40) {
+      activeFlares.push([flareEnt.getEntity().func_145782_y(), type, Date.now(), flareEnt])
+    }
+  })
+}
 
-register("renderOverlay", () => {
-  if (!data.general.deployableTimer.toggle) return
-  updateFlares();
-  
-  if (flareMove.isOpen()) {
-    fontopenbold.drawStringWithShadow("SOS", flaredata.flareX, flaredata.flareY, new Color(0.6, 0, 0.95, 1));
-    fontopenbold.drawStringWithShadow("180s", flaredata.flareX, flaredata.flareY + 15 , new Color(0, 0.9, 0.15, 1));
-    firework.draw(flaredata.flareX - 40, flaredata.flareY - 9, 3)
-  } else if (data.general.deployableTimer.toggle) {
-    const flareData = nearbyFlares.sort((a, b) => b[2] - a[2]).find(f => f[3].distanceTo(Player.asPlayerMP()) <= 40)
+function renderDeployable(activeFlares, activeOrbs, orbPriorities) {
+  const flareData = activeFlares.sort((a, b) => b[2] - a[2]).find(f => f[3].distanceTo(Player.asPlayerMP()) <= 40)
+  const activeOrb = activeOrbs[0]
+  const activeOrbTime = activeOrb?.time
 
-    const activeOrb = activeOrbs[0]
-    const activeOrbTime = activeOrb?.time
-    if (!flareData) {
-      if (activeOrb) {
-        drawOrb(activeOrb, activeOrbTime)
-        return
-      }
-      flareType = undefined
+  if (!flareData) {
+    if (activeOrb) {
+      drawOrb(activeOrb, activeOrbTime)
       return
     }
+    flareType = undefined
+    return
+  }
     
-    const flareType = flareData[1]
-    const timePassed = Date.now() - flareData[2]
-    const timeRemaining = ((180000 - timePassed) / 1000).toFixed(0)
+  const flareType = flareData[1]
+  const timePassed = Date.now() - flareData[2]
+  const timeRemaining = ((180000 - timePassed) / 1000).toFixed(0)
     
-    if (activeOrb) {
-      if (orbPriorities[activeOrb] > orbPriorities[activeFlare]) {
-        drawOrb(activeOrb, activeOrbTime)
-      } else {
-        drawFlare(flareType, timeRemaining)
-      }
+  if (activeOrb) {
+    if (orbPriorities[activeOrb] > orbPriorities[activeFlare]) {
+      drawOrb(activeOrb, activeOrbTime)
     } else {
       drawFlare(flareType, timeRemaining)
     }
+  } else {
+    drawFlare(flareType, timeRemaining)
   }
-});
+}
 
 const drawOrb = (orb, time) => {
   if (time === 0) return
@@ -168,14 +178,14 @@ function updateFlares() {
     }
   })
   
-  nearbyFlares.forEach(flare => {
+  activeFlares.forEach(flare => {
     if (Date.now() - flare[2] > 180000 || flare[3].isDead()) {
-      nearbyFlares.splice(nearbyFlares.indexOf(flare), 1)
+      activeFlares.splice(activeFlares.indexOf(flare), 1)
     }
   })
 };
 
 register("worldLoad", () => {
   flareType = undefined
-  nearbyFlares.length = 0
+  activeFlares.length = 0
 })
