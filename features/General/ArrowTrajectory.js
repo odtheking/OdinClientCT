@@ -10,44 +10,47 @@ const EntityDragon = Java.type("net.minecraft.entity.boss.EntityDragon")
 
 register("tick", () => {
     if (!data.general.arrowTrajectory.toggle) return
-    World.getAllEntitiesOfType(EntityDragon).forEach(dragon => dragon.getEntity().func_70021_al().forEach(entity => {
-        if (!entityPositions[entity.func_145782_y()]) {
-          entityPositions[entity.func_145782_y()] = [entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v];
+    for (let dragon of World.getAllEntitiesOfType(EntityDragon)) {
+        for (let entity of dragon.getEntity().func_70021_al()) {
+            if (!entityPositions[entity.func_145782_y()]) {
+                entityPositions[entity.func_145782_y()] = [entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v];
+            }
+        
+            entityPositions[entity.func_145782_y()][0] = entityPositions[entity.func_145782_y()][3]
+            entityPositions[entity.func_145782_y()][1] = entityPositions[entity.func_145782_y()][4]
+            entityPositions[entity.func_145782_y()][2] = entityPositions[entity.func_145782_y()][5]
+            entityPositions[entity.func_145782_y()][3] = entity.field_70165_t
+            entityPositions[entity.func_145782_y()][4] = entity.field_70163_u
+            entityPositions[entity.func_145782_y()][5] = entity.field_70161_v
         }
-    
-        entityPositions[entity.func_145782_y()][0] = entityPositions[entity.func_145782_y()][3]
-        entityPositions[entity.func_145782_y()][1] = entityPositions[entity.func_145782_y()][4]
-        entityPositions[entity.func_145782_y()][2] = entityPositions[entity.func_145782_y()][5]
-        entityPositions[entity.func_145782_y()][3] = entity.field_70165_t
-        entityPositions[entity.func_145782_y()][4] = entity.field_70163_u
-        entityPositions[entity.func_145782_y()][5] = entity.field_70161_v
-    }))
+    }
 })
 
 register("renderWorld", (partialTicks) => {
     if (!dragonRenderQueue) return
-    dragonRenderQueue.forEach(dragon => dragon.getEntity().func_70021_al().forEach(entity => {
-        let lastX = entityPositions[entity.func_145782_y()][0]
-        let lastY = entityPositions[entity.func_145782_y()][1]
-        let lastZ = entityPositions[entity.func_145782_y()][2]
-        let x = entityPositions[entity.func_145782_y()][3]
-        let y = entityPositions[entity.func_145782_y()][4]
-        let z = entityPositions[entity.func_145782_y()][5]
-    
-        let dX = lastX + (x - lastX) * partialTicks
-        let dY = lastY + (y - lastY) * partialTicks
-        let dZ = lastZ + (z - lastZ) * partialTicks
-        let w = entity.field_70130_N
-        let h = entity.field_70131_O
+    for (let dragon of dragonRenderQueue) {
+        for (let entity of dragon.getEntity().func_70021_al()) {
+            let lastX = entityPositions[entity.func_145782_y()][0]
+            let lastY = entityPositions[entity.func_145782_y()][1]
+            let lastZ = entityPositions[entity.func_145782_y()][2]
+            let x = entityPositions[entity.func_145782_y()][3]
+            let y = entityPositions[entity.func_145782_y()][4]
+            let z = entityPositions[entity.func_145782_y()][5]
+        
+            let dX = lastX + (x - lastX) * partialTicks
+            let dY = lastY + (y - lastY) * partialTicks
+            let dZ = lastZ + (z - lastZ) * partialTicks
+            let w = entity.field_70130_N
+            let h = entity.field_70131_O
 
-        RenderLib.drawEspBox(dX, dY, dZ, w, h, 0, 1, 1, 1, true)
-    }))
+            RenderLib.drawEspBox(dX, dY, dZ, w, h, 0, 1, 1, 1, true)
+        }
+    }
     dragonRenderQueue.length = 0
 })
 
 register("renderWorld", () => {
-    if (!data.general.arrowTrajectory.toggle) return
-    if (!Player.getHeldItem()?.getName()?.includes("Terminator")) return
+    if (!data.general.arrowTrajectory.toggle || !Player.getHeldItem()?.getName()?.includes("Terminator")) return
     setTrajectoryHeading(-5, 0)
    // drawTrajectory()
     setTrajectoryHeading(0, -0.1)
@@ -138,9 +141,9 @@ function drawTrajectory() {
 
 function drawCollisionBoxes() {
     if (!boxRenderQueue) return
-    boxRenderQueue.forEach(b => {
+    for (let b of boxRenderQueue) {
         if (Math.hypot(Player.getRenderX() - b.x, Player.getRenderY() + Player.asPlayerMP().getEyeHeight() - b.y, Player.getRenderZ() - b.z) < 2) return
         RenderLib.drawEspBox(b.x, b.y - 0.15, b.z, b.w, b.h, 0, 1, 1, 1, false)
-    })
+    }
     boxRenderQueue.length = 0
 }

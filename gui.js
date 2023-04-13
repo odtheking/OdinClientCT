@@ -247,12 +247,13 @@ register('renderOverlay', () => {
     mx = Client.getMouseX()
     my = Client.getMouseY()
 
-    tabs.forEach((tab, index) => {
+    for (let i = 0; i < tabs.length; i++) {
+        const tab = tabs[i]
         rect(255, 215, 0, 225, tab.x, tab.y, buttonWidth, buttonHeight)
-        centeredString(fontmc, tabTitles[index], tab.x, tab.y, 1, 0, 0, 1)
+        centeredString(fontmc, tabTitles[i], tab.x, tab.y, 1, 0, 0, 1)
         drawTab(tab)
-    })
-    tabs.forEach((tab, index) => drawDesc(mx, my, tab, index))
+        drawDesc(mx, my, tab, index)
+    }
 
     Client.getMinecraft().field_71460_t.func_181022_b()
     Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
@@ -260,12 +261,12 @@ register('renderOverlay', () => {
 
 register('dragged', (dx, dy, x, y, b) => {
     if (!mainGui.isOpen() || b != 0) return
-    tabs.forEach(tab => checkDrag(dx, dy, mx, my, tab))
+    for (let tab of tabs) checkDrag(dx, dy, mx, my, tab)
     data.save()
 })
 
 register('clicked', (x, y, b, isDown) => {
     if (!isDown || !mainGui.isOpen()) return
-    tabs.forEach(tab => checkTab(x, y, b, tab))
+    for (let tab of tabs) checkTab(x, y, b, tab)
     data.save()
 })

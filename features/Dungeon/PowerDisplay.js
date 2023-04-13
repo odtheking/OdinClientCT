@@ -5,9 +5,7 @@ import PogObject from "../../../PogData"
 // Power Display
 const powerMove = new Gui()
 
-register("command", () => {
-  powerMove.open()
-}).setName("movepower")
+register("command", () => powerMove.open()).setName("movepower")
 
 const powerdata = new PogObject("OdinCheata", {
   powerX: 50,
@@ -15,11 +13,10 @@ const powerdata = new PogObject("OdinCheata", {
 }, "config/featuredata.json")
 
 register("dragged", (dx, dy, x, y) => {
-  if (powerMove.isOpen()) {
-    powerdata.powerX = x
-    powerdata.powerY = y
-    powerdata.save()
-  }
+  if (!powerMove.isOpen()) return
+  powerdata.powerX = x
+  powerdata.powerY = y
+  powerdata.save()
 })
 register("renderOverlay", (event) => {
   if (!powerMove.isOpen()) return
@@ -29,7 +26,10 @@ register("renderOverlay", (event) => {
 
 var pDisplay = new Display()
 
-
+const blessings = {
+  power: /Blessing of Power (.+)/,
+  time: /Blessing of Time (.+)/
+};
 const updatePowerDisplay = () => {
   if (!Dungeon.inDungeon || !data.dungeons.powerDisplay.toggle || powerMove.isOpen()) {
     pDisplay.clearLines();
@@ -37,19 +37,15 @@ const updatePowerDisplay = () => {
   }
   let atLine = 0;
   const footer = TabList.getFooter().removeFormatting();
-  const blessings = {
-    power: /Blessing of Power (.+)/,
-    time: /Blessing of Time (.+)/
-  };
   pDisplay.setRenderLoc(powerdata.powerX, powerdata.powerY);
-  Object.entries(blessings).forEach(([name, pattern]) => {
+  for (let [name, pattern] of Object.entries(blessings)) {
     const match = footer.match(pattern);
     if (match) {
       const [, value] = match;
       pDisplay.setLine(atLine, `&c${name.charAt(0).toUpperCase() + name.slice(1)}&r: &a${romanToInt(value)}`);
       atLine++;
     }
-  });
+  }
   for (let i = 0; i < atLine; i++) {
     pDisplay.getLine(i).setScale(1.7).setShadow(true);
   }

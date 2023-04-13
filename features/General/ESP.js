@@ -61,7 +61,7 @@ const esplist = new PogObject("OdinCheata", {
 
 function reloadMap() {
     entitiesToRender.clear()
-    World.getAllEntities().forEach(stand => {
+    for (let stand of World.getAllEntities()) {
       const mcStand = stand.getEntity()
       if (!(mcStand instanceof EntityArmorStand)) return
       const name = stand.getName().removeFormatting().toLowerCase()
@@ -71,7 +71,7 @@ function reloadMap() {
         .sort((a, b) => noSqrt3DDistance(a, mcStand) - noSqrt3DDistance(b, mcStand))
       if (entities.length == 0) return
       entitiesToRender.set(mcStand.func_145782_y(), entities[0])
-    })
+    }
   }
 
 register("worldLoad", () => {
@@ -83,7 +83,7 @@ let entitiesToRender = new Map() // key: ArmorStand, value: McEntity
 register('step', () => {
     //console.log(entitiesToRender.size)
     if (!data.general.esp.toggle) return
-    World.getAllEntities().forEach(stand => {
+    for (let stand of World.getAllEntities()) {
         const mcStand = stand.getEntity()
         if (!(mcStand instanceof EntityArmorStand)) return
         const matchingEntity = entitiesToRender.get(mcStand.func_145782_y())
@@ -101,20 +101,20 @@ register('step', () => {
             .sort((a, b) => noSqrt3DDistance(a, mcStand) - noSqrt3DDistance(b, mcStand))
         if (entities.length == 0) return
         entitiesToRender.set(mcStand.func_145782_y(), entities[0])
-    })
+    }
 }).setFps(2)
 
 const espLoop = Executors.newSingleThreadExecutor()
 espLoop.execute(() => {
     register("renderWorld", (partialTicks) => {
         if (!data.general.esp.toggle) return
-        entitiesToRender.forEach((value, key) => {
+        for (let [key, value] of entitiesToRender) {
             if (value && value.field_70128_L) {
                 entitiesToRender.delete(key)
                 return
             }
             const [x, y, z, w, h] = getEntityRenderParams(value, partialTicks)
             RenderLib.drawEspBox(x, y, z, w, h, 1, 1, 0, 1, true)
-        })
+        }
     })
 })

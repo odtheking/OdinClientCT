@@ -83,43 +83,39 @@ register("renderOverlay", () => {
 
 
 const getOrb = () => {
-  Object.keys(orbPriorities).forEach((orb) => {
-    World.getAllEntitiesOfType(EntityArmorStand).forEach((armorStand) => {
+  for (let orb of Object.keys(orbPriorities)) {
+    for (let armorStand of World.getAllEntitiesOfType(EntityArmorStand)) {
       const name = armorStand.getName().removeFormatting();
       if (name.startsWith(orb.capitalize())) {
         const match = name.match(/(.+) (\d+)s/);
         const timeRemaining = parseInt(match[2]);
-          if (armorStand.distanceTo(Player.asPlayerMP()) <= 20) {
-            activeOrbs.push({ 
-              orb: orb, 
-              time: timeRemaining,
-              entity: armorStand
-            })
-          }
+        if (armorStand.distanceTo(Player.asPlayerMP()) <= 20) {
+          activeOrbs.push({ 
+            orb: orb, 
+            time: timeRemaining,
+            entity: armorStand
+          })
+        }
       }
-    });
-  });
+    }
+  }
 }
 
 const getFlares = (activeFlares, orbPriorities, flareTextures) => {
   const flares = []
-  World.getAllEntities().filter(e => e && e.getEntity() instanceof EntityArmorStand).forEach(e => {
+  for (let e of  World.getAllEntities().filter(e => e && e.getEntity() instanceof EntityArmorStand)) {
     if (activeFlares.find(f => f[0] == e.getEntity().func_145782_y())) return
     const texture = getCtEntityHelmetTexture(e)
     const type = flareTextures[texture]
-    if (type) {
-      flares.push([type, e])
-    }
-  })
-  flares.sort((a, b) => orbPriorities[b] - orbPriorities[a]).forEach(flare => {
+    if (type) flares.push([type, e])
+  }
+  for (let flare of flares.sort((a, b) => orbPriorities[b] - orbPriorities[a])) {
     const [type, flareEnt] = flare
     const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
     const [x1, y1, z1] = [flareEnt.getX(), flareEnt.getY(), flareEnt.getZ()]
     const dist = getDistance3D(x, y, z, x1, y1, z1)
-    if (dist <= 40) {
-      activeFlares.push([flareEnt.getEntity().func_145782_y(), type, Date.now(), flareEnt])
-    }
-  })
+    if (dist <= 40) activeFlares.push([flareEnt.getEntity().func_145782_y(), type, Date.now(), flareEnt])
+  }
 }
 
 function renderDeployable(activeFlares, activeOrbs, orbPriorities) {
@@ -172,17 +168,16 @@ const drawFlare = (flare, time) => {
 }
 
 function updateFlares() {
-  activeOrbs.forEach(orb => {
+  for (let orb of activeOrbs) {
     if (orb.entity?.distanceTo(Player.asPlayerMP()) > 20 || orb.time <= 1 || orb.entity?.isDead()) {
       activeOrbs.splice(activeOrbs.indexOf(orb), 1)
     }
-  })
-  
-  activeFlares.forEach(flare => {
+  }
+  for (let flare of activeFlares) {
     if (Date.now() - flare[2] > 180000 || flare[3].isDead()) {
       activeFlares.splice(activeFlares.indexOf(flare), 1)
     }
-  })
+  }
 };
 
 register("worldLoad", () => {
