@@ -126,7 +126,7 @@ export const data = new PogObject("OdinCheata", {
         "arrowTrajectory": {
             "toggle": false,
             "name": "Arrow Trajectory",
-            "description": "Renders 3 boxes where an arrow of a terminator is expected to land. The farther the shot, the less error",
+            "description": "Renders 3 boxes where an arrow of a terminator is expected to land. The farther the shot, the less error, also renders real dragon hitboxes",
         },
         "portalFix": {
             "toggle": false,

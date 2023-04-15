@@ -8,8 +8,9 @@ let dragonRenderQueue = []
 let entityPositions = {}
 const EntityDragon = Java.type("net.minecraft.entity.boss.EntityDragon")
 
-register("tick", () => {
+register(net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent, (e) => {
     if (!data.general.arrowTrajectory.toggle) return
+    if (e.phase == "END") return
     for (let dragon of World.getAllEntitiesOfType(EntityDragon)) {
         for (let entity of dragon.getEntity().func_70021_al()) {
             if (!entityPositions[entity.func_145782_y()]) {
@@ -27,9 +28,11 @@ register("tick", () => {
 })
 
 register("renderWorld", (partialTicks) => {
+    if (!data.general.arrowTrajectory.toggle) return
     if (!dragonRenderQueue) return
     for (let dragon of dragonRenderQueue) {
         for (let entity of dragon.getEntity().func_70021_al()) {
+            if (!entityPositions[entity.func_145782_y()]) return
             let lastX = entityPositions[entity.func_145782_y()][0]
             let lastY = entityPositions[entity.func_145782_y()][1]
             let lastZ = entityPositions[entity.func_145782_y()][2]

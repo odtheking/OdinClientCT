@@ -1,5 +1,5 @@
 import { data } from "../../gui"
-import { modMessage, renderCustomBeacon } from "../../utils/utils"
+import { modMessage } from "../../utils/utils"
 
 // Vanq Notifier
 register("chat", () => {

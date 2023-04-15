@@ -1,4 +1,4 @@
-import { modMessage, sendPlacementPacketWithStack } from "../../utils/utils"
+import { sendPlacementPacketWithStack } from "../../utils/utils"
 import { data } from "../../gui"
 
 let isRightClickKeyDown = false
@@ -10,7 +10,6 @@ register("tick", () => {
     isRightClickKeyDown = Client.getMinecraft().field_71474_y.field_74313_G.func_151470_d()
 })
 
-const player = Player.getPlayer()
 register("playerInteract", (action, pos, event) => {
     if (!data.qol.noBlockAnimation.toggle || event.action != "RIGHT_CLICK_AIR") return
     const item = Player.getHeldItem()
