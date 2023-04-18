@@ -1,4 +1,4 @@
-import { modMessage, sendPlacementPacketWithStack } from "../../utils/utils"
+import { sendPlacementPacketWithStack } from "../../utils/utils"
 import { data } from "../../gui"
 
 let isRightClickKeyDown = false
