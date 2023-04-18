@@ -38,149 +38,126 @@ const flareTextures = {
   "ewogICJ0aW1lc3RhbXAiIDogMTY0NjY4NzM0NzQ4OSwKICAicHJvZmlsZUlkIiA6ICI0MWQzYWJjMmQ3NDk0MDBjOTA5MGQ1NDM0ZDAzODMxYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJNZWdha2xvb24iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzAwNjJjYzk4ZWJkYTcyYTZhNGI4OTc4M2FkY2VmMjgxNWI0ODNhMDFkNzNlYTg3YjNkZjc2MDcyYTg5ZDEzYiIKICAgIH0KICB9Cn0=": ["SOS", new Color(0.6, 0, 0.95, 1), 2]
 }
 
-const orbPriorities = {  
-  "null": 0,
-  "radiant": 1,
-  "mana": 2,
-  "warning": 3,
-  "overflux": 4,
-  "alert": 5, 
-  "plasma": 6,
-  "sos": 7,
-};
-
-String.prototype.capitalize = function() {
-  return this.charAt(0).toUpperCase() + this.slice(1);
+const flareColors = {
+  "SOS": new Color(0.6, 0, 0.95, 1), 
+  "Alert": new Color(0, 0.5, 0.95, 1),
+  "Warning": new Color(0, 0.9, 0.15, 1),
 }
 
-let activeOrbs = []
-let activeFlare
+const orbPriorities = {  
+  "null": 0,
+  "Radiant": 1,
+  "Mana": 2,
+  "Warning": 3,
+  "Overflux": 4,
+  "Alert": 5, 
+  "Plasma": 6,
+  "Sos": 7,
+};
+
 const flareMove = new Gui()
-let flareType = undefined
-let activeFlares = []
+const deployableArray = []
+const orbKeys = Object.keys(orbPriorities);
 
 register("step", () => {
   if (!data.general.deployableTimer.toggle) return
-  updateFlares();
-  getOrb()
-  activeOrbs.sort((a, b) => orbPriorities[b.orb] - orbPriorities[a.orb])
-  getFlares(activeFlares, orbPriorities, flareTextures)
-}).setFps(10)
 
+  const deployables = World.getAllEntitiesOfType(EntityArmorStand)
+    .filter(entity => Player.asPlayerMP().distanceTo(entity) < 40 && entity.getTicksExisted() <= 3600);
 
-register("renderOverlay", () => {
-  if (!data.general.deployableTimer.toggle) return
-  
-  if (flareMove.isOpen()) {
-    fontopenbold.drawStringWithShadow("SOS", flaredata.flareX, flaredata.flareY, new Color(0.6, 0, 0.95, 1));
-    fontopenbold.drawStringWithShadow("180s", flaredata.flareX, flaredata.flareY + 15 , new Color(0, 0.9, 0.15, 1));
-    firework.draw(flaredata.flareX - 40, flaredata.flareY - 9, 3)
-  } else if (data.general.deployableTimer.toggle) {
-    renderDeployable(activeFlares,activeOrbs,orbPriorities)
-  }
+  for (let i = 0; i < deployables.length; i++) {
+    const deployable = deployables[i];
+    if (deployableArray.find(deployableEntry => deployableEntry[0] == deployable.getEntity().func_145782_y())) continue;
 
-});
+    const deployableName = deployable.getName().removeFormatting();
+    const time = parseInt(deployableName.substr(-3, 2));
 
-
-const getOrb = () => {
-  for (let orb of Object.keys(orbPriorities)) {
-    for (let armorStand of World.getAllEntitiesOfType(EntityArmorStand)) {
-      const name = armorStand.getName().removeFormatting();
-      if (name.startsWith(orb.capitalize())) {
-        const match = name.match(/(.+) (\d+)s/);
-        const timeRemaining = parseInt(match[2]);
-        if (armorStand.distanceTo(Player.asPlayerMP()) <= 20) {
-          activeOrbs.push({ 
-            orb: orb, 
-            time: timeRemaining,
-            entity: armorStand
-          })
+    if (!isNaN(time)) {
+      for (let j = 0; j < orbKeys.length; j++) {
+        const orb = orbKeys[j];
+        if (deployableName.startsWith(orb)) {
+          deployableArray.push({
+            priority: orb,
+            time: time,
+            entity: deployable,
+            type: "orb"
+          });
+        }
+      }
+    } else {
+      const texture = getCtEntityHelmetTexture(deployable);
+      if (texture) {
+        const flareType = flareTextures[texture];
+        if (flareType) {
+          deployableArray.push({
+            priority: flareType,
+            time: 180,
+            entity: deployable,
+            type: "flare"
+          });
         }
       }
     }
   }
-}
 
-const getFlares = (activeFlares, orbPriorities, flareTextures) => {
-  const flares = []
-  for (let e of  World.getAllEntities().filter(e => e && e.getEntity() instanceof EntityArmorStand)) {
-    if (activeFlares.find(f => f[0] == e.getEntity().func_145782_y())) return
-    const texture = getCtEntityHelmetTexture(e)
-    const type = flareTextures[texture]
-    if (type) flares.push([type, e])
-  }
-  for (let flare of flares.sort((a, b) => orbPriorities[b] - orbPriorities[a])) {
-    const [type, flareEnt] = flare
-    const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
-    const [x1, y1, z1] = [flareEnt.getX(), flareEnt.getY(), flareEnt.getZ()]
-    const dist = getDistance3D(x, y, z, x1, y1, z1)
-    if (dist <= 40) activeFlares.push([flareEnt.getEntity().func_145782_y(), type, Date.now(), flareEnt])
-  }
-}
+  deployableArray.sort((a, b) => orbPriorities[b.priority] - orbPriorities[a.priority]);
+}).setFps(7);
 
-function renderDeployable(activeFlares, activeOrbs, orbPriorities) {
-  const flareData = activeFlares.sort((a, b) => b[2] - a[2]).find(f => f[3].distanceTo(Player.asPlayerMP()) <= 40)
-  const activeOrb = activeOrbs[0]
-  const activeOrbTime = activeOrb?.time
+const updateDeployables = () => {
+  if (deployableArray.length == 0) return;
 
-  if (!flareData) {
-    if (activeOrb) {
-      drawOrb(activeOrb, activeOrbTime)
-      return
+  for (let i = 0; i < deployableArray.length; i++) {
+    const deployable = deployableArray[i];
+
+    if (deployable.entity.isDead()) {
+      deployableArray.splice(i, 1);
+      continue;
     }
-    flareType = undefined
-    return
-  }
-    
-  const flareType = flareData[1]
-  const timePassed = Date.now() - flareData[2]
-  const timeRemaining = ((180000 - timePassed) / 1000).toFixed(0)
-    
-  if (activeOrb) {
-    if (orbPriorities[activeOrb] > orbPriorities[activeFlare]) {
-      drawOrb(activeOrb, activeOrbTime)
-    } else {
-      drawFlare(flareType, timeRemaining)
+
+    if (deployable.type == "orb" && Player.asPlayerMP().distanceTo(deployable.entity) > 20) {
+      deployableArray.splice(i, 1);
+      continue;
     }
-  } else {
-    drawFlare(flareType, timeRemaining)
-  }
-}
 
-const drawOrb = (orb, time) => {
-  if (time === 0) return
-  orb = orb.orb
-  let activeOrbImage = orb === 'plasma' ? PLASMAPOWERORB : 
-  orb === 'mana' ? MANAFLUXPOWERORB : 
-  orb === 'radiant' ? RADIANTPOWERORB : 
-  orb === 'overflux' ? OVERFLUXPOWERORB : null
-  activeOrbImage?.draw(flaredata.flareX, flaredata.flareY, 22, 22)
-  fontopenbold.drawStringWithShadow(`${time}s`, flaredata.flareX + 25, flaredata.flareY + 2, time >= 30 ? Color.GREEN : time >= 10 ? Color.YELLOW : Color.RED);
-}
-
-const drawFlare = (flare, time) => {
-  const flareString = flare[0]
-  const color = flare[1]
-  firework.draw(flaredata.flareX - 40, flaredata.flareY - 9, 3)
-  fontopenbold.drawStringWithShadow(flareString.capitalize(), flaredata.flareX, flaredata.flareY, color);
-  fontopenbold.drawStringWithShadow(`${parseInt(time)}s`, flaredata.flareX, flaredata.flareY + 15, 
-  time > 50 ? new Color(0, 0.9, 0.15, 1) : time > 20 ? new Color(0.9, 0.8, 0, 1) : new Color(0.95, 0, 0, 1));
-}
-
-function updateFlares() {
-  for (let orb of activeOrbs) {
-    if (orb.entity?.distanceTo(Player.asPlayerMP()) > 20 || orb.time <= 1 || orb.entity?.isDead()) {
-      activeOrbs.splice(activeOrbs.indexOf(orb), 1)
-    }
-  }
-  for (let flare of activeFlares) {
-    if (Date.now() - flare[2] > 180000 || flare[3].isDead()) {
-      activeFlares.splice(activeFlares.indexOf(flare), 1)
+    if (deployable.type == "flare" && Player.asPlayerMP().distanceTo(deployable.entity) > 40) {
+      deployableArray.splice(i, 1);
+      continue;
     }
   }
 };
 
-register("worldLoad", () => {
-  flareType = undefined
-  activeFlares.length = 0
-})
+register("renderOverlay", () => {
+  updateDeployables();
+  if (flareMove.isOpen()) {
+    drawFlare("SOS", "180");
+  } else if (data.general.deployableTimer.toggle) {
+
+    if (deployableArray.length == 0) return;
+    const deployable = deployableArray[0];
+    if (deployable.type == "orb") {
+      drawOrb(deployable.priority, deployable.time);
+    } else if (deployable.type == "flare") {
+      const timeRemaining = Math.round(deployable.time - (deployable.entity.getTicksExisted() / 20));
+      drawFlare(deployable.priority, timeRemaining);
+    }
+  }
+});
+
+
+const drawOrb = (orb, time) => {
+  if (time === 0) return
+  let activeOrbImage = orb === 'Plasma' ? PLASMAPOWERORB : 
+  orb === 'Mana' ? MANAFLUXPOWERORB : 
+  orb === 'Radiant' ? RADIANTPOWERORB : 
+  orb === 'Overflux' ? OVERFLUXPOWERORB : null
+  activeOrbImage?.draw(flaredata.flareX, flaredata.flareY, 22, 22)
+  opensansbold.drawStringWithShadow(`${time}s`, flaredata.flareX + 25, flaredata.flareY + 2, time >= 30 ? Color.GREEN : time >= 10 ? Color.YELLOW : Color.RED);
+}
+
+const drawFlare = (flare, time) => {
+  const color = flareColors[flare]
+  firework.draw(flaredata.flareX - 40, flaredata.flareY - 9, 3)
+  opensansbold.drawStringWithShadow(flare, flaredata.flareX, flaredata.flareY, color);
+  opensansbold.drawStringWithShadow(`${time}s`, flaredata.flareX, flaredata.flareY + 15, 
+  time > 50 ? new Color(0, 0.9, 0.15, 1) : time > 20 ? new Color(0.9, 0.8, 0, 1) : new Color(0.95, 0, 0, 1));
+}

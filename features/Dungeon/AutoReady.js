@@ -18,9 +18,7 @@ register("step", () => {
     if (!data.dungeons.autoMort.toggle || Skyblock.area != 'Dungeon' || playerready || click) return
     const mort = World.getAllEntities().find(mort => mort.getName().includes('Mort'))
     if (!mort) return
-    const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
-    const [mx, my, mz] = [mort.getX(), mort.getY(), mort.getZ()]
-    let dist = getDistance3D(x, y, z, mx, my, mz)
+    let dist = Player.asPlayerMP().distanceTo(mort)
     if (dist <= 5) {
         interactWith(mort)
         click = true

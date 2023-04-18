@@ -1,4 +1,3 @@
-import Dungeon from "../../../BloomCore/dungeons/Dungeon"
 import Skyblock from "../../../BloomCore/Skyblock"
 import { data } from "../../gui"
 import { modMessage, useAbility } from "../../utils/utils"
@@ -21,24 +20,23 @@ register("chat", (message) => {
         inBoss = true
     }
 }).setCriteria("${msg}")
+
 register("step", () => {
     if (!data.dungeons.autoWish.toggle || Skyblock.area !== 'Dungeon') return
-    Scoreboard.getLines().forEach(line => {
-        const s = line.getName()
-        if (ChatLib.removeFormatting(s).startsWith("[")) {
-            const hp = s.split(" ")[2].replace('§c❤', '')
-            const low = hp.includes("§c")
-            if (s.includes("DEAD")) return
-            if (low && canWish && !inBoss) {
-                try {
-                    useAbility()
-                    modMessage("Using wish.")
-                    canWish = false
-                } catch (e) {
-                    canWish = true
-                }
-            }
-        }
-    })
+    if (!canWish && inBoss) return
+    checkPlayerHP()
+            
 }).setFps(5)
 
+
+function checkPlayerHP() {
+    const players = World.getAllPlayers();
+    players.forEach(player => {
+      const maxHP = player.getMaxHP();
+      const currentHP = player.getHP();
+      if (currentHP < maxHP * 0.2) {
+        modMessage(`${player.getName()} is at less than 20% HP! wishing!`);
+        useAbility()
+      }
+    });
+  }

@@ -28,15 +28,17 @@ register("renderTileEntity", (entity) => {
 register("tick", () => {
   if (!data.qol.fpsBoost.toggle || !World.getWorld()) return
   if (Date.now() - lastClear >= 30000) {
-    World.getWorld().field_73010_i.forEach(e => {
+    const players = World.getWorld().field_73010_i;
+    for (let i = 0; i < players.length; i++) {
+      const e = players[i];
       if (e.field_70128_L) {
-        World.getWorld().func_72900_e(e)
+        World.getWorld().func_72900_e(e);
       }
       if (e.field_70165_t == 0 && e.field_70163_u == 0 && e.field_70161_v == 0) {
-        World.getWorld().func_72900_e(e)
+        World.getWorld().func_72900_e(e);
       }
-  })
-  lastClear = Date.now()
+    }
+    lastClear = Date.now();
   }
 })
 

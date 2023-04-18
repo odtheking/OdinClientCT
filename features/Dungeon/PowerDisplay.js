@@ -30,6 +30,7 @@ const blessings = {
   power: /Blessing of Power (.+)/,
   time: /Blessing of Time (.+)/
 };
+
 const updatePowerDisplay = () => {
   if (!Dungeon.inDungeon || !data.dungeons.powerDisplay.toggle || powerMove.isOpen()) {
     pDisplay.clearLines();
@@ -37,17 +38,29 @@ const updatePowerDisplay = () => {
   }
   let atLine = 0;
   const footer = TabList.getFooter().removeFormatting();
+
   pDisplay.setRenderLoc(powerdata.powerX, powerdata.powerY);
-  for (let [name, pattern] of Object.entries(blessings)) {
-    const match = footer.match(pattern);
-    if (match) {
-      const [, value] = match;
-      pDisplay.setLine(atLine, `&c${name.charAt(0).toUpperCase() + name.slice(1)}&r: &a${romanToInt(value)}`);
-      atLine++;
-    }
+
+  // Handle power blessing
+  let powerMatch = footer.match(blessings.power);
+  if (powerMatch) {
+    const [, powerValue] = powerMatch;
+    pDisplay.setLine(atLine, `&cPower&r: &a${romanToInt(powerValue)}`);
+    atLine++;
   }
+
+  // Handle time blessing
+  let timeMatch = footer.match(blessings.time);
+  if (timeMatch) {
+    const [, timeValue] = timeMatch;
+    pDisplay.setLine(atLine, `&cTime&r: &a${romanToInt(timeValue)}`);
+    atLine++;
+  }
+
   for (let i = 0; i < atLine; i++) {
-    pDisplay.getLine(i).setScale(1.7).setShadow(true);
+    pDisplay.getLine(i)
+      .setScale(1.7)
+      .setShadow(true);
   }
 };
 
