@@ -27,8 +27,15 @@ register(net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent, (e) 
     }
 })
 
-register("renderWorld", (partialTicks) => {
-    if (!data.general.arrowTrajectory.toggle) return
+register("renderWorld", () => {
+    if (!data.general.arrowTrajectory.toggle || !Player.getHeldItem()?.getName()?.includes("Terminator")) return
+    setTrajectoryHeading(-5, 0)
+   // drawTrajectory()
+    setTrajectoryHeading(0, -0.1)
+   // drawTrajectory()
+    setTrajectoryHeading(5, 0)
+   // drawTrajectory()
+    drawCollisionBoxes()
     if (!dragonRenderQueue) return
     for (let dragon of dragonRenderQueue) {
         for (let entity of dragon.getEntity().func_70021_al()) {
@@ -50,17 +57,6 @@ register("renderWorld", (partialTicks) => {
         }
     }
     dragonRenderQueue.length = 0
-})
-
-register("renderWorld", () => {
-    if (!data.general.arrowTrajectory.toggle || !Player.getHeldItem()?.getName()?.includes("Terminator")) return
-    setTrajectoryHeading(-5, 0)
-   // drawTrajectory()
-    setTrajectoryHeading(0, -0.1)
-   // drawTrajectory()
-    setTrajectoryHeading(5, 0)
-   // drawTrajectory()
-    drawCollisionBoxes()
 })
 
 function setTrajectoryHeading(yawOffset, yOffset) {
@@ -145,7 +141,10 @@ function drawTrajectory() {
 function drawCollisionBoxes() {
     if (!boxRenderQueue) return
     for (let b of boxRenderQueue) {
-        if (Math.hypot(Player.getRenderX() - b.x, Player.getRenderY() + Player.asPlayerMP().getEyeHeight() - b.y, Player.getRenderZ() - b.z) < 2) return
+        if (Math.hypot(Player.getRenderX() - b.x, Player.getRenderY() + Player.asPlayerMP().getEyeHeight() - b.y, Player.getRenderZ() - b.z) < 2) {
+            boxRenderQueue.length = 0
+            return
+        }
         RenderLib.drawEspBox(b.x, b.y - 0.15, b.z, b.w, b.h, 0, 1, 1, 1, false)
     }
     boxRenderQueue.length = 0
