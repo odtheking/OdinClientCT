@@ -20,68 +20,68 @@ export const data = new PogObject("OdinCheata", {
         "autoIcefill": {
             "toggle": false,
             "name": "Auto Icefill",
-            "description": "Automatically does the ice fill puzzle in dungeons",
+            "description": "Automates the ice fill puzzle in dungeons for a seamless experience",
         },
         "autoReady": {
             "toggle": false,
             "name": "Auto Ready",
-            "description": "Automatically clicks in the ready GUI",
+            "description": "Instantly clicks the ready button in the GUI for faster dungeon progression",
         },
         "autoMort": {
             "toggle": false,
             "name": "Auto Mort",
-            "description": "Automatically gets in range of mort and opens his GUI",
+            "description": "Effortlessly moves within range of Mort and opens his GUI for smooth interaction",
         },
         "autoUlt": {
             "toggle": false,
             "name": "Auto Ult",
-            "description": "Automatically uses class ultimate on certain times",
+            "description": "Automatically triggers class ultimate at optimal moments for maximum effectiveness",
         },
         "autoShield": {
             "toggle": false,
             "name": "Auto Shield",
-            "description": "Automatically uses wither shield when not full hp and in boss",
+            "description": "Activates wither shield when health is low and in boss fights for added protection",
         },
         "autoWish": {
             "toggle": false,
             "name": "Auto Wish",
-            "description": "Automatically uses wish when a temmate is low HP",
+            "description": "Automatically casts wish to heal teammates when their HP is low",
         },
         "autoMask": {
             "toggle": false,
             "name": "Auto Mask",
-            "description": "Automatically swaps between bonzo and spirit mask",
+            "description": "Seamlessly switches between Bonzo and Spirit Mask for optimal performance",
         },
         "autoLeap": {
             "toggle": false,
             "name": "Auto Leap",
-            "description": "Automatically leaps to a player when writing !tp in party chat",
+            "description": "Automatically leaps to a player upon typing !tp in party chat for rapid assistance",
         },
         "powerDisplay": {
             "toggle": false,
             "name": "Power Display",
-            "description": "Shows the power blessing /movepower",
+            "description": "Displays the power blessing and move power for enhanced awareness",
         },
         "bloodTriggerBot": {
             "toggle": false,
-            "name": "Blood triggerbot",
-            "description": "Instantly clicks if you are looking at a blood mob when it spawns",
+            "name": "Blood Triggerbot",
+            "description": "Automatically clicks when targeting a blood mob as it spawns for quick response",
         },
         "bearTriggerBot": {
             "toggle": false,
             "name": "Spirit Bear TB",
-            "description": "Instantly clicks if you are looking at a spirit bear when it spawns",
+            "description": "Instantly clicks when aiming at a spirit bear as it spawns for rapid engagement",
         },
         "superBoom": {
             "toggle": false,
             "name": "Superboom",
-            "description": "Uses superboom if you click on a crypt or boom-able wall",
+            "description": "Automatically uses Superboom when clicking on crypts or boom-able walls for swift progress",
         },
         "bloodTracker": {
-            "toggle": false, 
+            "toggle": false,
             "name": "Blood Tracker",
-            "description": "Shows how many blood mobs are left",
-        }, 
+            "description": "Displays the remaining blood mobs for better tracking and completion",
+        },
     },
 
     'general': {
@@ -91,48 +91,49 @@ export const data = new PogObject("OdinCheata", {
         "partyCmds": {
             "toggle": false,
             "name": "Party Cmds",
-            "description": "Custom party commands use !help in party chat",
+            "description": "Enhanced party commands; type !help in party chat for usage",
         },
         "guildCmds": {
             "toggle": false,
             "name": "Guild Cmds",
-            "description": "Custom guild commands use !help in guild chat",
+            "description": "Advanced guild commands; type !help in guild chat for instructions",
         },
         "guildGM": {
             "toggle": false,
             "name": "Guild GM",
-            "description": "Responds to anyone in guild chat saying gm/gn",
+            "description": "Automatically responds to guild chat greetings and farewells (gm/gn)",
         },
         "autoSell": {
             "toggle": false,
             "name": "Auto Sell",
-            "description": "Automatically sells items in the trades GUI, /autosell to configure"
+            "description": "Effortlessly sells items in trades GUI; use /autosell to configure settings"
         },
         "deployableTimer": {
             "toggle": false,
             "name": "Deployable Timer",
-            "description": "Shows a timer and the type of the deployable around you /moveflare",
+            "description": "Displays a timer and deployable type around you; use /moveflare to adjust",
         },
         "kuudraAlerts": {
             "toggle": false,
             "name": "Kuudra Alerts",
-            "description": "Shows messages on screen on specific events in kuudra",
+            "description": "Provides on-screen notifications for specific events in Kuudra",
         },
         "esp": {
             "toggle": false,
             "name": "ESP",
-            "description": "You can add whatever mob you want into the list /esp",
+            "description": "Customize mob tracking by adding desired mobs to the list with /esp",
         },
         "arrowTrajectory": {
             "toggle": false,
             "name": "Arrow Trajectory",
-            "description": "Renders 3 boxes where an arrow of a terminator is expected to land. The farther the shot, the less error, also renders real dragon hitboxes",
+            "description": "Displays three boxes indicating the expected landing points of a Terminator arrow; accuracy decreases with distance",
         },
         "portalFix": {
             "toggle": false,
             "name": "Portal Fix",
-            "description": "Allows you to open GUIs in a portal and removes the nausea effect and portal effect overlay",
+            "description": "Enables GUI access in portals and removes nausea effect and portal overlay for a better experience",
         },
+
         
     },
 
@@ -143,42 +144,42 @@ export const data = new PogObject("OdinCheata", {
         "relicAura": {
             "toggle": false,
             "name": "Relic Aura",
-            "description": "Automatically picks up relics when you are within 5 blocks of them",
+            "description": "Automatically collects relics within a 5-block radius",
         },
         "dragonBoxes": {
             "toggle": false,
             "name": "Dragon Boxes",
-            "description": "Creates custom and decently accurate boxes in p5",
+            "description": "Displays custom and reasonably accurate bounding boxes in Phase 5",
         },
         "dragonTimer": {
             "toggle": false,
             "name": "Dragon Timer",
-            "description": "Shows when a M7 dragon will spawn",
+            "description": "Indicates when an M7 dragon is about to spawn",
         },
         "autoEdrag": {
             "toggle": false,
             "name": "Auto Edrag",
-            "description": "Automatically equips edrag after relics",
+            "description": "Automatically equips Ender Dragon after collecting relics",
         },
         "fuckDiorite": {
             "toggle": false,
             "name": "FUCK DIORITE",
-            "description": "Replaces diorite with glass in p2 (don't use connected blocks)",
+            "description": "Replaces diorite with glass in Phase 2 (avoid using connected blocks)",
         },
         "preGhostBlock": {
             "toggle": false,
             "name": "Pre Ghostblock",
-            "description": "Makes ghost blocks and covinient spots in the m7 boss",
+            "description": "Prevents ghost blocks and creates convenient spots in the M7 boss fight",
         },
         "p5Waypoints": {
             "toggle": false,
             "name": "P5 Waypoints",
-            "description": "Marks specific location in the p5 of m7",
+            "description": "Marks specific locations in Phase 5 of M7",
         },
         "m7Sounds": {
             "toggle": false,
             "name": "Custom M7 Music",
-            "description": "Open the song.js file for instructions its wip if u dont know how to, then its not for you atm",
+            "description": "For instructions, open the song.js file; it's a work in progress and not recommended for inexperienced users",
         },      
     },
     
@@ -189,42 +190,42 @@ export const data = new PogObject("OdinCheata", {
         "brokenHype": {
             "toggle": false,
             "name": "Broken Hype",
-            "description": "Automatically alerts when your hype is broken",
+            "description": "Provides alerts when your hype is broken for quick recovery",
         },
         "vanqNotifier": {
             "toggle": false,
             "name": "Vanq Notifier",
-            "description": "Automatically sends a message in party chat and makes a beacon whenever odinclient/patcher sends coords in party chat",
+            "description": "Automatically sends a party chat message and creates a beacon when OdinClient/Patcher sends coordinates",
         },
         "terminatorAC": {
             "toggle": false,
             "name": "Terminator AC",
-            "description": "Spams right click while term is held, ranomized cps",
+            "description": "Automatically clicks while holding a Terminator with randomized clicks per second",
         },
         "cookieClicker": {
             "toggle": false,
             "name": "Cookie Clicker",
-            "description": "Spams the cookie while in the cookie clicker menu",
+            "description": "Rapidly clicks the cookie while in the Cookie Clicker menu",
         },
         "abiphoneGhoster": {
             "toggle": false,
             "name": "Abiphone Ghoster",
-            "description": "Ghosts calls from abiphone", 
+            "description": "Ignores calls from Abiphone for uninterrupted gameplay", 
         },
         "fpsBoost": {
             "toggle": false,
             "name": "FPS Boost",
-            "description": "Boosts fps cause yes",
+            "description": "Enhances FPS performance for a smoother experience",
         },
         "wayPoints": {
             "toggle": false,
             "name": "WayPoints",
-            "description": "Makes a waypoint whenever getting coords in chat and /ow for an instant one of ur coords",
+            "description": "Creates a waypoint when coordinates are sent in chat; use /ow for instant waypoints at your location",
         },
         "noBlockAnimation": {
             "toggle": false,
             "name": "No Block Animation",
-            "description": "Disables the block animation of swords with a right click ability, acts like NoSlow",
+            "description": "Disables block animation for swords with right-click abilities, similar to NoSlow",
         },
     }
 }, "config/guidata.json")
@@ -247,13 +248,12 @@ register('renderOverlay', () => {
     mx = Client.getMouseX()
     my = Client.getMouseY()
 
-    for (let i = 0; i < tabs.length; i++) {
-        const tab = tabs[i]
+    tabs.forEach((tab, index) => {
         rect(255, 215, 0, 225, tab.x, tab.y, buttonWidth, buttonHeight)
-        centeredString(fontmc, tabTitles[i], tab.x, tab.y, 1, 0, 0, 1)
+        centeredString(fontmc, tabTitles[index], tab.x, tab.y, 1, 0, 0, 1)
         drawTab(tab)
-        drawDesc(mx, my, tab, index)
-    }
+    })
+    tabs.forEach((tab, index) => drawDesc(mx, my, tab, index))
 
     Client.getMinecraft().field_71460_t.func_181022_b()
     Client.getMinecraft().field_71460_t.func_175069_a(new ResourceLocation("shaders/post/blur.json"))
@@ -262,11 +262,11 @@ register('renderOverlay', () => {
 register('dragged', (dx, dy, x, y, b) => {
     if (!mainGui.isOpen() || b != 0) return
     for (let tab of tabs) checkDrag(dx, dy, mx, my, tab)
-    data.save()
 })
 
 register('clicked', (x, y, b, isDown) => {
     if (!isDown || !mainGui.isOpen()) return
     for (let tab of tabs) checkTab(x, y, b, tab)
-    data.save()
 })
+
+data.autosave(5000)

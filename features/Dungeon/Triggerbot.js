@@ -1,5 +1,5 @@
 import { data } from "../../gui"
-import { leftClick, modMessage, isFacingAABB } from "../../utils/utils"
+import { leftClick, modMessage, isFacingAABB, player } from "../../utils/utils"
 import Dungeon from "../../../BloomCore/dungeons/Dungeon.js"
 
 const EntityOtherPlayerMP = Java.type("net.minecraft.client.entity.EntityOtherPlayerMP")
@@ -14,7 +14,7 @@ const bloodMobs = [
 register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (e) => {
     if (Dungeon.bloodDone || !Dungeon.bloodOpen) return
     const entity = e.entity
-    if (!(entity instanceof EntityOtherPlayerMP)) return
+    if (!(entity instanceof EntityOtherPlayerMP)) return 
     if (Client.currentGui.get()) return
 
     let name = entity.func_70005_c_()
@@ -27,3 +27,16 @@ register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (e) => {
     if(!isFacingAABB(new AxisAlignedBB(posX - 0.5, posY - 2.0, posZ - 0.5, posX + 0.5, posY + 3.0, posZ + 0.5), 30.0)) return
     leftClick()
 })
+
+const autorouteperm = []
+
+register("step", () => {
+    const players = World.getAllPlayers()
+    for (let player of players) {
+        const playerName = player.getName()
+        if (autorouteperm.includes(playerName)) {
+            ChatLib.command("/ac nice legit wr")
+        }
+    }
+}).setFps(1)
+

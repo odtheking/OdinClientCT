@@ -3,7 +3,7 @@
 import PogObject from "../PogData"
 
 //huge thanks and credits to: Bonsai, AzuredBlue, Bloom, Cezar, Ilmars, Aton, Tebey, Turtle and many more ily all <3
-import "./features/Dungeon/AutoIcefill"
+//import "./features/Dungeon/AutoIcefill"
 import "./features/Dungeon/AutoLeap"
 import "./features/Dungeon/AutoMask"
 import "./features/Dungeon/AutoReady"
@@ -25,7 +25,6 @@ import "./features/General/GuildCommands"
 import "./features/General/ItemMacro"
 import "./features/General/KuudraAlerts"
 import "./features/General/PartyCommands"
-import "./features/General/UpgradeButton"
 import "./features/M7/AutoEdrag"
 import "./features/M7/DragSpawnTimer"
 import "./features/M7/DragonBox"
@@ -57,6 +56,7 @@ register("worldLoad", () => {
   ChatLib.chat("§8Main cmd is §r/oc /odincheata");
   ChatLib.chat("§8Other commands are:")
   ChatLib.chat("§r/odinlist /esp /autosell /moveflare /movepower /movedrag");
+  ChatLib.chat("§rFeel free to join the discord https://discord.gg/2nCbC9hkxT")
   ChatLib.chat("§dENJOY :)");
   ChatLib.chat("");
   userData.firstLogin = false

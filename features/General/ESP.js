@@ -61,9 +61,10 @@ const esplist = new PogObject("OdinCheata", {
 
 function reloadMap() {
     entitiesToRender.clear()
-    for (let stand of World.getAllEntities()) {
+    const allEntities = World.getAllEntitiesOfType(EntityArmorStand);
+    for (let i = 0; i < allEntities.length; i++) {
+        const stand = allEntities[i];
       const mcStand = stand.getEntity()
-      if (!(mcStand instanceof EntityArmorStand)) return
       const name = stand.getName().removeFormatting().toLowerCase()
       // Check if the entity's name is in the esplist
       if (!esplist.names.some(espName => name.includes(espName))) return
@@ -72,7 +73,7 @@ function reloadMap() {
       if (entities.length == 0) return
       entitiesToRender.set(mcStand.func_145782_y(), entities[0])
     }
-  }
+}
 
 register("worldLoad", () => {
     reloadMap()
@@ -83,23 +84,22 @@ let entitiesToRender = new Map() // key: ArmorStand, value: McEntity
 register('step', () => {
     //console.log(entitiesToRender.size)
     if (!data.general.esp.toggle) return
-    for (let stand of World.getAllEntities()) {
+    const allEntities = World.getAllEntitiesOfType(EntityArmorStand);
+    for (let i = 0; i < allEntities.length; i++) {
+        const stand = allEntities[i];
         const mcStand = stand.getEntity()
-        if (!(mcStand instanceof EntityArmorStand)) return
         const matchingEntity = entitiesToRender.get(mcStand.func_145782_y())
         if (matchingEntity && matchingEntity.field_70128_L) {
             entitiesToRender.delete(mcStand.func_145782_y())
-        } else if (matchingEntity) return
+        } else if (matchingEntity) continue;
         const name = stand.getName().removeFormatting().toLowerCase()
-        // Check if the entity's name is in the esplist
         if (!esplist.names.some(espName => name.includes(espName))) {
-            // If the entity's name is not in the esplist, remove it from the entitiesToRender map
             entitiesToRender.delete(mcStand.func_145782_y())
-            return
+            continue
         }
         const entities = World.getWorld().func_72839_b(mcStand, mcStand.func_174813_aQ().func_72314_b(1, 5, 1)).filter(e => e && !(e instanceof EntityArmorStand) && e != Player.getPlayer())
             .sort((a, b) => noSqrt3DDistance(a, mcStand) - noSqrt3DDistance(b, mcStand))
-        if (entities.length == 0) return
+        if (entities.length == 0) continue;
         entitiesToRender.set(mcStand.func_145782_y(), entities[0])
     }
 }).setFps(2)
@@ -108,13 +108,14 @@ const espLoop = Executors.newSingleThreadExecutor()
 espLoop.execute(() => {
     register("renderWorld", (partialTicks) => {
         if (!data.general.esp.toggle) return
-        for (let [key, value] of entitiesToRender) {
+
+        for (const [key, value] of entitiesToRender.entries()) {
             if (value && value.field_70128_L) {
-                entitiesToRender.delete(key)
-                return
+                entitiesToRender.delete(key);
+                continue;
             }
-            const [x, y, z, w, h] = getEntityRenderParams(value, partialTicks)
-            RenderLib.drawEspBox(x, y, z, w, h, 1, 1, 0, 1, true)
+            const [x, y, z, w, h] = getEntityRenderParams(value, partialTicks);
+            RenderLib.drawEspBox(x, y, z, w, h, 1, 1, 0, 1, false);
         }
-    })
+    });
 })

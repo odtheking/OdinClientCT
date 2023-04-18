@@ -1,5 +1,5 @@
 import { data } from "../../gui"
-import { modMessage } from "../../utils/utils"
+import { alert, modMessage } from "../../utils/utils"
 
 // Vanq Notifier
 register("chat", () => {
@@ -10,6 +10,7 @@ register("chat", () => {
             ChatLib.command("pc Vanquisher spawned at: " + Math.round(Player.getX()) + " " + Math.round(Player.getY()) + " " + Math.round(Player.getZ()) + line)
         }
     }
+    alert("Vanquisher has spawned!")
     modMessage("Vanquisher has spawned!")
 }).setCriteria("A Vanquisher is spawning nearby!")
 

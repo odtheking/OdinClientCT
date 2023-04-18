@@ -40,11 +40,12 @@ function checkParticle(particle, color) {
 
 register("spawnParticle", (particle, type, event) => {
     if (type.toString() !== "FLAME") return;
-    Object.keys(colors).forEach((color) => {
-        if(checkParticle(particle, color) && times[color] === null){
+    const colorKeys = Object.keys(colors);
+    for (let color of colorKeys) {
+        if (checkParticle(particle, color) && times[color] === null) {
             times[color] = new Date().getTime();
         }
-    });
+    }
 });
 
 const dragonspawntime = 5000
@@ -62,7 +63,7 @@ const timerRegister = register("renderWorld", () => {
     const dragonColors = ["orange", "red", "green", "blue", "purple"];
     const colorCodes = ["6","c","a","b","5"]
     dragonColors.forEach((color, i) => {
-        time = times[`${color}`];
+        const time = times[`${color}`];
         if (time !== null) {
             if (currentTime - time < dragonspawntime) {
                 const spawnTime = dragonspawntime - (currentTime - time);
@@ -89,7 +90,7 @@ const timerRegister2 = register("renderOverlay", () => {
     const dragonColors = ["orange", "red", "green", "blue", "purple"];
     const colorCodes = ["6","c","a","b","5"]
     dragonColors.forEach((color, i) => {
-        time = times[`${color}`];
+        const time = times[`${color}`];
         if (time !== null) {
             if (currentTime - time < dragonspawntime) {
                 const spawnTime = dragonspawntime - (currentTime - time);
