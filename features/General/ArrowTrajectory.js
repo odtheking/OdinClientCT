@@ -16,7 +16,7 @@ register(net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent, (e) 
             if (!entityPositions[entity.func_145782_y()]) {
                 entityPositions[entity.func_145782_y()] = [entity.field_70165_t, entity.field_70163_u, entity.field_70161_v, entity.field_70165_t, entity.field_70163_u, entity.field_70161_v];
             }
-        
+            if (!entityPositions[entity.func_145782_y()]) return
             entityPositions[entity.func_145782_y()][0] = entityPositions[entity.func_145782_y()][3]
             entityPositions[entity.func_145782_y()][1] = entityPositions[entity.func_145782_y()][4]
             entityPositions[entity.func_145782_y()][2] = entityPositions[entity.func_145782_y()][5]
