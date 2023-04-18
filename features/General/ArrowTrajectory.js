@@ -55,11 +55,8 @@ register("renderWorld", (partialTicks) => {
 register("renderWorld", () => {
     if (!data.general.arrowTrajectory.toggle || !Player.getHeldItem()?.getName()?.includes("Terminator")) return
     setTrajectoryHeading(-5, 0)
-   // drawTrajectory()
     setTrajectoryHeading(0, -0.1)
-   // drawTrajectory()
     setTrajectoryHeading(5, 0)
-   // drawTrajectory()
     drawCollisionBoxes()
 })
 
@@ -111,36 +108,10 @@ function calculateTrajectory(motion, pos) {
         motion.y *= 0.99
         motion.z *= 0.99
         motion.y -= 0.05
-        //trajectoryVertices.push(vec32)
     }
-    //if (!trajectoryVertices) return
 }
 
-/*
-function drawTrajectory() {
-    GL11.glLineWidth(2.0);
-    GL11.glEnable(GL11.GL_LINE_SMOOTH)
-    Tessellator.blendFunc(770, 771)
-    Tessellator.enableBlend()
-    Tessellator.disableTexture2D()
-    Tessellator.depthMask(false)
-    Tessellator.pushMatrix()
-    Tessellator.begin(GL11.GL_LINES).colorize(0, 1, 1, 1)
-    for (let i = 1; i < trajectoryVertices.length; i++) {
-        let start = trajectoryVertices[i-1]
-        let end = trajectoryVertices[i]
-        Tessellator.pos(start.field_72450_a, start.field_72448_b, start.field_72449_c)
-        Tessellator.pos(end.field_72450_a, end.field_72448_b, end.field_72449_c)
-    }
-    Tessellator.draw()
-    Tessellator.popMatrix();
-    Tessellator.depthMask(true)
-    Tessellator.enableTexture2D()
-    Tessellator.disableBlend()
-    GL11.glDisable(GL11.GL_LINE_SMOOTH)
-    trajectoryVertices.length = 0
-}
-*/
+
 
 function drawCollisionBoxes() {
     if (!boxRenderQueue) return
