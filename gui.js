@@ -82,6 +82,11 @@ export const data = new PogObject("OdinCheata", {
             "name": "Blood Tracker",
             "description": "Displays the remaining blood mobs for better tracking and completion",
         },
+        "secretHitboxes": {
+            "toggle": false,
+            "name": "Secret Hitboxes",
+            "description": "Changes Lever hitboxes to a full sized block",
+        },
     },
 
     'general': {

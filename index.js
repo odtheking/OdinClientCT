@@ -43,6 +43,9 @@ import "./features/QOL/VanqNotifier"
 import "./features/QOL/WayPoints"
 import "./gui"
 
+// ASM related
+import "./asm/exposed/toggleSecretHitboxes"
+
 export const userData = new PogObject("OdinCheata", {
   firstLogin: true
 }, "config/userData.json")
