@@ -23,14 +23,13 @@ register("renderOverlay", (event) => {
   if (powerMove.isOpen()) {
     normalString(fontopenbold, `&cPower&r: ` + '&a29', powerdata.powerX, powerdata.powerY, 1, 0, 0, 1)
   } else { 
-    const footer = TabList.getFooter().removeFormatting();
-
+    const footer = TabList?.getFooter()?.removeFormatting();
+    if (!footer) return;
     // Handle power blessing
     let powerMatch = footer.match(blessings.power);
     if (powerMatch) {
       const [, powerValue] = powerMatch;
       normalString(fontopenbold, `Power: ${romanToInt(powerValue)}`, powerdata.powerX, powerdata.powerY, 1, 0, 0, 1)
-
     }
 
     // Handle time blessing
