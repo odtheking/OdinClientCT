@@ -126,7 +126,7 @@ export const data = new PogObject("OdinCheata", {
         "arrowTrajectory": {
             "toggle": false,
             "name": "Arrow Trajectory",
-            "description": "Displays three boxes indicating the expected landing points of a Terminator arrow; accuracy decreases with distance",
+            "description": "Displays three boxes indicating the expected landing points of a Terminator arrow",
         },
         "portalFix": {
             "toggle": false,

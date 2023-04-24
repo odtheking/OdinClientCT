@@ -28,15 +28,5 @@ register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (e) => {
     leftClick()
 })
 
-const autorouteperm = []
 
-register("step", () => {
-    const players = World.getAllPlayers()
-    for (let player of players) {
-        const playerName = player.getName()
-        if (autorouteperm.includes(playerName)) {
-            ChatLib.command("/ac nice legit wr")
-        }
-    }
-}).setFps(1)
 

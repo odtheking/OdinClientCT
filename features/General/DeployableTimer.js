@@ -151,13 +151,13 @@ const drawOrb = (orb, time) => {
   orb === 'Radiant' ? RADIANTPOWERORB : 
   orb === 'Overflux' ? OVERFLUXPOWERORB : null
   activeOrbImage?.draw(flaredata.flareX, flaredata.flareY, 22, 22)
-  opensansbold.drawStringWithShadow(`${time}s`, flaredata.flareX + 25, flaredata.flareY + 2, time >= 30 ? Color.GREEN : time >= 10 ? Color.YELLOW : Color.RED);
+  fontopenbold.drawStringWithShadow(`${time}s`, flaredata.flareX + 25, flaredata.flareY + 2, time >= 30 ? Color.GREEN : time >= 10 ? Color.YELLOW : Color.RED);
 }
 
 const drawFlare = (flare, time) => {
   const color = flareColors[flare]
   firework.draw(flaredata.flareX - 40, flaredata.flareY - 9, 3)
-  opensansbold.drawStringWithShadow(flare, flaredata.flareX, flaredata.flareY, color);
-  opensansbold.drawStringWithShadow(`${time}s`, flaredata.flareX, flaredata.flareY + 15, 
+  fontopenbold.drawStringWithShadow(flare, flaredata.flareX, flaredata.flareY, color);
+  fontopenbold.drawStringWithShadow(`${time}s`, flaredata.flareX, flaredata.flareY + 15, 
   time > 50 ? new Color(0, 0.9, 0.15, 1) : time > 20 ? new Color(0.9, 0.8, 0, 1) : new Color(0.95, 0, 0, 1));
 }

@@ -11,18 +11,18 @@ register("chat", () => {
 }).setCriteria("[BOSS] Wither King: You.. again?")
 
 
-register('tick', (ticks) => {
-    if (ticks % 4 !== 0 || disabler || !data.m7.relicAura.toggle) return
-    World.getAllEntitiesOfType(EntityArmorStand.class).forEach(e => {
+register('tick', () => {
+    if (disabler || !data.m7.relicAura.toggle) return;
+    let armorStands = World.getAllEntitiesOfType(EntityArmorStand);
+    for (let i = 0; i < armorStands.length; i++) {
+        let e = armorStands[i];
         if (new EntityLivingBase(e?.getEntity()).getItemInSlot(4)?.getNBT()?.toString()?.includes("Relic")) {
-            const [x, y, z] = [Player.getX(), Player.getY(), Player.getZ()]
-            const [x1, y1, z1] = [e.getX(), e.getY(), e.getZ()]
-            let dist = getDistance3D(x, y, z, x1, y1, z1)       
-            if (dist > 5) return
-            interactWithEntity(e.getEntity())
+            let dist = Player.asPlayerMP.distanceTo(e);
+            if (dist > 5) return;
+            interactWithEntity(e.getEntity());
         }
-    })
-})
+    }
+});
 
 const interactWithEntity = (entity) => {
     const objectMouseOver = Client.getMinecraft().field_71476_x.field_72307_f;
