@@ -1,4 +1,5 @@
 import Skyblock from "../../../BloomCore/Skyblock"
+import { EntityArmorStand, EntityOtherPlayerMP } from "../../../BloomCore/utils/Utils"
 import { data } from "../../gui"
 import { modMessage, useAbility } from "../../utils/utils"
 
@@ -30,13 +31,24 @@ register("step", () => {
 
 
 function checkPlayerHP() {
-    const players = World.getAllPlayers();
-    players.forEach(player => {
+    const ignsArray = []
+    Scoreboard.getLines().forEach(line => {
+        const s = line.getName()
+        if (!ChatLib.removeFormatting(s).startsWith("[")) return
+        const igns = s.split(" ")[1]
+        ignsArray.push(igns)
+    })
+    
+    // Remove players that don't exist in the igns array
+    const players = World.getAllPlayers()
+    const existingPlayers = players.filter(player => ignsArray.includes(player.getName()))
+    existingPlayers.forEach(player => {
       const maxHP = player.getMaxHP();
       const currentHP = player.getHP();
-      if (currentHP < maxHP * 0.2) {
+      if (currentHP < maxHP * 0.3) {
         modMessage(`${player.getName()} is at less than 20% HP! wishing!`);
         useAbility()
       }
     });
-  }
+}
+

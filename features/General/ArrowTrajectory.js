@@ -27,7 +27,7 @@ register(net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent, (e) 
     }
 })
 
-register("renderWorld", () => {
+register("renderWorld", (partialTicks) => {
     if (!data.general.arrowTrajectory.toggle || !Player.getHeldItem()?.getName()?.includes("Terminator")) return
     setTrajectoryHeading(-5, 0)
    // drawTrajectory()

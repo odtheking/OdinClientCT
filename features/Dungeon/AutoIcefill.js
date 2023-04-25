@@ -29,7 +29,6 @@ const transform = (x, z, rotation) => {
     }
 }
 
-
 const scan = (x,y,z, floorIndex) => {
     modMessage("scanning")
     const rotation = checkRotation(x,y,z, floorIndex)
@@ -46,7 +45,7 @@ const scan = (x,y,z, floorIndex) => {
         for (let block of pattern) {
             let [bx, bz] = transform(block.x, block.z, rotation)
             if (getBlockNameAt(x + bx, y, z + bz) !== "Air") {
-                if (i >= floor.length) {
+                if (i >= floor.length-1) {
                     modMessage("no more patterns, stopping")
                     return
                 }
@@ -68,22 +67,18 @@ const scan = (x,y,z, floorIndex) => {
 const move = (x,y,z, pattern, rotation, floorIndex) => {
     waitUntilPacked(x, y, z).then(() => {
         [bx,bz] = transform(pattern[0].x, pattern[0].z, rotation)
-        modMessage(`${x + bx}, ${y + 1},${z + bz}`)
         clipTo(x + bx, y + 1, z + bz)
     })
-    for (let block of pattern) {
-        if (i + 1 < pattern.length) var nextblock = pattern[i+1]
-        let [bx, bz] = transform(block.x, block.z, rotation)
-        let [bx1, bz1] = transform(nextblock.x, nextblock.z, rotation)
-        waitUntilPacked(x + bx, y, z + bz).then(() => {
-            clipTo(x + bx1, y + 1, z + bz1)
-        })
-    }
+    for (let i = 0; i < pattern.length - 1; i++) {
+        const block = pattern[i];
+        const nextBlock = pattern[i + 1];
+        const [bx, bz] = transform(block.x, block.z, rotation);
+        const [bx1, bz1] = transform(nextBlock.x, nextBlock.z, rotation);
+        waitUntilPacked(x + bx, y, z + bz).then(() => clipTo(x + bx1, y + 1, z + bz1));
+      }
     if (floorIndex === 2) return
     let [bx1, bz1] = transform(pattern[pattern.length-1].x, pattern[pattern.length-1].z, rotation)
-    waitUntilPacked(x + bx1, y, z + bz1).then(() => {
-        clipToNext(x,y,z, rotation, bx1, bz1, floorIndex)
-    })
+    waitUntilPacked(x + bx1, y, z + bz1).then(() => clipToNext(x,y,z, rotation, bx1, bz1, floorIndex))
 }
 
 const clipToNext = (x,y,z, rotation, bx1, bz1, floorIndex) => {
@@ -118,7 +113,7 @@ const waitUntilPacked = (x,y,z) => new Promise((resolve, reject) => {
 });
 
 function getRainbowColor() {
-  const time = new Date().getTime();
+  const time = Date.now();
   const frequency = 0.001;
   const r = Math.sin(frequency * time + 0) * 127 + 128;
   const g = Math.sin(frequency * time + 2) * 127 + 128;
@@ -151,7 +146,7 @@ register("renderWorld", () => {
         let pattern = currentPatterns[i];
         let [rx, ry, rz] = [tx[i], ty[i], tz[i]]
         Tessellator.pos(rx + 0.5, ry + 0.1, rz + 0.5);
-        let [bx, bz] = transform(pattern[i].x, pattern[i].z, renderRotation)
+        let [bx, bz] = transform(pattern[0].x, pattern[0].z, renderRotation)
         Tessellator.pos(rx + bx + 0.5, ry + 0.1, rz + bz + 0.5);
 
         for (let j = 1; j < pattern.length; j++) {

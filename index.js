@@ -3,7 +3,7 @@
 import PogObject from "../PogData"
 
 //huge thanks and credits to: Bonsai, AzuredBlue, Bloom, Cezar, Ilmars, Aton, Tebey, Turtle and many more ily all <3
-//import "./features/Dungeon/AutoIcefill"
+import "./features/Dungeon/AutoIcefill"
 import "./features/Dungeon/AutoLeap"
 import "./features/Dungeon/AutoMask"
 import "./features/Dungeon/AutoReady"

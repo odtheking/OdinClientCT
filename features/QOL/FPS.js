@@ -17,13 +17,12 @@ register("renderEntity", (entity) => {
   }
 })
 
-register("renderTileEntity", (entity) => {
-  if (!Dungeon.inDungeon || data.qol.fpsBoost.toggle) return
-  try {
-    if (entity.blockType.name.toString() != "Sign") return
-    cancel(event)
-  } catch (e) {}
+register("renderTileEntity", (entity, pos, pTicks, event) => {
+  if (!Dungeon.inDungeon || !data.qol.fpsBoost.toggle) return
+  if (entity.getBlockType().getName() != "Sign") return
+  World.getWorld().func_175713_t(entity.getBlockPos().toMCBlock())
 })
+
 
 register("tick", () => {
   if (!data.qol.fpsBoost.toggle || !World.getWorld()) return
