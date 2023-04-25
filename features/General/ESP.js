@@ -11,10 +11,7 @@ import { Executors, getEntityRenderParams, modMessage, noSqrt3DDistance } from "
 
 // Cheater ESP
 register("command", (...args) => {
-    if (!data.general.esp.toggle) {
-        modMessage("Feature is disabled please turn on with /oc")
-        return
-    }
+
     if (!args || args.length < 2) {
         modMessage("Incorrect usage. /esp add/remove <entity>")
         return

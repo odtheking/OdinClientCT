@@ -19,9 +19,10 @@ register("dragged", (dx, dy, x, y) => {
   powerdata.powerY = y
   powerdata.save()
 })
-register("renderOverlay", (event) => {
+register("renderOverlay", () => {
   if (powerMove.isOpen()) {
-    normalString(fontopenbold, `&cPower&r: ` + '&a29', powerdata.powerX, powerdata.powerY, 1, 0, 0, 1)
+    normalString(fontopenbold, `Power: ` + '29', powerdata.powerX, powerdata.powerY, 1, 0, 0, 1)
+    normalString(fontopenbold, `Time: 5`, powerdata.powerX, powerdata.powerY + 20, 1, 0, 0, 1)
   } else { 
     const footer = TabList?.getFooter()?.removeFormatting();
     if (!footer) return;
@@ -36,7 +37,7 @@ register("renderOverlay", (event) => {
     let timeMatch = footer.match(blessings.time);
     if (timeMatch) {
       const [, timeValue] = timeMatch;
-      normalString(fontopenbold, `&cTime&r: &a${romanToInt(timeValue)}`, powerdata.powerX, powerdata.powerY, 1, 0, 0, 1)
+      normalString(fontopenbold, `Time: ${romanToInt(timeValue)}`, powerdata.powerX, powerdata.powerY + 20, 1, 0, 0, 1)
 
 
     }
@@ -44,13 +45,10 @@ register("renderOverlay", (event) => {
 })
 
 
-
 const blessings = {
   power: /Blessing of Power (.+)/,
   time: /Blessing of Time (.+)/
 };
-
-
 
 const romanHash = {
   I: 1,
