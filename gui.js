@@ -1,3 +1,4 @@
+import { Color } from "../BloomCore/utils/Utils"
 import PogObject from "../PogData"
 import { centeredString, rect, checkDrag, checkTab, drawTab, drawDesc, buttonHeight, buttonWidth, File, fontmc, ResourceLocation, tabTitles } from "./utils/utils"
 
@@ -85,7 +86,7 @@ export const data = new PogObject("OdinCheata", {
         "secretHitboxes": {
             "toggle": false,
             "name": "Secret Hitboxes",
-            "description": "Changes Lever hitboxes to a full sized block",
+            "description": "Changes Lever and Button hitboxes to a full sized block",
         },
     },
 
