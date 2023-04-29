@@ -1,5 +1,6 @@
 import { data } from "../../gui"
 import PogObject from "../../../PogData"
+import { getPhase } from "../../utils/utils"
 // Dragon Timer
 const dragMove = new Gui()
 
@@ -33,6 +34,14 @@ const colors = {
     "blue": {x: [82, 88], y: [15, 22], z: [91, 97]},
 }
 
+boxestoRender = {
+    blue: true,
+    purple: true,
+    green: true,
+    red: true,
+    orange: true
+}
+
 function checkParticle(particle, color) {
     const [x, y, z] = [particle.x,particle.y,particle.z];
     return x >= colors[color].x[0] && x <= colors[color].x[1] && y >= colors[color].y[0] && y <= colors[color].y[1] && z >= colors[color].z[0] && z <= colors[color].z[1];
@@ -47,7 +56,8 @@ register("spawnParticle", (particle, type, event) => {
         }
     }
 });
-
+const dragonColors = ["orange", "red", "green", "blue", "purple"];
+const colorCodes = ["6","c","a","b","5"]
 const dragonspawntime = 5000
 const textlocations = [
     { x: 84, y: 18, z: 56},
@@ -57,58 +67,63 @@ const textlocations = [
     { x: 57, y: 18, z: 125}
 ]
 
-const timerRegister = register("renderWorld", () => {
-    if (!data.m7.dragonTimer.toggle) return
+
+
+let textsToRender = [];
+
+register("step", () => {
+    if (!data.m7.dragonTimer.toggle || getPhase() !== "p5") return;
     currentTime = new Date().getTime()
-    const dragonColors = ["orange", "red", "green", "blue", "purple"];
-    const colorCodes = ["6","c","a","b","5"]
+
+    textsToRender = [];
     dragonColors.forEach((color, i) => {
+        if (!boxestoRender[color]) return;
         const time = times[`${color}`];
         if (time !== null) {
             if (currentTime - time < dragonspawntime) {
                 const spawnTime = dragonspawntime - (currentTime - time);
                 let colorCode;
-                (spawnTime <= 1000) ? colorCode = "§c" : (spawnTime <= 3000) ? colorCode = "§e" : colorCode = "§a"
-                const text = `§${colorCodes[i]}${color.charAt(0).toUpperCase() + color.slice(1)} spawning in: ${colorCode}${spawnTime}ms`
-                Tessellator.drawString(text, textlocations[i].x, textlocations[i].y, textlocations[i].z, 0)
+                (spawnTime <= 1000) ? colorCode = "§c" : (spawnTime <= 3000) ? colorCode = "§e" : colorCode = "§a";
+                const text = `§${colorCodes[i]}${color.charAt(0).toUpperCase() + color.slice(1)} spawning in: ${colorCode}${spawnTime}ms`;
+                textsToRender.push({ text: text, index: i });
             } else {
                 times[`${color}`] = null;
             }
         }
-    })
-})
+    });
+
+}).setFps(10);
+
+const timerRegister = register("renderWorld", () => {
+    if (!data.m7.dragonTimer.toggle || getPhase() !== "p5") return;
+    textsToRender.forEach(({ text, index }) => {
+        Tessellator.drawString(text, textlocations[index].x, textlocations[index].y, textlocations[index].z, 0);
+    });
+});
 
 let atline = 0
 const timerRegister2 = register("renderOverlay", () => {
-    if (!data.m7.dragonTimer.toggle) return
     if (dragMove.isOpen()) {
-       // font2.drawStringWithShadow("Green spawning in: 5000ms", dragdata.dragX, dragdata.dragY, new Color(0.6, 0, 0.95, 1))
         Renderer.drawStringWithShadow("§aGreen spawning in: 5000ms",dragdata.dragX,dragdata.dragY+(atline*10))
+        Renderer.drawStringWithShadow(text,dragdata.dragX,dragdata.dragY+(atline*10))
 
+
+    } else if (data.m7.dragonTimer.toggle || getPhase() == "p5") {
+        textsToRender.forEach(({ text }) => {
+            Renderer.drawStringWithShadow(text,dragdata.dragX,dragdata.dragY+(atline*10))
+        });
     }
-    currentTime = new Date().getTime()
-    const dragonColors = ["orange", "red", "green", "blue", "purple"];
-    const colorCodes = ["6","c","a","b","5"]
-    dragonColors.forEach((color, i) => {
-        const time = times[`${color}`];
-        if (time !== null) {
-            if (currentTime - time < dragonspawntime) {
-                const spawnTime = dragonspawntime - (currentTime - time);
-                let colorCode;
-                (spawnTime <= 1000) ? colorCode = "§c" : (spawnTime <= 3000) ? colorCode = "§e" : colorCode = "§a"
-                const text = `§${colorCodes[i]}${color.charAt(0).toUpperCase() + color.slice(1)} spawning in: ${colorCode}${spawnTime}ms`
-                Renderer.drawStringWithShadow(text,dragdata.dragX,dragdata.dragY+(atline*10))
-                atline++
-            } else {
-                times[`${color}`] = null;
-            }
-        }
-    })
-    atline = 0
+
 })
 
 let lastSetting = false
 register("step", () => {
+    if (!World.isLoaded()) return
+    boxestoRender.blue = !World.getBlockAt(79, 23, 94).type.getName().includes("air")
+    boxestoRender.purple = !World.getBlockAt(56, 22, 120).type.getName().includes("air")
+    boxestoRender.green = !World.getBlockAt(32, 23, 94).type.getName().includes("air")
+    boxestoRender.red = !World.getBlockAt(32, 22, 59).type.getName().includes("air")
+    boxestoRender.orange = !World.getBlockAt(80, 23, 56).type.getName().includes("air")
     if (lastSetting == data.m7.dragonTimer.toggle) return
     lastSetting = data.m7.dragonTimer.toggle
     if (lastSetting) {

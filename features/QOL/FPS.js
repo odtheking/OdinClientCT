@@ -18,9 +18,9 @@ register("renderEntity", (entity) => {
 })
 
 register("renderTileEntity", (entity, pos, pTicks, event) => {
-  if (!Dungeon.inDungeon || !data.qol.fpsBoost.toggle) return
-  if (entity.getBlockType().getName() != "Sign") return
-  World.getWorld().func_175713_t(entity.getBlockPos().toMCBlock())
+  if (!Dungeon.inDungeon || !data.qol.fpsBoost.toggle || Client.isInGui()) return
+  if (entity?.getBlockType()?.getName() != "Sign") return
+  World.getWorld()?.func_175713_t(entity?.getBlockPos()?.toMCBlock())
 })
 
 

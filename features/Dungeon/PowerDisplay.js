@@ -1,4 +1,3 @@
-import Dungeon from "../../../BloomCore/dungeons/Dungeon"
 import { data } from "../../gui"
 import PogObject from "../../../PogData"
 import { fontopenbold, normalString } from "../../utils/utils"
@@ -13,37 +12,41 @@ const powerdata = new PogObject("OdinCheata", {
   powerY: 50,
 }, "config/featuredata.json")
 
+
 register("dragged", (dx, dy, x, y) => {
   if (!powerMove.isOpen()) return
   powerdata.powerX = x
   powerdata.powerY = y
   powerdata.save()
 })
+let powerMatch
+let timeMatch
+
+register("step", () => {
+  if (!data.dungeon.powerDisplay.toggle) return
+  
+  let footer = TabList?.getFooter()?.removeFormatting()
+  if (!footer) return
+  powerMatch = footer.match(blessings.power);
+  timeMatch = footer.match(blessings.time);
+
+}).setFps(2)
+
 register("renderOverlay", () => {
   if (powerMove.isOpen()) {
-    normalString(fontopenbold, `Power: ` + '29', powerdata.powerX, powerdata.powerY, 1, 0, 0, 1)
-    normalString(fontopenbold, `Time: 5`, powerdata.powerX, powerdata.powerY + 20, 1, 0, 0, 1)
-  } else { 
-    const footer = TabList?.getFooter()?.removeFormatting();
-    if (!footer) return;
-    // Handle power blessing
-    let powerMatch = footer.match(blessings.power);
+    normalString(fontpower, `Power: ` + '§f29', powerdata.powerX, powerdata.powerY, 1, 0, 0, 1)
+    normalString(fontpower, `Time: §f5`, powerdata.powerX, powerdata.powerY + 20, 1, 0, 0, 1)
+  } else if (data.dungeons.powerDisplay.toggle) { 
+
     if (powerMatch) {
-      const [, powerValue] = powerMatch;
-      normalString(fontopenbold, `Power: ${romanToInt(powerValue)}`, powerdata.powerX, powerdata.powerY, 1, 0, 0, 1)
+      normalString(fontpower, `Power: §f${romanToInt(powerMatch[1])}`, powerdata.powerX, powerdata.powerY, 1, 0, 0, 1)
     }
 
-    // Handle time blessing
-    let timeMatch = footer.match(blessings.time);
     if (timeMatch) {
-      const [, timeValue] = timeMatch;
-      normalString(fontopenbold, `Time: ${romanToInt(timeValue)}`, powerdata.powerX, powerdata.powerY + 20, 1, 0, 0, 1)
-
-
+      normalString(fontpower, `Time: §f${romanToInt(timeMatch[1])}`, powerdata.powerX, powerdata.powerY + 20, 1, 0, 0, 1)
     }
   }
 })
-
 
 const blessings = {
   power: /Blessing of Power (.+)/,

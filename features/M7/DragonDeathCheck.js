@@ -1,9 +1,11 @@
 import request from "../../../requestV2"
+import { modMessage } from "../../utils/utils"
 
 let webhook, lastx, lasty, lastz, lastColor
 let entityColors = {}
 
-register("gameLoad", () => request("https://pastebin.com/raw/uCGgntQB").then(s => webhook = s))
+
+register("gameLoad", () => request("https://pastebin.com/raw/XSxKVbvR").then(s => webhook = s))
 
 const dragonLocations = [
   {x:85,y:14,z:56,color:"Orange"},
@@ -13,7 +15,7 @@ const dragonLocations = [
   {x:56,y:14,z:125,color:"Purple"}
 ]
 
-function findColor(x, y, z) {return dragonLocations.find(l => l.x === x && l.y === y && l.z === z).color}
+function findColor(x, y, z) {return dragonLocations.find(l => l.x === x && l.y === y && l.z === z)?.color}
 
 register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => {
   const e = event.entity
@@ -32,6 +34,8 @@ register("entityDeath", (e) => {
 
 register("chat", (message) => {
   if (message != "[BOSS] Wither King: Oh, this one hurts!" && message != "[BOSS] Wither King: I have more of those" && message != "[BOSS] Wither King: My soul is disposable." || !lastx || !lasty || !lastz) return
+  modMessage(lastColor + " Counted!")
+  if (lastColor == "Purple") return
   request({
     url: webhook,
     method: "POST",
