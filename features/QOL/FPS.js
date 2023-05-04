@@ -1,28 +1,34 @@
 import { data } from "../../gui"
 import Dungeon from "../../../BloomCore/dungeons/Dungeon"
+import { centeredString, fontmc } from "../../utils/utils"
 
 
-let inp5
+let inp5 = false
 let lastClear = Date.now()
 
 register("renderEntity", (entity) => {
-  if (!data.qol.fpsBoost.toggle) return
+  if (!data.qol.fpsBoost.toggle || entity) return
   if (inp5) {
-    if (entity.getName() == "Armor Stand") {
-      entity.getEntity().func_70106_y()
+    if (entity?.getName() == "Armor Stand") {
+      entity?.getEntity()?.func_70106_y()
     }
   }
-  if (entity.getName() == "Falling Block") {
-    entity.getEntity().func_70106_y()
+  if (entity?.getName() == "Falling Block") {
+    entity?.getEntity()?.func_70106_y()
   }
 })
 
-register("renderTileEntity", (entity, pos, pTicks, event) => {
-  if (!Dungeon.inDungeon || !data.qol.fpsBoost.toggle || Client.isInGui()) return
-  if (entity?.getBlockType()?.getName() != "Sign") return
-  World.getWorld()?.func_175713_t(entity?.getBlockPos()?.toMCBlock())
-})
+register("chat", (event) => {
+  startTimer(5000); // 5 seconds
+}).setCriteria("Wither").setContains();
 
+let timerStarted = false;
+let timerEndTime = 0;
+
+function startTimer(duration) {
+  timerStarted = true;
+  timerEndTime = Date.now() + duration;
+}
 
 register("tick", () => {
   if (!data.qol.fpsBoost.toggle || !World.getWorld()) return

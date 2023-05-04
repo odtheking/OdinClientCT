@@ -17,6 +17,7 @@ export const BossStatus = Java.type("net.minecraft.entity.boss.BossStatus")
 export const buttonHeight = 20
 export const buttonWidth = 100
 
+export const fontpower = new Font('OdinCheata/assets/Minecraft.ttf', 30)
 export const fontmc = new Font('OdinCheata/assets/Minecraft.ttf', 21)
 export const fontopenbold = new Font('OdinCheata/assets/OpenSans-Bold.ttf', 28)
 export const player = Client.getMinecraft().field_71439_g

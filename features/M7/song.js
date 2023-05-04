@@ -22,30 +22,30 @@ register("worldLoad", () => {
 });
 
 register("chat", () => {
-    if (!data.dungeons.m7Sounds.toggle) return;
+    if (!data.m7.m7Sounds.toggle) return;
     sounds.p1?.play();
 }).setCriteria("[BOSS] Maxor: WELL WELL WELL LOOK WHO'S HERE!");
 
 register("chat", () => {
-    if (!data.dungeons.m7Sounds.toggle) return;
+    if (!data.m7.m7Sounds.toggle) return;
     sounds.p1.stop();
     sounds.p2?.play();
 }).setCriteria("[BOSS] Storm: Pathetic Maxor, just like expected.");
 
 register("chat", () => {
-    if (!data.dungeons.m7Sounds.toggle) return;
+    if (!data.m7.m7Sounds.toggle) return;
     sounds.p2.stop();
     sounds.p3?.play();
 }).setCriteria("[BOSS] Goldor: Who dares trespass into my domain?");
 
 register("chat", () => {
-    if (!data.dungeons.m7Sounds.toggle) return;
+    if (!data.m7.m7Sounds.toggle) return;
     sounds.p3.stop();
     sounds.p4?.play();
 }).setCriteria("[BOSS] Necron: Finally, I heard so much about you. The Eye likes you very much.");
 
 register("chat", () => {
-    if (!data.dungeons.m7Sounds.toggle) return;
+    if (!data.m7.m7Sounds.toggle) return;
     sounds.p4.stop();
     sounds.p5?.play();
 }).setCriteria("[BOSS] Wither King: You.. again?");

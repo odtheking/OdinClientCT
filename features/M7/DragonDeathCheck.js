@@ -1,3 +1,4 @@
+import Dungeon from "../../../BloomCore/dungeons/Dungeon"
 import request from "../../../requestV2"
 import { modMessage } from "../../utils/utils"
 
@@ -18,6 +19,7 @@ const dragonLocations = [
 function findColor(x, y, z) {return dragonLocations.find(l => l.x === x && l.y === y && l.z === z)?.color}
 
 register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => {
+  if (!Dungeon.inDungeon) return
   const e = event.entity
   if (new Entity(e).getName() != "Ender Dragon") return
   const color = findColor(e.field_70165_t, e.field_70163_u, e.field_70161_v)
@@ -26,13 +28,15 @@ register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => {
 })
 
 register("entityDeath", (e) => {
-  const entityId = e.getEntity().func_145782_y()
+  if (!Dungeon.inDungeon) return
+  const entityId = e?.getEntity().func_145782_y()
   if (!entityColors[entityId] || e.getName() != "Ender Dragon") return
   [lastx, lasty, lastz, lastColor] = [e.x.toFixed(1), e.y.toFixed(1), e.z.toFixed(1), entityColors[entityId]]
   delete entityColors[entityId]
 })
 
 register("chat", (message) => {
+  if (!Dungeon.inDungeon) return
   if (message != "[BOSS] Wither King: Oh, this one hurts!" && message != "[BOSS] Wither King: I have more of those" && message != "[BOSS] Wither King: My soul is disposable." || !lastx || !lasty || !lastz) return
   modMessage(lastColor + " Counted!")
   if (lastColor == "Purple") return

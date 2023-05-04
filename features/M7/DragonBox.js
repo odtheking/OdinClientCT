@@ -1,6 +1,6 @@
 import { data } from "../../gui"
 import RenderLib from "../../../RenderLib"
-import { modMessage } from "../../utils/utils"
+import Skyblock from "../../../BloomCore/Skyblock"
 
 
 boxestoRender = {

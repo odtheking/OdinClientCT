@@ -1,6 +1,6 @@
 import { data } from "../../gui"
 import PogObject from "../../../PogData"
-import { fontopenbold, normalString } from "../../utils/utils"
+import {  fontpower, normalString } from "../../utils/utils"
 
 // Power Display
 const powerMove = new Gui()
@@ -23,7 +23,7 @@ let powerMatch
 let timeMatch
 
 register("step", () => {
-  if (!data.dungeon.powerDisplay.toggle) return
+  if (!data.dungeons.powerDisplay.toggle) return
   
   let footer = TabList?.getFooter()?.removeFormatting()
   if (!footer) return

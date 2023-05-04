@@ -17,7 +17,7 @@ register("tick", () => {
     if (!data.dungeons.bloodTracker.toggle) return
     if (!Dungeon.inDungeon) return
     const bossName = BossStatus.field_82827_c
-    if (bossName.removeFormatting() != "The Watcher") return
+    if (bossName?.removeFormatting() != "The Watcher") return
     const health = BossStatus.field_82828_a
     const floor = Dungeon.floor.toString().substring(1)
     if (health < 0.05) {
