@@ -1,21 +1,17 @@
 {
-  "name": "OdinCheata",
+  "name": "OdinClient",
   "creator": "odin",
-  "version": "2.2.0",
-   "description": "OdinCoding",
+  "version": "1.1.5",
+  "description": "OdinCoding",
   "entry": "index.js",
-  "asmEntry": "asm/asm.js",
-  "asmExposedFunctions": {
-    "toggleSecretHitboxes": "asm/exposed/toggleSecretHitboxes.js"
-  },
   "requires": [
     "PogData",
     "BloomCore",
     "requestV2",
     "FontLib",
     "RenderLib",
-    "BeaconBeam",
-    "PromiseV2"
+    "BeaconBeam"
   ]
-
+  
+  
 }

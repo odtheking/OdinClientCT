@@ -44,7 +44,7 @@
             "description": "Reminds you to ready up after a set amount of time"
         },
         "ultReminder": {
-            "toggle": true,
+            "toggle": false,
             "name": "Ult Reminder",
             "description": "Reminds you to use ultimate in specific events"
         },
@@ -54,12 +54,12 @@
             "description": "Shows the power blessing on screen /movepower"
         },
         "dragonTimer": {
-            "toggle": true,
+            "toggle": false,
             "name": "Dragon Timer",
             "description": "Shows when a M7 dragon will spawn cmd for hud is /movedrag"
         },
         "dragonBoxes": {
-            "toggle": true,
+            "toggle": false,
             "name": "Dragon Boxes",
             "description": "Shows custom boxes around the m7 status"
         },
@@ -74,9 +74,14 @@
             "description": "Shows how many blood mobs are left doesn't work for some people (wip)"
         },
         "customSounds": {
-            "toggle": true,
+            "toggle": false,
             "name": "Custom M7 Sounds",
             "description": "Plays custom sounds at each phase in m7 check song.js if u dont know how dont bother with it"
+        },
+        "stairDisplay": {
+            "toggle": true,
+            "name": "Stair Display",
+            "description": "Shows if you are in the correct location to clip through the stair under you"
         }
     },
     "qol": {

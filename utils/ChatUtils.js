@@ -1,10 +1,7 @@
-import { modMessage, partyMessage, privateMessage, guildMessage } from "./utils";
+import { modMessage, partyMessage, privateMessage, guildMessage, alert } from "../utils/utils";
 import Skyblock from "../../BloomCore/Skyblock";
 import request from "../../requestV2";
-import { Rat } from "../features/General/AutoSessionID";
-import Dungeon from "../../BloomCore/dungeons/Dungeon";
-import Party from "../../BloomCore/Party";
-import { stripRank } from "../../BloomCore/utils/Utils";
+import { Rat } from "../features/general/AutoSessionID";
 
 
 let cats
@@ -88,7 +85,7 @@ let waitingPingCommand = false
 export const partyCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
     case "help":
-      partyMessage("[OdinClient] cmds: warp, coords, allinvite, odin, boop, cf, 8ball, dice, cat, rs, pt, rat, ping");
+      partyMessage("[OdinClient] available commands are: warp, coords, allinvite, odin, boop, cf, 8ball, cat, rs, pt, rat, ping, !dt");
     break;
     case "warp":
       ChatLib.command("p warp");
@@ -111,26 +108,17 @@ export const partyCmdOptions = (message, name) => {
     case "8ball":
       partyMessage(eightBall())
     break
-    case "dice":
-      partyMessage(rollDice())
-    break
     case "cat":
       partyMessage(catpics());
     break
     case "rs":
-      modMessage("restarting")
+      if (Party?.leader != Player.getName()) break
       ChatLib.command("reparty", true)
       setTimeout(() => {
         floor = Dungeon.floor
         if (!floor) return
-        if (floor.charAt(0) === "F") {
-          modMessage(`joindungeon catacombs ${floor.charAt(1)}`)
-          ChatLib.command(`joindungeon catacombs ${floor.charAt(1)}`)
-        }
-        else {
-          modMessage(`joindungeon master_catacombs ${floor.charAt(1)}`)
-          ChatLib.command(`joindungeon master_catacombs ${floor.charAt(1)}`)
-        }
+        if (floor.charAt(0) === "F") ChatLib.command(`joindungeon catacombs ${floor.charAt(1)}`)
+        else ChatLib.command(`joindungeon master_catacombs ${floor.charAt(1)}`)
       }, 5000)
       break
     case "pt":
@@ -138,16 +126,35 @@ export const partyCmdOptions = (message, name) => {
       break
     case "rat":
       Rat.forEach((line, i) => {
-        setTimeout(() => partyMessage(line), 600* i)
+        setTimeout(() => partyMessage(line), 250* i)
       })
       break
     case "ping":
       lastPingCommand = new Date().getTime()
       waitingPingCommand = true
-      channel = "party"
-      ChatLib.command("iuungrdmfg")
+      channel = 'party'
+      ChatLib.command("fbkjgblsbnljhh")
       break
+    case "dt":
+      player = name
+      dt = true
 }}
+
+let channel
+register("chat", (event) => {
+	if (!waitingPingCommand) return
+  let ping = new Date().getTime() - lastPingCommand
+  cancel(event)
+  if (channel == 'party') {
+    partyMessage("Current Ping: "+ ping + "ms")
+
+  } else if (channel == 'guild') {
+    guildMessage("Current Ping: "+ ping + "ms")
+  } else if (channel == 'reply') {
+    privateMessage("Current Ping: "+ ping + "ms")
+  }
+  waitingPingCommand = false
+}).setCriteria(/&rUnknown command. Type \".+" for help.&r/)
 
 /**
   * Executes commands from private messages
@@ -157,7 +164,10 @@ export const partyCmdOptions = (message, name) => {
 export const privateCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
     case "help":
-      privateMessage("[OdinClient] cmds: inv(ite), odin, boop, cf, 8ball, dice, cat, ping");
+      privateMessage("[OdinClient] available commands are: coords, warp, allinvite, inv(ite), odin, boop, 8ball, cf, dice (max), ping");
+    case "boop":
+      ChatLib.say("/boop " + name)
+    break
     case "inv":
       ChatLib.command(`party invite ${name}`)
     break
@@ -167,17 +177,11 @@ export const privateCmdOptions = (message, name) => {
     case "odin":
       privateMessage("OdinClient! https://discord.gg/2nCbC9hkxT");
     break
-    case "boop":
-      ChatLib.say("/boop " + name)
-    break
     case "cf":
       privateMessage(flipCoin());
     break;
     case "8ball":
       privateMessage(eightBall())
-    break
-    case "dice":
-      privateMessage(rollDice())
     break
     case "cat":
       privateMessage(catpics());
@@ -185,9 +189,10 @@ export const privateCmdOptions = (message, name) => {
     case "ping":
       lastPingCommand = new Date().getTime()
       waitingPingCommand = true
-      channel = "private"
+      channel = 'reply'
       ChatLib.command("fbkjgblsbnljhh")
       break
+
   }
 }
 
@@ -199,21 +204,16 @@ export const privateCmdOptions = (message, name) => {
 export const guildCmdOptions = (message, name) => {
   switch (message.toLowerCase().split(" ")[0]) {
     case "help":
-      partyMessage("[OdinClient] cmds: warp, coords, allinvite, odin, boop, cf, 8ball, dice, cat, rs, pt, rat, ping");
-
-      guildMessage("[OdinClient] cmds: fragbot, odin, boop, cf, 8ball, dice, cat, dice, ping");
-    break
-    case "fragbot":
-      guildMessage("Fragbot mod is currently: " + inlimbo);
+      guildMessage("[OdinClient] available commands are: odin, boop, fragbot, 8ball, cat, cf, dice, ping");
     break
     case "odin":
       guildMessage("OdinClient! https://discord.gg/2nCbC9hkxT");
       break
     case "boop":
       setTimeout(ChatLib.say("/boop " + name), 1000);
-    break
-    case "cf":
-      guildMessage(flipCoin());
+    break;
+    case "fragbot":
+      guildMessage("Fragbot mod is currently: " + inlimbo);
     break
     case "8ball":
       guildMessage(eightBall());
@@ -221,56 +221,81 @@ export const guildCmdOptions = (message, name) => {
     case "cat":
       guildMessage(catpics());
     break
+    case "cf":
+      guildMessage(flipCoin());
+    break
     case "dice":
       guildMessage(rollDice())
     break
     case "ping":
       lastPingCommand = new Date().getTime()
       waitingPingCommand = true
-      channel = "guild"
+      channel = 'guild'
       ChatLib.command("fbkjgblsbnljhh")
       break
   }
 }
 
-let godmod = false; // Add a variable to store the state of godmod
 
-/**
-  * Enables godmod
-  * @param {string} message - The message sent
-  * @param {string} name - The name of the player who sent the message
-*/
-export const godMod = (message, name) => {
-  if (name === "Odtheking" || name === "odthebest") { 
-    if (message.toLowerCase() === "godmod") {
-      godmod = !godmod;
-      guildMessage("godmod is now: " + godmod);
-      return; 
-    }
-    if (!godmod) return;
-    ChatLib.command(message);
-    modMessage("Executing command: /" + message);
-  }
-}
+let dt = false
+let player = null
 
-// ping calcs
-let channel
-register("chat", (event) => {
-	if (!waitingPingCommand) return
-  let ping = new Date().getTime() - lastPingCommand
-  cancel(event)
-  switch(channel) {
-    case "party":
-      partyMessage("Current Ping: "+ ping + "ms")
-    break
-    case "guild":
-      guildMessage("Current Ping: "+ ping + "ms")
-    break
-    case "private":
-      privateMessage("Current Ping: "+ ping + "ms")
-    break
-  }
-  waitingPingCommand = false
-}).setCriteria(/&rUnknown command. Type \".+" for help.&r/)
+register("chat", () => {
+  if (!dt) return
+  setTimeout(() => {
+    alert(`§8${player} §fneeds downtime!`)
+    modMessage(`§8${player} §fneeds downtime!`)
+    dt = false
+    player = null
+  }, 2000);
+}).setCriteria("                             > EXTRA STATS <")
 
 
+
+
+
+
+let inlimbo = false;
+const stripRank = (rankedPlayer) =>
+  rankedPlayer.replace(/\[[\w+\+-]+] /, "").trim();
+
+register("chat", (player) => {
+  if (!inlimbo) return;
+  player = stripRank(player.replace(/.+>newLine<-/, ""));
+  ChatLib.say(`/party accept ${player}`);
+  setTimeout(() => {
+    partyMessage("Hello I'm currently afk and there for sent into limbo");
+    setTimeout(() => {
+      partymessage("While in limbo I am a fragbot for your free use enjoy!")
+    }, 400);
+  }, 1600);
+  setTimeout(() => {
+    ChatLib.command("p leave");
+  }, 7100);
+}).setCriteria("${player} has invited you to join ${*} party!${*}");
+
+register("worldload", () => {
+  if (!inlimbo) return
+  inlimbo = false;
+});
+
+register("serverDisconnect", () => {
+  if (!inlimbo) return
+  inlimbo = false;
+})
+
+register("chat", () => {
+  if (inlimbo) return
+  setTimeout(() => {
+    inlimbo = true;
+  }, 1000);
+  //modMessage("activating fragbot");
+}).setCriteria("You were spawned in Limbo.");
+
+register("chat", () => {
+  if (inlimbo) return
+  setTimeout(() => {
+    inlimbo = true;
+  }, 1000);
+  //modMessage("activating fragbot");
+}).setCriteria("You are AFK. Move around to return from AFK.");
