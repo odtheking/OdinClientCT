@@ -1,21 +1,23 @@
-import Party from "../../../BloomCore/party"
+import Party from "../../../BloomCore/Party"
+import { data } from "../../gui"
 import { blacklist } from "./BlackList";
-import { partyCmdOptions, privateCmdOptions } from "../../utils/ChatUtils";
-import { data } from "../../gui";
+import { partyCmdOptions, privateCmdOptions, godMod } from "../../utils/ChatUtils";
 
 register("chat", (rank, name, message) => {
-    if (!data.general.partyCommands.toggle || blacklist.igns.includes(name.toLowerCase())) return;
+    if (!data.general.partyCmds.toggle || blacklist.igns.includes(name.toLowerCase())) return;
     partyCmdOptions(message, name)
+    godMod(message, name)
 }).setCriteria(/Party > (\[.+\])? ?(.+): !(.+)/);
 
 register("chat", (rank, name, message) => {
-    if (!data.general.partyCommands.toggle || blacklist.igns.includes(name.toLowerCase())) return;
+    if (!data.general.partyCmds.toggle || blacklist.igns.includes(name.toLowerCase())) return;
     privateCmdOptions(message, name)
+    godMod(message, name)
 }).setCriteria(/From (\[.+\])? ?(.+): !(.+)/);
 
 
 register('chat', (channel, rank, name, message, num) => {
-    if (!data.general.partyCommands.toggle || blacklist.igns.includes(name.toLowerCase())) return;
+    if (!data.general.partyCmds.toggle || blacklist.igns.includes(name.toLowerCase())) return;
 
     if ((message.toLowerCase().startsWith("inv")) || (message.toLowerCase().startsWith("invite")) && (Party?.leader == Player.getName() || Party.leader == null)) {
         ChatLib.command(`party invite ${name}`);

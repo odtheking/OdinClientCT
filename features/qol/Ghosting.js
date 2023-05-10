@@ -15,7 +15,7 @@ register("chat", (npc, event) => {
 }).setCriteria("✆ ${npc} ✆ ");
 
 register("chat", (rings, event) => {
-    if (!data.qol.abiphoneGhoster.toggle) return;
+    if (!data.qol.abiphoneGhoster.toggle || !ghosting) return;
     cancel(event);
 }).setCriteria("✆ ${rings} [PICK UP]");
 

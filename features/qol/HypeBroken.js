@@ -1,10 +1,9 @@
-import Skyblock from "../../../BloomCore/Skyblock"
+import Skyblock from "../../../BloomCore/Skyblock";
 import { data } from "../../gui";
-import { alert} from "../../utils/utils";
-
-//broken hype
+import { alert } from "../../utils/utils";
 
 // Hype Broken Alert
+
 var tracker_kills = 0;
 var tracker_xp = 0;
 

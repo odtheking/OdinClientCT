@@ -1,12 +1,11 @@
 import PogObject from "../../../PogData";
-import { modMessage } from "../../utils/utils";
-
+import { modMessage} from "../../utils/utils"
 
 //blacklist
 
 //if (blacklist.igns.toLowerCase().includes(name.toLowerCase()))
 
-export const blacklist = new PogObject("OdinClient", {
+export const blacklist = new PogObject("OdinCheata", {
     igns: []
 }, "config/featuredata.json")
 
@@ -19,19 +18,19 @@ register("command", (...args) => {
     switch (args[0]) {
         case "add":
             if (blacklist.igns.includes(name.toLowerCase())) {
-                modMessage(`Couldn't add ${name.toLowerCase()} to the list they are already there`)
+                modMessage("Couldn't add " + name.toLowerCase() + " to the list")
             } else {
                 blacklist.igns.push(name.toLowerCase())
-                modMessage(`${name.toLowerCase()} has been added to the list`)
+                modMessage(name.toLowerCase() + " has been added to the list")
                 blacklist.save()
             }
             break
         case "remove":
             if (!blacklist.igns.includes(name.toLowerCase())) {
-                modMessage(`Couldn't remove ${name.toLowerCase()} from the list they aren't there..`)
+                modMessage("Couldn't remove " + name.toLowerCase() + " from the list they are already there..")
             } else {
                 blacklist.igns = blacklist.igns.filter(ent => ent !== name.toLowerCase())
-                modMessage(`${name.toLowerCase()} has been removed from the list`)
+                modMessage(name.toLowerCase() + " has been removed from the list")
                 blacklist.save()
             }
             break
@@ -43,8 +42,7 @@ register("command", (...args) => {
 
         case "list":
             modMessage(blacklist.igns)
-
+            
     }
-}).setName("odinlist").setTabCompletions("add", "remove", "clear", "list")
+}).setName("odinlist").setTabCompletions("add, remove, clear, list")
 
-//if (blacklist.igns.toLowerCase().includes(name.toLowerCase()))
