@@ -4,10 +4,6 @@
   "version": "2.2.0",
    "description": "OdinCoding",
   "entry": "index.js",
-  "asmEntry": "asm/asm.js",
-  "asmExposedFunctions": {
-    "toggleSecretHitboxes": "asm/exposed/toggleSecretHitboxes.js"
-  },
   "requires": [
     "PogData",
     "BloomCore",

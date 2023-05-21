@@ -1,5 +1,5 @@
 import { data } from "../../gui"
-import { leftClick, modMessage, isFacingAABB, player } from "../../utils/utils"
+import { leftClick, modMessage, isFacingAABB } from "../../utils/utils"
 import Dungeon from "../../../BloomCore/dungeons/Dungeon.js"
 
 const EntityOtherPlayerMP = Java.type("net.minecraft.client.entity.EntityOtherPlayerMP")
@@ -7,16 +7,13 @@ const AxisAlignedBB = Java.type("net.minecraft.util.AxisAlignedBB")
 
 const bloodMobs = [
     "Revoker", "Psycho", "Reaper", "Cannibal", "Mute", "Ooze", "Putrid", "Freak", "Leech", "Tear", 
-    "Parasite", "Flamer", "Skull", "Mr.Dead", "Vader", "Frost", "Walker", "Bonzo", "Scarf", "Livid", 
-    "WanderingSoul"
+    "Parasite", "Flamer", "Skull", "Mr.Dead", "Vader", "Frost", "Walker", "Bonzo", "Scarf", "Livid", "WanderingSoul"
 ]
 
 register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (e) => {
-    if (Dungeon.bloodDone || !Dungeon.bloodOpen) return
-    const entity = e.entity
-    if (!(entity instanceof EntityOtherPlayerMP)) return 
-    if (Client.currentGui.get()) return
+    if (Dungeon.bloodDone || !Dungeon.bloodOpen || !(e.entity instanceof EntityOtherPlayerMP) || Client.currentGui.get()) return
 
+    const entity = e.entity
     let name = entity.func_70005_c_()
     name = name.replace(" ", "")
     if (!(bloodMobs.includes(name) && data.dungeons.bloodTriggerBot.toggle) && !(name == "Spirit Bear" && data.dungeons.bearTriggerBot.toggle)) return
@@ -27,6 +24,3 @@ register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (e) => {
     if(!isFacingAABB(new AxisAlignedBB(posX - 0.5, posY - 2.0, posZ - 0.5, posX + 0.5, posY + 3.0, posZ + 0.5), 30.0)) return
     leftClick()
 })
-
-
-

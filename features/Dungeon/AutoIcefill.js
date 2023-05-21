@@ -1,5 +1,5 @@
 import { Promise } from "../../../PromiseV2"
-import { getFlooredPlayerCoords, modMessage, clipTo, getBlockNameAt } from "../../utils/utils"
+import { getFlooredPlayerCoords, modMessage, clipTo, getBlockIdAt } from "../../utils/utils"
 import { floors } from "../../utils/icefillfloors"
 import { data } from "../../gui"
 import Dungeon from "../../../BloomCore/dungeons/Dungeon"
@@ -7,11 +7,15 @@ import Dungeon from "../../../BloomCore/dungeons/Dungeon"
 let scanned = false
 let currentPatterns = []
 const System = Java.type("java.lang.System")
+const ice = 79
+const air = 0
+const packedIce = 174
+const stonebrickstairs = 109
 
 register("step", () => {
     if (!data.dungeons.autoIcefill.toggle || scanned || !Dungeon.inDungeon) return
     const [px,py,pz] = getFlooredPlayerCoords()
-    if (py !== 70 || getBlockNameAt(px,py-1,pz) !== "Ice") return
+    if (py !== 70 || getBlockIdAt(px,py-1,pz) !== ice) return
     scanned = true
     scan(px,py,pz, 0)
 }).setFps(5)
@@ -44,7 +48,7 @@ const scan = (x,y,z, floorIndex) => {
         pattern = floor[i]
         for (let block of pattern) {
             let [bx, bz] = transform(block.x, block.z, rotation)
-            if (getBlockNameAt(x + bx, y, z + bz) !== "Air") {
+            if (getBlockIdAt(x + bx, y, z + bz) !== air) {
                 if (i >= floor.length-1) {
                     modMessage("no more patterns, stopping")
                     return
@@ -55,7 +59,7 @@ const scan = (x,y,z, floorIndex) => {
         break
     }
 
-    const scanTime = (System.nanoTime()-startTime)/1000000
+    const scanTime = (System.nanoTime() - startTime) / 1000000
     modMessage(`Scan took ${scanTime}ms`)
 
     renderPattern(x,y,z, rotation)
@@ -74,45 +78,43 @@ const move = (x,y,z, pattern, rotation, floorIndex) => {
         const nextBlock = pattern[i + 1];
         const [bx, bz] = transform(block.x, block.z, rotation);
         const [bx1, bz1] = transform(nextBlock.x, nextBlock.z, rotation);
-        waitUntilPacked(x + bx, y, z + bz).then(() => clipTo(x + bx1, y + 1, z + bz1));
-      }
+        waitUntilPacked(x + bx, y, z + bz).then(clipTo(x + bx1, y + 1, z + bz1));
+    }
     if (floorIndex === 2) return
     let [bx1, bz1] = transform(pattern[pattern.length-1].x, pattern[pattern.length-1].z, rotation)
-    waitUntilPacked(x + bx1, y, z + bz1).then(() => clipToNext(x,y,z, rotation, bx1, bz1, floorIndex))
+    waitUntilPacked(x + bx1, y, z + bz1).then(clipToNext(x,y,z, rotation, bx1, bz1, floorIndex))
 }
 
 const clipToNext = (x,y,z, rotation, bx1, bz1, floorIndex) => {
+    [nx, nz] = transform(0.5, 0, rotation)
+    clipTo(x + bx1 + nx, y + 1.5, z + bz1 + nz)
     setTimeout(() => {
-        [nx, nz] = transform(0.5, 0, rotation)
-        clipTo(x + bx1 + nx, y + 1.5, z + bz1 + nz)
+        clipTo(x + bx1 + 2*nx, y + 2, z + bz1 + 2*nz)
         setTimeout(() => {
-            clipTo(x + bx1 + 2*nx, y + 2, z + bz1 + 2*nz)
-            setTimeout(() => {
-                clipTo(x + bx1 + 4*nx, y + 2, z + bz1 + 4*nz)
-                scan(...getFlooredPlayerCoords(), floorIndex+1)
-            }, 100);
+            clipTo(x + bx1 + 4*nx, y + 2, z + bz1 + 4*nz)
+            scan(...getFlooredPlayerCoords(), floorIndex+1)
         }, 100);
     }, 100);
 }
 
 const checkRotation = (x,y,z, floorIndex) => {
     const a = (floorIndex+1)*2+2
-    if      (getBlockNameAt(x + a, y, z) == "Stone Brick Stairs") return "east"
-    else if (getBlockNameAt(x - a, y, z) == "Stone Brick Stairs") return "west"
-    else if (getBlockNameAt(x, y, z + a) == "Stone Brick Stairs") return "south"
-    else if (getBlockNameAt(x, y, z - a) == "Stone Brick Stairs") return "north"
+    if      (getBlockIdAt(x + a, y, z) === stonebrickstairs) return "east"
+    else if (getBlockIdAt(x - a, y, z) === stonebrickstairs) return "west"
+    else if (getBlockIdAt(x, y, z + a) === stonebrickstairs) return "south"
+    else if (getBlockIdAt(x, y, z - a) === stonebrickstairs) return "north"
 }
 
 const waitUntilPacked = (x,y,z) => new Promise((resolve, reject) => {
     const check = () => {
         if (!data.dungeons.autoIcefill.toggle) reject()
-        if (getBlockNameAt(x,y,z) === "Packed Ice") resolve()
+        if (getBlockIdAt(x,y,z) === packedIce) resolve()
         else setTimeout(check, 10);
     }
     check()
 });
 
-function getRainbowColor() {
+const getRainbowColor = () => {
   const time = Date.now();
   const frequency = 0.001;
   const r = Math.sin(frequency * time + 0) * 127 + 128;

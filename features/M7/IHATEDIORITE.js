@@ -1,118 +1,108 @@
 import Dungeon from "../../../BloomCore/dungeons/Dungeon";
 import { data } from "../../gui"
-import { getPhase, Executors } from "../../utils/utils"
+import { getPhase, Executors, getBlockPosIdAt } from "../../utils/utils"
 
-const green = [
-    { x: 45, y: 169, z: 44 },
-    { x: 46, y: 169, z: 44 },
-    { x: 47, y: 169, z: 44 },
-    { x: 44, y: 169, z: 43 },
-    { x: 45, y: 169, z: 43 },
-    { x: 46, y: 169, z: 43 },
-    { x: 47, y: 169, z: 43 },
-    { x: 48, y: 169, z: 43 },
-    { x: 43, y: 169, z: 42 },
-    { x: 44, y: 169, z: 42 },
-    { x: 45, y: 169, z: 42 },
-    { x: 46, y: 169, z: 42 },
-    { x: 47, y: 169, z: 42 },
-    { x: 48, y: 169, z: 42 },
-    { x: 49, y: 169, z: 42 },
-    { x: 43, y: 169, z: 41 },
-    { x: 44, y: 169, z: 41 },
-    { x: 45, y: 169, z: 41 },
-    { x: 46, y: 169, z: 41 },
-    { x: 47, y: 169, z: 41 },
-    { x: 48, y: 169, z: 41 },
-    { x: 49, y: 169, z: 41 },
-    { x: 43, y: 169, z: 40 },
-    { x: 44, y: 169, z: 40 },
-    { x: 45, y: 169, z: 40 },
-    { x: 46, y: 169, z: 40 },
-    { x: 47, y: 169, z: 40 },
-    { x: 48, y: 169, z: 40 },
-    { x: 49, y: 169, z: 40 },
-    { x: 44, y: 169, z: 39 },
-    { x: 45, y: 169, z: 39 },
-    { x: 46, y: 169, z: 39 },
-    { x: 47, y: 169, z: 39 },
-    { x: 48, y: 169, z: 39 },
-    { x: 45, y: 169, z: 38 },
-    { x: 46, y: 169, z: 38 },
-    { x: 47, y: 169, z: 38 }
+const greenArray = [
+    new BlockPos(45, 169, 44),
+    new BlockPos(46, 169, 44),
+    new BlockPos(47, 169, 44),
+    new BlockPos(44, 169, 43),
+    new BlockPos(45, 169, 43),
+    new BlockPos(46, 169, 43),
+    new BlockPos(47, 169, 43),
+    new BlockPos(48, 169, 43),
+    new BlockPos(43, 169, 42),
+    new BlockPos(44, 169, 42),
+    new BlockPos(45, 169, 42),
+    new BlockPos(46, 169, 42),
+    new BlockPos(47, 169, 42),
+    new BlockPos(48, 169, 42),
+    new BlockPos(49, 169, 42),
+    new BlockPos(43, 169, 41),
+    new BlockPos(44, 169, 41),
+    new BlockPos(45, 169, 41),
+    new BlockPos(46, 169, 41),
+    new BlockPos(47, 169, 41),
+    new BlockPos(48, 169, 41),
+    new BlockPos(49, 169, 41),
+    new BlockPos(43, 169, 40),
+    new BlockPos(44, 169, 40),
+    new BlockPos(45, 169, 40),
+    new BlockPos(46, 169, 40),
+    new BlockPos(47, 169, 40),
+    new BlockPos(48, 169, 40),
+    new BlockPos(49, 169, 40),
+    new BlockPos(44, 169, 39),
+    new BlockPos(45, 169, 39),
+    new BlockPos(46, 169, 39),
+    new BlockPos(47, 169, 39),
+    new BlockPos(48, 169, 39),
+    new BlockPos(45, 169, 38),
+    new BlockPos(46, 169, 38),
+    new BlockPos(47, 169, 38)
 ]
 
-const yellow = [
-    { x: 45, y: 169, z: 68 },
-    { x: 46, y: 169, z: 68 },
-    { x: 47, y: 169, z: 68 },
-    { x: 44, y: 169, z: 67 },
-    { x: 45, y: 169, z: 67 },
-    { x: 46, y: 169, z: 67 },
-    { x: 47, y: 169, z: 67 },
-    { x: 48, y: 169, z: 67 },
-    { x: 43, y: 169, z: 66 },
-    { x: 44, y: 169, z: 66 },
-    { x: 45, y: 169, z: 66 },
-    { x: 46, y: 169, z: 66 },
-    { x: 47, y: 169, z: 66 },
-    { x: 48, y: 169, z: 66 },
-    { x: 49, y: 169, z: 66 },
-    { x: 43, y: 169, z: 65 },
-    { x: 44, y: 169, z: 65 },
-    { x: 45, y: 169, z: 65 },
-    { x: 46, y: 169, z: 65 },
-    { x: 47, y: 169, z: 65 },
-    { x: 48, y: 169, z: 65 },
-    { x: 49, y: 169, z: 65 },
-    { x: 43, y: 169, z: 64 },
-    { x: 44, y: 169, z: 64 },
-    { x: 45, y: 169, z: 64 },
-    { x: 46, y: 169, z: 64 },
-    { x: 47, y: 169, z: 64 },
-    { x: 48, y: 169, z: 64 },
-    { x: 49, y: 169, z: 64 },
-    { x: 44, y: 169, z: 63 },
-    { x: 45, y: 169, z: 63 },
-    { x: 46, y: 169, z: 63 },
-    { x: 47, y: 169, z: 63 },
-    { x: 48, y: 169, z: 63 },
-    { x: 45, y: 169, z: 62 },
-    { x: 46, y: 169, z: 62 },
-    { x: 47, y: 169, z: 62 }
+const yellowArray = [
+    new BlockPos(45, 169, 68),
+    new BlockPos(46, 169, 68),
+    new BlockPos(47, 169, 68),
+    new BlockPos(44, 169, 67),
+    new BlockPos(45, 169, 67),
+    new BlockPos(46, 169, 67),
+    new BlockPos(47, 169, 67),
+    new BlockPos(48, 169, 67),
+    new BlockPos(43, 169, 66),
+    new BlockPos(44, 169, 66),
+    new BlockPos(45, 169, 66),
+    new BlockPos(46, 169, 66),
+    new BlockPos(47, 169, 66),
+    new BlockPos(48, 169, 66),
+    new BlockPos(49, 169, 66),
+    new BlockPos(43, 169, 65),
+    new BlockPos(44, 169, 65),
+    new BlockPos(45, 169, 65),
+    new BlockPos(46, 169, 65),
+    new BlockPos(47, 169, 65),
+    new BlockPos(48, 169, 65),
+    new BlockPos(49, 169, 65),
+    new BlockPos(43, 169, 64),
+    new BlockPos(44, 169, 64),
+    new BlockPos(45, 169, 64),
+    new BlockPos(46, 169, 64),
+    new BlockPos(47, 169, 64),
+    new BlockPos(48, 169, 64),
+    new BlockPos(49, 169, 64),
+    new BlockPos(44, 169, 63),
+    new BlockPos(45, 169, 63),
+    new BlockPos(46, 169, 63),
+    new BlockPos(47, 169, 63),
+    new BlockPos(48, 169, 63),
+    new BlockPos(45, 169, 62),
+    new BlockPos(46, 169, 62),
+    new BlockPos(47, 169, 62)
 ]
 
+const green = new Set(greenArray)
+const yellow = new Set(yellowArray)
 
 const glass = new BlockType("glass").getDefaultState()
-
-function setToGlass(x, y, z) {
-    const pos = new BlockPos(x * 1, y * 1, z * 1);
-    World.getWorld().func_175656_a(pos.toMCBlock(), glass);
-}
 
 var runLoop = Executors.newSingleThreadExecutor();
 
 runLoop.execute(() => {
     register("step", () => {
-        if (!World.isLoaded() || !data.m7.fuckDiorite.toggle || getPhase() !== "p2") return
+        if (!World.isLoaded() || !data.m7.fuckDiorite.toggle) return
         for (let height = 0; height < 37; height++) {
             for (let block of green) {
-                try {
-                    let blockName = World.getBlockAt(block.x, block.y + height, block.z).type.getName()
-                    if (blockName !== "Stone") continue
-                    setToGlass(block.x, block.y + height, block.z)
-                } catch (e) { }
+                if (getBlockPosIdAt(block.add(0, height, 0)) === 1) {
+                    World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), glass);
+                }
             }
             for (let block of yellow) {
-                try {
-                    let blockName = World.getBlockAt(block.x, block.y + height, block.z).type.getName()
-                    if (blockName !== "Stone") continue
-                    setToGlass(block.x, block.y + height, block.z)
-                } catch (e) { }
+                if (getBlockPosIdAt(block.add(0, height, 0)) === 1) {
+                    World.getWorld().func_175656_a(block.add(0, height, 0).toMCBlock(), glass);
+                } 
             }
         }
     }).setFps(10)
 });
-
-
-

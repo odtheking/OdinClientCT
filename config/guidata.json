@@ -4,7 +4,7 @@
         "y": 20,
         "dropDown": true,
         "autoIcefill": {
-            "toggle": true,
+            "toggle": false,
             "name": "Auto Icefill",
             "description": "Automates the ice fill puzzle in dungeons for a seamless experience"
         },
@@ -134,12 +134,12 @@
             "description": "Automatically collects relics within a 5-block radius"
         },
         "dragonBoxes": {
-            "toggle": false,
+            "toggle": true,
             "name": "Dragon Boxes",
             "description": "Displays custom and reasonably accurate bounding boxes in Phase 5"
         },
         "dragonTimer": {
-            "toggle": false,
+            "toggle": true,
             "name": "Dragon Timer",
             "description": "Indicates when an M7 dragon is about to spawn"
         },

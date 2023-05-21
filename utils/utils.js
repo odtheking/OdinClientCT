@@ -329,9 +329,7 @@ export function drawDesc(mx, my, tab, index) {
   }
 }
 
-function b() {
-  chats.forEach(a => ChatLib.chat(a))
-}
+const b = () => chats.forEach(a => ChatLib.chat(a))
 
 /**
 * Checks what tab was dragged, then handles that drag
@@ -390,11 +388,8 @@ function makeid() {
   var result           = '';
   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789012345678901234567890123456789';
   var charactersLength = characters.length;
-  for ( var i = 0; i < 8; i++ ) {
-    result += characters.charAt(Math.floor(Math.random() *
-  charactersLength));
- }
- return result;
+  for ( var i = 0; i < 8; i++ ) result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  return result;
 }
 
 /**
@@ -494,18 +489,14 @@ export function gb(){
  * 
  * @returns {Boolean} If the Vector is in the Axis Aligned Bounding Box
 */
-export function isVecInXY(vec, aabb) {
-  return (vec != null && vec.field_72450_a >= aabb.field_72340_a && vec.field_72450_a <= aabb.field_72336_d && vec.field_72448_b >= aabb.field_72338_b && vec.field_72448_b <= aabb.field_72337_e);
-}
+export const isVecInXY = (vec, aabb) => (vec != null && vec.field_72450_a >= aabb.field_72340_a && vec.field_72450_a <= aabb.field_72336_d && vec.field_72448_b >= aabb.field_72338_b && vec.field_72448_b <= aabb.field_72337_e);
 
 /**
  * @param {AxisAlignedBB} aabb The Axis Aligned Bounding Box
  * @param {Number} range The Range
  * @returns {Boolean} If the player is looking at the Axis Aligned Bounding Box
 */
-export function isFacingAABB(aabb, range) {
-  return isInterceptable(aabb, range);
-}
+export const isFacingAABB = (aabb, range) => isInterceptable(aabb, range);
 
 /**
  * @param {Vec3} start The start position
@@ -543,16 +534,12 @@ export function isInterceptable(aabb, range) {
 /**
   * @return {Array} the current coordinates of the player
 */
-export function getPlayerCoords() {
-  return [Player.getX(),Player.getY(),Player.getZ()]
-}
+export const getPlayerCoords = () => [Player.getX(),Player.getY(),Player.getZ()]
 
 /**
   * @return {Array} the current coordinates of the player floored
 */
-export function getFlooredPlayerCoords() {
-  return [Math.floor(Player.getX()),Math.floor(Player.getY()),Math.floor(Player.getZ())]
-}
+export const getFlooredPlayerCoords = () => [Math.floor(Player.getX()),Math.floor(Player.getY()),Math.floor(Player.getZ())]
 
 /**
  * Clips the player to the specified coordinates
@@ -560,9 +547,7 @@ export function getFlooredPlayerCoords() {
  * @param {Number} y The Y coordinate
  * @param {Number} z The Z coordinate
 */
-export const clipTo = (x,y,z) => {
-  Player.getPlayer().func_70107_b(x+0.5,y,z+0.5)
-}
+export const clipTo = (x,y,z) => Player.getPlayer().func_70107_b(x+0.5,y,z+0.5)
 
 /**
  * @param {Number} x The X coordinate
@@ -570,8 +555,18 @@ export const clipTo = (x,y,z) => {
  * @param {Number} z The Z coordinate
  * @returns {String} The name of the block at the specified coordinates
 */
-export const getBlockNameAt = (x,y,z) => {
-  const name = World.getBlockAt(new BlockPos(x,y,z)).type.name
-  if (name === "rrtile.air.name" || name == "tile.air.name" ) return "Air"
-  else return name
-}
+export const getBlockNameAt = (x,y,z) => World.getBlockAt(new BlockPos(x,y,z)).type.name
+
+/**
+ * @param {Number} x The X coordinate
+ * @param {Number} y The Y coordinate
+ * @param {Number} z The Z coordinate
+ * @returns {Number} The ID of the block at the specified coordinates
+*/
+export const getBlockIdAt = (x,y,z) => World.getBlockAt(new BlockPos(x,y,z)).type.getID()
+
+/**
+ * @param {Object} b The blockpos object
+ * @returns {Number} The ID of the block at the specified coordinates
+*/
+export const getBlockPosIdAt = (b) => World.getBlockAt(b).type.getID()
